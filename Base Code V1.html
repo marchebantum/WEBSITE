@@ -1,0 +1,853 @@
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenias | Digital Renaissance</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="js/gsap/gsap.min.js"></script>
+    <script src="js/gsap/ScrollTrigger.min.js"></script>
+    <script src="js/gsap/Flip.min.js"></script>
+    <script>
+    tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+serif: ['Cormorant Garamond', 'serif'],
+mono: ['JetBrains Mono', 'monospace'],
+},
+colors: {
+paper: '#FDFCF8',
+ink: '#1C1917',
+sepia: '#78350F',
+stone: '#E7E5E4',
+rust: '#9A3412'
+},
+animation: {
+'fade-in': 'fadeIn 1.2s ease-out forwards',
+'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+},
+keyframes: {
+fadeIn: {
+'0%': { opacity: '0', transform: 'translateY(10px)' },
+'100%': { opacity: '1', transform: 'translateY(0)' },
+}
+}
+}
+}
+}
+</script>
+<style>
+body {
+margin: 0;
+overflow: hidden;
+background-color: #CECECE;
+color: #1C1917;
+}
+/* Scroll-in animation */
+@keyframes animationIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+/* Custom Range Slider - Minimalist/Paper style */
+input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+input[type=range]::-webkit-slider-thumb {
+-webkit-appearance: none; height: 12px; width: 12px;
+background: #1C1917; border: 1px solid #FDFCF8;
+cursor: pointer; margin-top: -5px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+transition: transform 0.2s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+input[type=range]::-webkit-slider-runnable-track {
+width: 100%; height: 1px; cursor: pointer; background: #D6D3D1;
+}
+input[type=range]:focus { outline: none; }
+/* Glass Panel with "Vellum" feel */
+.vellum-glass {
+background: rgba(253, 252, 248, 0.85);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(28, 25, 23, 0.08);
+box-shadow:
+0 4px 6px -1px rgba(0, 0, 0, 0.02),
+0 20px 40px -4px rgba(28, 25, 23, 0.05);
+}
+/* Utility */
+::selection { background: #E7E5E4; color: #1C1917; }
+.thin-border { border: 1px solid rgba(28, 25, 23, 0.1); }
+/* Da Vinci Grid Overlay */
+.grid-overlay {
+background-size: 40px 40px;
+background-image:
+linear-gradient(to right, rgba(28, 25, 23, 0.08) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(28, 25, 23, 0.08) 1px, transparent 1px);
+mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+/* SVG Line Animation */
+.sketch-line {
+stroke: #78350F; stroke-width: 0.8;
+stroke-dasharray: 4, 4; opacity: 0.4;
+}
+</style>
+<script>
+  // Animate-on-scroll helper
+  (function () {
+    const style = document.createElement("style");
+    style.textContent = `
+      .animate-on-scroll { animation-play-state: paused !important; }
+      .animate-on-scroll.animate { animation-play-state: running !important; }
+    `;
+    document.head.appendChild(style);
+
+    const once = true;
+    if (!window.__inViewIO) {
+      window.__inViewIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            if (once) window.__inViewIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+    }
+
+    window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+      document.querySelectorAll(selector).forEach((el) => {
+        window.__inViewIO.observe(el);
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+  })();
+</script></head>
+
+<body class="antialiased font-sans bg-paper h-screen w-screen overflow-hidden">
+
+    <!-- Subtle Grid Background -->
+    <div class="absolute inset-0 pointer-events-none grid-overlay z-0"></div>
+
+    <!-- Canvas -->
+    <div id="canvas-container" class="absolute inset-0 z-1"></div>
+
+    <!-- Header - Fixed across pages -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-start p-6 md:p-12 pointer-events-none">
+        <div class="flex flex-col gap-1 pointer-events-auto">
+            <div class="flex items-center gap-3 cursor-pointer" id="logo-home">
+                <div class="w-8 h-8 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
+                    <img src="No BG BLACK.png" alt="Z Logo" class="w-7 h-7 object-contain">
+                </div>
+                <span class="font-serif text-2xl tracking-tight text-ink font-medium">Zenias</span>
+            </div>
+            <div class="flex items-center gap-2 pl-11">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-sepia/70">Est. MMXXV</span>
+                <div class="h-px w-8 bg-sepia/20"></div>
+            </div>
+        </div>
+
+        <nav class="pointer-events-auto hidden md:flex items-center gap-8">
+            <a href="#" id="nav-about" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest">About Us</a>
+            <a href="#" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest">Services</a>
+            <button class="font-serif italic text-lg px-6 py-1 border border-transparent bg-[#4A1D0A] hover:bg-[#5A2D1A] transition-colors text-white rounded-full">
+                Inquire
+            </button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden pointer-events-auto w-8 h-8 flex items-center justify-center">
+            <!-- Lottie Animation Container -->
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="absolute inset-0 z-20 pointer-events-none p-6 md:p-12 h-full w-full">
+        <div id="home-page" class="relative h-full w-full">
+            <!-- Header removed from here -->
+
+            <!-- Mobile Menu Overlay (Inline Expansion) -->
+            <div id="mobile-menu" class="absolute top-20 right-6 flex flex-col items-end gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible">
+                <a href="#" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
+                <a href="#" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
+                <button class="font-serif italic text-lg px-6 py-1 border border-transparent bg-[#4A1D0A] text-white rounded-full">
+                    Inquire
+                </button>
+            </div>
+
+            <!-- Hero Text -->
+            <div id="hero-block" class="absolute top-24 left-6 right-6 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
+                <div class="flex items-center gap-3 mb-4 md:mb-6">
+                    <div class="h-px w-8 md:w-12 bg-rust"></div>
+                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">Innovation | Foundation</span>
+                </div>
+                
+                <!-- Title - Bigger on mobile -->
+                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl text-ink leading-[0.85] tracking-tighter mix-blend-multiply">
+                    Build your<br>
+                    <span class="italic font-light text-neutral-600">Next.</span>
+                </h1>
+                
+                <!-- Desktop only: Description and CTA inline -->
+                <p class="hidden md:block mt-8 max-w-md font-sans text-base text-neutral-600 font-light leading-relaxed">
+                    We design and build secure, intelligent, and automated systems for the forward-thinking.
+                </p>
+
+                <div class="hidden md:flex mt-10 items-center gap-4 pointer-events-auto">
+                    <button id="btn-start-desktop" class="group flex items-center gap-3 bg-ink text-paper pl-6 pr-5 py-3 rounded-sm hover:bg-sepia transition-all duration-500">
+                        <span class="font-mono text-xs tracking-widest uppercase">Start</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <div class="h-px w-16 bg-neutral-300"></div>
+                    <span class="font-serif italic text-neutral-400 text-sm">v.4.2.0</span>
+                </div>
+            </div>
+
+            <!-- Mobile only: Bottom section with description and CTA -->
+            <div class="absolute bottom-8 left-6 right-6 z-20 md:hidden animate-fade-in opacity-0 pointer-events-auto" style="animation-delay: 0.5s;">
+                <p class="max-w-xs font-sans text-sm text-neutral-600 font-light leading-relaxed mb-6">
+                    We design and build secure, intelligent, and automated systems for the forward-thinking.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <button id="btn-start-mobile" class="group flex items-center gap-3 bg-ink text-paper pl-6 pr-5 py-3 rounded-sm hover:bg-sepia transition-all duration-500">
+                        <span class="font-mono text-xs tracking-widest uppercase">Start</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <div class="h-px w-12 bg-neutral-300"></div>
+                    <span class="font-serif italic text-neutral-400 text-sm">v.4.2.0</span>
+                </div>
+            </div>
+
+            <!-- Footer Coordinates - Hidden on mobile -->
+            <div class="absolute bottom-6 left-6 hidden md:flex flex-col gap-1 opacity-60 z-10">
+                <span class="font-mono text-[9px] text-neutral-400">LAT: 31.9514° S</span>
+                <span class="font-mono text-[9px] text-neutral-400">LON: 115.8617° E</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- About Page (initially hidden) -->
+    <section id="about-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-transparent">
+        <div class="relative px-6 md:px-12 pt-24 md:pt-32 pb-16 md:pb-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-px w-12 bg-rust"></div>
+                <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">About Us</span>
+            </div>
+            <h2 class="font-serif text-4xl md:text-6xl text-ink leading-tight tracking-tight mb-12">We build calm, intelligent systems for the forward-thinking.</h2>
+
+            <!-- Services / Tabs adapted -->
+            <div class="space-y-10">
+                <!-- Tabs Navigation -->
+                <div class="grid grid-cols-2 md:grid-cols-4 border-t border-b border-neutral-200">
+                    <div onclick="updateService(0)" class="service-tab p-4 md:p-6 border-t-2 border-transparent hover:border-neutral-400 cursor-pointer transition-colors group bg-transparent">
+                        <span class="tab-num text-[10px] font-mono text-neutral-400 block mb-2 transition-colors">01.</span>
+                        <span class="tab-label text-lg font-medium group-hover:text-ink text-neutral-600 transition-colors">Strategy</span>
+                    </div>
+                    <div onclick="updateService(1)" class="service-tab p-4 md:p-6 border-t-2 border-rust cursor-pointer bg-ink/5 transition-colors group">
+                        <span class="tab-num text-[10px] font-mono text-rust block mb-2 transition-colors">02.</span>
+                        <span class="tab-label text-lg font-semibold text-ink transition-colors">Systems</span>
+                    </div>
+                    <div onclick="updateService(2)" class="service-tab p-4 md:p-6 border-t-2 border-transparent hover:border-neutral-400 cursor-pointer transition-colors group bg-transparent">
+                        <span class="tab-num text-[10px] font-mono text-neutral-400 block mb-2 transition-colors">03.</span>
+                        <span class="tab-label text-lg font-medium group-hover:text-ink text-neutral-600 transition-colors">Automation</span>
+                    </div>
+                    <div onclick="updateService(3)" class="service-tab p-4 md:p-6 border-t-2 border-transparent hover:border-neutral-400 cursor-pointer transition-colors group bg-transparent">
+                        <span class="tab-num text-[10px] font-mono text-neutral-400 block mb-2 transition-colors">04.</span>
+                        <span class="tab-label text-lg font-medium group-hover:text-ink text-neutral-600 transition-colors">Development</span>
+                    </div>
+                </div>
+
+                <!-- Active Content -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 border border-neutral-200 bg-transparent shadow-sm">
+                    <!-- Left: Visual -->
+                    <div class="relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
+                        <div id="service-bg" class="absolute inset-0 bg-cover bg-center opacity-40 transition-all duration-700 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop')]"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-neutral-300 via-neutral-300/60 to-transparent"></div>
+                        
+                        <!-- Poster Content -->
+                        <div class="relative z-10 border border-neutral-200 p-6 w-full max-w-md h-[360px] flex flex-col justify-between backdrop-blur-sm bg-neutral-100/70">
+                            <div class="flex justify-between items-start">
+                                <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink">
+                                    M7.4<br>KINETIC<br>LABS
+                                </h4>
+                                <span id="service-poster-num" class="text-neutral-500 font-mono text-lg">+02</span>
+                            </div>
+                            
+                            <div class="flex justify-between items-end">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 border flex items-center justify-center transition-colors cursor-pointer border-ink text-ink hover:bg-ink hover:text-paper">
+                                        ▶
+                                    </div>
+                                    <div class="text-[10px] font-mono uppercase text-neutral-600 leading-tight">
+                                        Watch Showcase 00:45
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                     <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-wide">Category</div>
+                                     <div id="service-category" class="text-ink font-bold text-sm uppercase">Cybernetics</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Details -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent">
+                        <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight mb-6">
+                            <span class="text-neutral-400">V7.</span>SYSTEMS
+                        </h3>
+                        <div class="w-12 h-0.5 bg-neutral-300 mb-6"></div>
+                        
+                        <div class="space-y-6 text-neutral-700">
+                            <div>
+                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Project Type</p>
+                                <p id="service-type" class="text-ink text-lg">Brand Identity & Kinetic Typography</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Year</p>
+                                <p id="service-year" class="text-ink text-lg">2023 - 2024</p>
+                            </div>
+                            
+                            <a href="#" class="inline-flex items-center gap-3 text-sm font-semibold text-paper bg-ink py-3 px-6 mt-2 hover:bg-sepia transition-colors w-max rounded-sm">
+                                View Case Study
+                                <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal Number Scroller -->
+                <div class="flex items-center border border-neutral-200 h-14 bg-transparent">
+                    <div id="current-service-num" class="h-full w-24 flex items-center justify-center text-paper font-bold text-sm bg-ink">
+                        02
+                    </div>
+                    <div class="flex-1 flex justify-around text-[11px] font-mono text-neutral-500">
+                        <span class="py-4 border-t-2 border-transparent">03</span>
+                        <span class="py-4 border-t-2 border-transparent">02</span>
+                        <span class="py-4 border-t-2 border-transparent">01</span>
+                        <span class="py-4 border-t-2 border-transparent">00</span>
+                    </div>
+                    <div class="w-24 h-full border-l border-neutral-200 flex items-center justify-center text-[11px] text-neutral-500">
+                        TOTAL: 24
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shaders -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+        uniform float uTime;
+        uniform float uDistortion; 
+        uniform float uSize;       
+        uniform vec2 uMouse;
+
+        varying float vAlpha;
+        varying vec3 vPos;
+        varying float vNoise;
+
+        // Simplex Noise (Standard implementation)
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+        vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+        
+        float snoise(vec3 v) {
+            const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+            const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+            vec3 i  = floor(v + dot(v, C.yyy) );
+            vec3 x0 = v - i + dot(i, C.xxx) ;
+            vec3 g = step(x0.yzx, x0.xyz);
+            vec3 l = 1.0 - g;
+            vec3 i1 = min( g.xyz, l.zxy );
+            vec3 i2 = max( g.xyz, l.zxy );
+            vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+            vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+            vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+            i = mod289(i);
+            vec4 p = permute( permute( permute(
+                        i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                    + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                    + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+            float n_ = 1.0/7.0;
+            vec3  ns = n_ * D.wyz - D.xzx;
+            vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
+            vec4 x_ = floor(j * ns.z);
+            vec4 y_ = floor(j - 7.0 * x_ );
+            vec4 x = x_ *ns.x + ns.yyyy;
+            vec4 y = y_ *ns.x + ns.yyyy;
+            vec4 h = 1.0 - abs(x) - abs(y);
+            vec4 b0 = vec4( x.xy, y.xy );
+            vec4 b1 = vec4( x.zw, y.zw );
+            vec4 s0 = floor(b0)*2.0 + 1.0;
+            vec4 s1 = floor(b1)*2.0 + 1.0;
+            vec4 sh = -step(h, vec4(0.0));
+            vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+            vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+            vec3 p0 = vec3(a0.xy,h.x);
+            vec3 p1 = vec3(a0.zw,h.y);
+            vec3 p2 = vec3(a1.xy,h.z);
+            vec3 p3 = vec3(a1.zw,h.w);
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+            p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+            vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+            m = m * m;
+            return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+        }
+
+        void main() {
+            vec3 pos = position;
+            
+            // Smoother, more organic noise (Liquid/Ink feel)
+            float noiseFreq = 0.5;
+            float noiseAmp = uDistortion;
+            float noise = snoise(vec3(pos.x * noiseFreq + uTime * 0.1, pos.y * noiseFreq, pos.z * noiseFreq));
+            
+            vNoise = noise;
+            
+            // Deform the sphere along normal based on noise
+            vec3 newPos = pos + (normalize(pos) * noise * noiseAmp);
+
+            // Interaction
+            float dist = distance(uMouse * 10.0, newPos.xy);
+            float interaction = smoothstep(5.0, 0.0, dist);
+            newPos += normalize(pos) * interaction * 0.5;
+
+            vec4 mvPosition = modelViewMatrix * vec4(newPos, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+
+            // Size variation based on depth and noise
+            gl_PointSize = uSize * (24.0 / -mvPosition.z) * (1.0 + noise * 0.5);
+            
+            vAlpha = 1.0;
+            vPos = newPos;
+        }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        uniform vec3 uColor;
+        uniform float uOpacity;
+        
+        varying float vNoise;
+        varying vec3 vPos;
+
+        void main() {
+            // Soft circle particle
+            vec2 center = gl_PointCoord - vec2(0.5);
+            float dist = length(center);
+            if (dist > 0.5) discard;
+            
+            // Soft edges for "ink blot" effect
+            float alpha = smoothstep(0.5, 0.2, dist) * uOpacity;
+            
+            // Color variation based on noise (creates depth)
+            vec3 darkColor = uColor * 0.5;
+            vec3 lightColor = uColor * 1.8; // Highlights
+            
+            vec3 finalColor = mix(darkColor, lightColor, vNoise * 0.5 + 0.5);
+            
+            gl_FragColor = vec4(finalColor, alpha);
+        }
+    </script>
+
+    <script>
+        lucide.createIcons();
+
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        // Fog to blend into paper background
+        scene.fog = new THREE.FogExp2(0xCECECE, 0.035);
+
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 18);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Group to hold the "Systems"
+        const systemsGroup = new THREE.Group();
+        systemsGroup.position.x = 4.0; 
+        scene.add(systemsGroup);
+
+        // --- MAIN PARTICLE MESH (The "Brain/Cloud") ---
+        // Dense geometry for ink effect
+        const geometry = new THREE.IcosahedronGeometry(4.5, 30);
+        
+        const uniforms = {
+            uTime: { value: 0 },
+            uDistortion: { value: 0.6 },
+            uSize: { value: 2.5 },
+            uColor: { value: new THREE.Color('#4A1D0A') }, // Dark Red
+            uOpacity: { value: 0.8 },
+            uMouse: { value: new THREE.Vector2(0, 0) }
+        };
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: document.getElementById('vertexShader').textContent,
+            fragmentShader: document.getElementById('fragmentShader').textContent,
+            uniforms: uniforms,
+            transparent: true,
+            depthWrite: false,
+            // Additive blending makes it look too digital/glowing. 
+            // Normal blending is better for ink/physical matter.
+            blending: THREE.NormalBlending
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        systemsGroup.add(particles);
+
+        // --- RENAISSANCE LINES (Astrolabe effect) ---
+        const lineGroup = new THREE.Group();
+        systemsGroup.add(lineGroup);
+
+        function createThinOrbit(radius, rotation) {
+            const curve = new THREE.EllipseCurve(
+                0, 0,            // ax, aY
+                radius, radius,  // xRadius, yRadius
+                0, 2 * Math.PI,  // aStartAngle, aEndAngle
+                false,           // aClockwise
+                0                // aRotation
+            );
+            const points = curve.getPoints(128);
+            const geo = new THREE.BufferGeometry().setFromPoints(points);
+            const mat = new THREE.LineBasicMaterial({ 
+                color: 0x78350F, // Sepia
+                transparent: true, 
+                opacity: 0.15 
+            });
+            const orbit = new THREE.Line(geo, mat);
+            orbit.rotation.x = rotation.x;
+            orbit.rotation.y = rotation.y;
+            lineGroup.add(orbit);
+            return orbit;
+        }
+
+        const orbits = [
+            createThinOrbit(5.5, {x: Math.PI/2, y: 0}),
+            createThinOrbit(5.2, {x: Math.PI/3, y: Math.PI/6}),
+            createThinOrbit(6.0, {x: Math.PI/1.8, y: Math.PI/4})
+        ];
+
+        // --- INTERACTION & ANIMATION ---
+        let time = 0;
+        let speed = 0.1;
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            uniforms.uMouse.value.x += (mouseX - uniforms.uMouse.value.x) * 0.05;
+            uniforms.uMouse.value.y += (mouseY - uniforms.uMouse.value.y) * 0.05;
+        });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            adjustLayout();
+        });
+
+        function adjustLayout() {
+            // Mobile: Move group down so it doesn't block top text, slightly smaller
+            if(window.innerWidth < 768) {
+                systemsGroup.position.set(0, -1.0, -5);
+                systemsGroup.scale.set(0.75, 0.75, 0.75);
+            } else {
+                systemsGroup.position.set(4.5, 0, 0);
+                systemsGroup.scale.set(1, 1, 1);
+            }
+        }
+        adjustLayout();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01 + (speed * 0.05);
+
+            // Rotate entire system slowly (planetary motion)
+            systemsGroup.rotation.y = time * 0.05;
+            systemsGroup.rotation.z = Math.sin(time * 0.1) * 0.05;
+
+            // Counter-rotate orbits
+            lineGroup.rotation.x = Math.sin(time * 0.05) * 0.2;
+            orbits.forEach((orbit, i) => {
+                orbit.rotation.z += 0.002 * (i + 1);
+            });
+
+            // Smooth camera sway based on mouse
+            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+            camera.lookAt(0,0,0);
+
+            uniforms.uTime.value = time;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        // Load Lottie Animation
+        // Note: Using the JSON data provided by user inline to avoid CORS/file path issues if running locally without a server
+        const menuAnimationData = {"v":"5.4.4","fr":60,"ip":0,"op":140,"w":100,"h":100,"nm":"Menu","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Buttom","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,70,0],"e":[51,78,0],"to":[0,1.333,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,78,0],"e":[51,50,0],"to":[0,-3.333,0],"ti":[0,4.667,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,78,0],"to":[0,4.667,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,78,0],"e":[51,70,0],"to":[0,3.333,0],"ti":[0,1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Buttom","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Center","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[45],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[45],"e":[0]},{"t":105}],"ix":10},"p":{"a":0,"k":[51,50,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Center","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Upper","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,30,0],"e":[51,22,0],"to":[0,-1.333,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,22,0],"e":[51,50,0],"to":[0,3.333,0],"ti":[0,-4.667,0]},{"i":{"x":0.831,"y":0.831},"o":{"x":0.165,"y":0.165},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,22,0],"to":[0,-4.667,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,22,0],"e":[51,30,0],"to":[0,-3.333,0],"ti":[0,-1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Upper","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0}],"markers":[]};
+
+        const menuAnim = lottie.loadAnimation({
+            container: mobileMenuBtn,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: menuAnimationData
+        });
+
+        // Speed up animation slightly
+        menuAnim.setSpeed(1.5);
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                // Open Menu
+                mobileMenu.classList.remove('invisible', 'opacity-0', 'translate-y-[-10px]');
+                mobileMenu.classList.add('opacity-100', 'translate-y-0');
+                
+                // Play to frame 60 for a perfect X
+                menuAnim.playSegments([0, 60], true); 
+                
+            } else {
+                // Close Menu
+                mobileMenu.classList.add('opacity-0', 'translate-y-[-10px]');
+                mobileMenu.classList.remove('opacity-100', 'translate-y-0');
+                setTimeout(() => mobileMenu.classList.add('invisible'), 300);
+                
+                // Play from frame 85 to return to hamburger
+                menuAnim.playSegments([85, 140], true);
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+
+        // --- About Page Data & Tabs ---
+        const serviceData = [
+            {
+                id: '01',
+                name: 'Strategy',
+                posterTitle: 'M7.1<br>STRATEGY<br>LABS',
+                posterNum: '+01',
+                category: 'Consulting',
+                suffix: 'STRATEGY',
+                type: 'Market Analysis & Positioning',
+                year: '2023 - 2024',
+                image: 'https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80'
+            },
+            {
+                id: '02',
+                name: 'Systems',
+                posterTitle: 'M7.4<br>KINETIC<br>LABS',
+                posterNum: '+02',
+                category: 'Cybernetics',
+                suffix: 'SYSTEMS',
+                type: 'Brand Identity & Kinetic Typography',
+                year: '2023 - 2024',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop'
+            },
+            {
+                id: '03',
+                name: 'Automation',
+                posterTitle: 'M7.8<br>VISUAL<br>LABS',
+                posterNum: '+03',
+                category: 'Simulation',
+                suffix: 'AUTOMATION',
+                type: '3D Modeling & Visual Effects',
+                year: '2023 - 2024',
+                image: 'https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80'
+            },
+            {
+                id: '04',
+                name: 'Development',
+                posterTitle: 'M7.9<br>DIGITAL<br>LABS',
+                posterNum: '+04',
+                category: 'Engineering',
+                suffix: 'DEVELOPMENT',
+                type: 'WebGL & Frontend Architecture',
+                year: '2023 - 2024',
+                image: 'https://images.unsplash.com/photo-1724525647065-f948fc102e68?w=2160&q=80'
+            }
+        ];
+
+        function updateService(index) {
+            const data = serviceData[index];
+            const bg = document.getElementById('service-bg');
+            bg.classList.add('opacity-0');
+            bg.classList.remove('opacity-40');
+            
+            setTimeout(() => {
+                bg.style.backgroundImage = `url('${data.image}')`;
+                bg.classList.remove('opacity-0');
+                bg.classList.add('opacity-40');
+            }, 250);
+
+            document.getElementById('service-poster-title').innerHTML = data.posterTitle;
+            document.getElementById('service-poster-num').innerText = data.posterNum;
+            document.getElementById('service-category').innerText = data.category;
+            document.getElementById('service-main-title').innerHTML = `<span class="text-neutral-400">V7.</span>${data.suffix}`;
+            document.getElementById('service-type').innerText = data.type;
+            document.getElementById('service-year').innerText = data.year;
+            document.getElementById('current-service-num').innerText = data.id;
+            
+            const tabs = document.querySelectorAll('.service-tab');
+            tabs.forEach((tab, i) => {
+                const num = tab.querySelector('.tab-num');
+                const label = tab.querySelector('.tab-label');
+                if (i === index) {
+                    tab.classList.remove('border-transparent', 'hover:border-neutral-400', 'bg-transparent');
+                    tab.classList.add('border-rust', 'bg-ink/5');
+                    num.classList.add('text-rust');
+                    num.classList.remove('text-neutral-400');
+                    label.classList.add('font-semibold', 'text-ink');
+                    label.classList.remove('font-medium', 'text-neutral-600');
+                } else {
+                    tab.classList.add('border-transparent', 'hover:border-neutral-400', 'bg-transparent');
+                    tab.classList.remove('border-rust', 'bg-ink/5');
+                    num.classList.remove('text-rust');
+                    num.classList.add('text-neutral-400');
+                    label.classList.remove('font-semibold', 'text-ink');
+                    label.classList.add('font-medium', 'text-neutral-600');
+                }
+            });
+        }
+
+        updateService(1);
+
+        // --- Page Transitions ---
+        const homePage = document.getElementById('home-page');
+        const aboutPage = document.getElementById('about-page');
+        const heroBlock = document.getElementById('hero-block');
+        const btnStartDesktop = document.getElementById('btn-start-desktop');
+        const btnStartMobile = document.getElementById('btn-start-mobile');
+        const navAbout = document.getElementById('nav-about');
+        const mobileAbout = document.getElementById('mobile-about');
+        const logoHome = document.getElementById('logo-home');
+
+        let currentPage = 'home';
+        let isAnimating = false;
+
+        function goToAbout() {
+            if (currentPage === 'about' || isAnimating) return;
+            isAnimating = true;
+            currentPage = 'about';
+            const tl = gsap.timeline({ 
+                defaults: { ease: "power2.out" },
+                onComplete: () => { isAnimating = false; }
+            });
+
+            // Orb Scale UP and Rotate - Slower and more prominent
+            tl.to(uniforms.uOpacity, { value: 0, duration: 1.5 }, 0);
+            tl.to(systemsGroup.rotation, { 
+                x: systemsGroup.rotation.x + Math.PI / 3, 
+                y: systemsGroup.rotation.y + Math.PI / 1.5, 
+                duration: 1.8 
+            }, 0);
+            tl.to(systemsGroup.scale, { x: 3.0, y: 3.0, z: 3.0, duration: 1.8 }, 0);
+            tl.to(systemsGroup.position, { z: 8, duration: 1.8 }, 0);
+
+            // Home Exit - Starts immediately with the orb
+            tl.to(heroBlock, { opacity: 0, y: -40, duration: 0.6 }, 0);
+
+            // Switch pages sooner
+            tl.set(homePage, { display: 'none', pointerEvents: 'none' }, 0.4);
+            tl.set(aboutPage, { display: 'block', pointerEvents: 'auto' }, 0.4);
+            
+            // About Entry - Starts very soon after Home starts exiting
+            tl.fromTo(aboutPage, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2 }, 0.5);
+            
+            tl.add(() => {
+                initInViewAnimations();
+            });
+        }
+
+        function goToHome() {
+            if (currentPage === 'home' || isAnimating) return;
+            isAnimating = true;
+            currentPage = 'home';
+            const tl = gsap.timeline({ 
+                defaults: { ease: "power2.out" },
+                onComplete: () => { isAnimating = false; }
+            });
+
+            // Orb Restore - Slower
+            tl.to(uniforms.uOpacity, { value: 0.8, duration: 1.2 }, 0);
+            tl.add(() => adjustLayout(), 0);
+
+            // About Exit
+            tl.to(aboutPage, { opacity: 0, y: -30, duration: 0.6 }, 0);
+            
+            tl.set(aboutPage, { display: 'none', pointerEvents: 'none' }, 0.4);
+            tl.set(homePage, { display: 'block', pointerEvents: 'auto' }, 0.4);
+            
+            // Home Entry
+            tl.fromTo(heroBlock, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.0 }, 0.5);
+        }
+
+        // --- Mouse Wheel / Scroll Navigation ---
+        let lastScrollTime = 0;
+        const scrollCooldown = 800; // Reduced cooldown for quicker navigation
+
+        window.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastScrollTime < scrollCooldown) return;
+
+            if (e.deltaY > 50 && currentPage === 'home') {
+                goToAbout();
+                lastScrollTime = now;
+            } else if (e.deltaY < -50 && currentPage === 'about') {
+                // Only scroll back to home if at the very top of about page
+                if (aboutPage.scrollTop <= 0) {
+                    goToHome();
+                    lastScrollTime = now;
+                }
+            }
+        }, { passive: true });
+
+        // --- Touch Navigation ---
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchStartY - touchEndY;
+
+            if (Math.abs(deltaY) > 50) {
+                if (deltaY > 0 && currentPage === 'home') {
+                    goToAbout();
+                } else if (deltaY < 0 && currentPage === 'about' && aboutPage.scrollTop <= 0) {
+                    goToHome();
+                }
+            }
+        }, { passive: true });
+
+        navAbout?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); });
+        mobileAbout?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); toggleMenu(); });
+        btnStartDesktop?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); });
+        btnStartMobile?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); });
+        logoHome?.addEventListener('click', (e) => { e.preventDefault(); goToHome(); });
+
+    </script>
+
+</body></html>

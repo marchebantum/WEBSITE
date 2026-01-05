@@ -141,6 +141,55 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     position: relative;
 }
 
+/* Tree Component Styles */
+.tree-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 11px;
+    user-select: none;
+    color: #1C1917;
+}
+.tree-item:hover {
+    background-color: rgba(28, 25, 23, 0.05);
+}
+.tree-item.selected {
+    background-color: rgba(28, 25, 23, 0.08);
+    font-weight: 500;
+}
+.tree-folder-icon {
+    width: 14px;
+    height: 14px;
+    color: #78350F;
+    transition: transform 0.2s;
+}
+.tree-folder-icon.collapsed {
+    transform: rotate(-90deg);
+}
+.tree-children {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+}
+.tree-children.expanded {
+    display: flex;
+}
+#tree-root {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(28, 25, 23, 0.2) transparent;
+}
+#tree-root::-webkit-scrollbar {
+    width: 4px;
+}
+#tree-root::-webkit-scrollbar-thumb {
+    background: rgba(28, 25, 23, 0.2);
+    border-radius: 10px;
+}
+
 /* Glowing head for the timeline line */
 .pragmatic-line-active::after {
     content: '';
@@ -860,6 +909,14 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                             <!-- Foundational Arrow Down Lottie (shown for FOUNDATIONAL slide) -->
                             <div id="service-foundational-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
 
+                            <!-- Applied Lottie (shown for APPLIED slide) -->
+                            <div id="service-applied-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-36 h-36 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Technical Tree (shown for TECHNICAL slide) -->
+                            <div id="service-technical-visualization" class="hidden absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-xs transition-opacity duration-300 pointer-events-auto">
+                                <div id="tree-root" class="max-h-[160px] overflow-y-auto px-4 py-2"></div>
+                            </div>
+
                             <!-- Subtext for carousel (shown on left card) -->
                             <div id="service-left-subtext-container" class="hidden mt-2 transition-opacity duration-300">
                                 <p id="service-left-subtext" class="text-ink text-sm leading-relaxed opacity-70 relative"></p>
@@ -1221,6 +1278,19 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             });
         }
 
+        // Applied Lottie Animation
+        const appliedLottieContainer = document.getElementById('service-applied-visualization');
+        let appliedLottieAnim = null;
+        if (appliedLottieContainer) {
+            appliedLottieAnim = lottie.loadAnimation({
+                container: appliedLottieContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: false,
+                path: 'LZD TEch.json'
+            });
+        }
+
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
@@ -1312,6 +1382,91 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             }
         ];
 
+        // Tree Data and Logic
+        const technicalTreeData = {
+            id: 'company',
+            name: 'Company',
+            children: [
+                {
+                    id: 'engineering',
+                    name: 'Engineering',
+                    children: [
+                        {
+                            id: 'frontend',
+                            name: 'Frontend',
+                            children: [
+                                { id: 'design-system', name: 'Design System', children: [{ id: 'components', name: 'Components' }, { id: 'tokens', name: 'Tokens' }, { id: 'guidelines', name: 'Guidelines' }] },
+                                { id: 'web-platform', name: 'Web Platform' }
+                            ]
+                        },
+                        { id: 'backend', name: 'Backend', children: [{ id: 'apis', name: 'APIs' }, { id: 'infrastructure', name: 'Infrastructure' }] },
+                        { id: 'platform-team', name: 'Platform Team' }
+                    ]
+                },
+                {
+                    id: 'marketing',
+                    name: 'Marketing',
+                    children: [
+                        { id: 'content', name: 'Content' },
+                        { id: 'seo', name: 'SEO' }
+                    ]
+                },
+                {
+                    id: 'operations',
+                    name: 'Operations',
+                    children: [
+                        { id: 'hr', name: 'HR' },
+                        { id: 'finance', name: 'Finance' }
+                    ]
+                }
+            ]
+        };
+
+        let treeExpandedItems = { 'engineering': true, 'frontend': true, 'design-system': true };
+        let treeSelectedItems = { 'components': true };
+
+        function renderTreeItem(item, level = 0) {
+            const hasChildren = item.children && item.children.length > 0;
+            const isExpanded = treeExpandedItems[item.id];
+            const isSelected = treeSelectedItems[item.id];
+            const indent = level * 16;
+
+            let html = `
+                <div class="tree-item ${isSelected ? 'selected' : ''}" style="padding-left: ${indent + 8}px" onclick="toggleTreeItem('${item.id}', ${level === 1})">
+                    ${hasChildren ? `<i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="tree-folder-icon"></i>` : '<span class="w-3.5"></span>'}
+                    <i data-lucide="${hasChildren ? (isExpanded ? 'folder-open' : 'folder') : 'file-text'}" class="w-3.5 h-3.5 ${hasChildren ? 'text-neutral-500' : 'text-neutral-400'}"></i>
+                    <span>${item.name}</span>
+                </div>
+            `;
+
+            if (hasChildren) {
+                html += `<div class="tree-children ${isExpanded ? 'expanded' : ''}">`;
+                item.children.forEach(child => {
+                    html += renderTreeItem(child, level + 1);
+                });
+                html += `</div>`;
+            }
+
+            return html;
+        }
+
+        function toggleTreeItem(id, isTopLevel) {
+            // Accordion behavior for top-level items
+            if (isTopLevel && !treeExpandedItems[id]) {
+                // Collapse all other top-level items
+                technicalTreeData.children.forEach(child => {
+                    if (child.id !== id) treeExpandedItems[child.id] = false;
+                });
+            }
+
+            treeExpandedItems[id] = !treeExpandedItems[id];
+            treeSelectedItems = { [id]: true };
+            
+            const root = document.getElementById('tree-root');
+            root.innerHTML = renderTreeItem(technicalTreeData);
+            lucide.createIcons();
+        }
+
         let currentServiceIndex = 0;
         let currentSlideIndex = 0;
 
@@ -1356,6 +1511,8 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             const pragmaticViz = document.getElementById('service-pragmatic-visualization');
             const adaptiveViz = document.getElementById('service-adaptive-visualization');
             const foundationalViz = document.getElementById('service-foundational-visualization');
+            const appliedViz = document.getElementById('service-applied-visualization');
+            const technicalViz = document.getElementById('service-technical-visualization');
             const subtextContainer = document.getElementById('service-left-subtext-container');
             const subtextEl = document.getElementById('service-left-subtext');
             
@@ -1368,6 +1525,8 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             pragmaticViz.style.opacity = '0';
             adaptiveViz.style.opacity = '0';
             foundationalViz.style.opacity = '0';
+            appliedViz.style.opacity = '0';
+            technicalViz.style.opacity = '0';
             subtextContainer.style.opacity = '0';
             
             // Update content after fade out
@@ -1458,8 +1617,33 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     }
                 }
 
+                // Show/hide applied Lottie for APPLIED slide (Training)
+                if (slide.title === 'APPLIED' && data.name === 'Training') {
+                    appliedViz.classList.remove('hidden');
+                    if (appliedLottieAnim) {
+                        appliedLottieAnim.goToAndPlay(0, true);
+                    }
+                } else {
+                    appliedViz.classList.add('hidden');
+                    if (appliedLottieAnim) {
+                        appliedLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide technical Tree for TECHNICAL slide (Training)
+                if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                    technicalViz.classList.remove('hidden');
+                    // Initialize tree
+                    const root = document.getElementById('tree-root');
+                    root.innerHTML = renderTreeItem(technicalTreeData);
+                    lucide.createIcons();
+                } else {
+                    technicalViz.classList.add('hidden');
+                }
+
                 // Update subtext
                 subtextContainer.classList.remove('hidden');
+                subtextContainer.classList.remove('mb-8'); // Remove margin-bottom from all slides first
                 subtextEl.innerText = slide.subtext;
                 subtextContainer.classList.remove('mt-4', 'mt-6', 'mt-8');
                 subtextContainer.classList.add('mt-2');
@@ -1476,14 +1660,26 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     subtextContainer.classList.remove('mt-2');
                     subtextContainer.classList.add('mt-8');
                     subtextEl.classList.add('translate-y-8');
+                } else if (slide.title === 'APPLIED' && data.name === 'Training') {
+                    subtextContainer.classList.remove('mt-2');
+                    subtextContainer.classList.add('mt-6');
+                    subtextEl.classList.add('translate-y-6');
+                } else if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                    subtextContainer.classList.remove('mt-2');
+                    subtextContainer.classList.add('mt-7', 'mb-8');
+                    subtextEl.classList.add('translate-y-8');
                 }
                 
                 // Adjust subtext position per slide
-                subtextEl.classList.remove('-top-6', 'top-0', '-top-2', 'top-[4.5rem]', 'top-2', 'top-8');
+                subtextEl.classList.remove('-top-6', 'top-0', '-top-2', 'top-[4.5rem]', 'top-2', 'top-8', 'top-20', 'top-10', 'top-12', 'top-14', 'top-18', 'top-24', 'top-[4.75rem]');
                 if (slide.title === 'SECURE') {
                     subtextEl.classList.add('top-0'); // Moves it down relative to -top-6
                 } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
                     subtextEl.classList.add('top-8'); // Move down even more specifically for Foundational
+                } else if (slide.title === 'APPLIED' && data.name === 'Training') {
+                    subtextEl.classList.add('top-12'); // Middle ground position
+                } else if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                    subtextEl.classList.add('top-14'); // Slightly lower than top-12 to match APPLIED
                 } else if (slide.title === 'ADAPTIVE' && data.name === 'Consulting') {
                     subtextEl.classList.add('top-[4.5rem]'); // top-18 equivalent (4.5rem)
                 } else {
@@ -1527,6 +1723,16 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                         foundationalViz.style.opacity = '1';
                     } else {
                         foundationalViz.style.opacity = '0';
+                    }
+                    if (!appliedViz.classList.contains('hidden')) {
+                        appliedViz.style.opacity = '1';
+                    } else {
+                        appliedViz.style.opacity = '0';
+                    }
+                    if (!technicalViz.classList.contains('hidden')) {
+                        technicalViz.style.opacity = '1';
+                    } else {
+                        technicalViz.style.opacity = '0';
                     }
                     subtextContainer.style.opacity = '1';
                 }, 10);

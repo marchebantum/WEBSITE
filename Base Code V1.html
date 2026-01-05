@@ -132,6 +132,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     100% { stroke-dashoffset: var(--dash-offset); }
 }
 
+/* Slow rotation animation for star image */
+@keyframes slowSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Pragmatic timeline animation */
 .pragmatic-timeline {
     --timeline-cycle: 4.2s;
@@ -569,6 +575,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         39% 35%
     );
     transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slowSpin 25s linear infinite;
 }
 </style>
 <script>
@@ -615,12 +622,15 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     <div id="canvas-container" class="absolute inset-0 z-1"></div>
 
     <!-- Header - Fixed across pages -->
-    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 md:px-12 md:py-6 bg-paper/95 backdrop-blur-md border-b border-neutral-200/30 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-        <div class="flex items-center gap-4 cursor-pointer" id="logo-home">
-            <div class="w-10 h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
-                <img src="No BG BLACK.png" alt="Z Logo" class="w-8 h-8 object-contain">
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-3 py-2 md:px-12 md:py-6 transition-all duration-300">
+        <!-- Background Gradient & Blur with Soft Masked Edge -->
+        <div class="absolute inset-x-0 top-0 h-32 md:h-48 bg-gradient-to-b from-paper via-paper/90 to-transparent backdrop-blur-md -z-10 pointer-events-none [mask-image:linear-gradient(to_bottom,black_20%,transparent_90%)]"></div>
+
+        <div class="flex items-center gap-2 md:gap-4 cursor-pointer" id="logo-home">
+            <div class="w-8 h-8 md:w-10 md:h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
+                <img src="No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain">
             </div>
-            <span class="font-serif text-4xl tracking-tight text-ink font-medium">Zenias</span>
+            <span class="font-serif text-2xl md:text-4xl tracking-tight text-ink font-medium">Zenias</span>
         </div>
 
         <nav class="hidden md:flex items-center gap-10">
@@ -633,15 +643,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center">
+        <button id="mobile-menu-btn" class="md:hidden w-8 h-8 flex items-center justify-center">
             <!-- Lottie Animation Container -->
         </button>
 
-        <!-- Subtle bottom blur transition -->
-        <div class="absolute -bottom-12 left-0 right-0 h-12 bg-gradient-to-b from-paper/95 via-paper/50 to-transparent backdrop-blur-[1px] pointer-events-none"></div>
-
         <!-- Mobile Menu Overlay (Moved to header for global visibility) -->
-        <div id="mobile-menu" class="absolute top-24 right-6 flex flex-col items-end gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible z-[60]">
+        <div id="mobile-menu" class="absolute top-14 right-3 md:top-24 md:right-6 flex flex-col items-end gap-3 md:gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible z-[60]">
             <a href="#" id="mobile-services" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
             <a href="#" id="mobile-works" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Works</a>
             <a href="#" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
@@ -657,10 +664,10 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             <!-- Header removed from here -->
 
             <!-- Hero Text -->
-            <div id="hero-block" class="absolute top-24 left-6 right-6 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
+            <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-3 mb-4 md:mb-6">
                     <div class="h-px w-8 md:w-12 bg-rust"></div>
-                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Consulting | Training</span>
+                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Consulting | Training | Governance</span>
                 </div>
                 
                 <!-- Title - Bigger on mobile -->
@@ -671,7 +678,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 
                 <!-- Desktop only: Description and CTA inline -->
                 <p class="hidden md:block mt-8 max-w-md font-sans text-base text-neutral-600 font-light leading-relaxed">
-                    We design and build secure, AI-enabled systems for the forward-thinking.
+                    We design secure AI-enabled systems, and teach the forward-thinking to master them.
                 </p>
 
                 <div class="hidden md:flex mt-10 items-center gap-4 pointer-events-auto">
@@ -714,7 +721,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     <!-- Services Page (initially hidden) -->
     <section id="services-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-transparent">
         <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
-        <div class="relative px-6 md:px-12 pt-24 md:pt-32 pb-16 md:pb-20 z-10">
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="h-px w-12 bg-rust"></div>
                 <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">Services</span>
@@ -778,7 +785,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                             <div id="service-node-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
                                 <!-- Nodes 3D Visualization -->
                                 <div class="relative w-28 h-28 z-20" style="transform-style: preserve-3d;">
-                                    <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0" style="animation-duration: 20s;">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0 z-10" style="animation-duration: 20s;">
                                         <!-- Central Node -->
                                         <circle cx="50" cy="50" r="8" fill="#171717" stroke="#8b5cf6" stroke-width="2"></circle>
                                         
@@ -797,7 +804,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                                         </g>
                                     </svg>
                                     <!-- Counter-rotating ring for depth -->
-                                    <div class="absolute inset-0 border border-dashed border-neutral-700/50 rounded-full animate-spin-reverse z-0 scale-125"></div>
+                                    <div class="absolute inset-0 border border-dashed border-neutral-700/50 rounded-full animate-spin-reverse z-0 scale-125 bg-[radial-gradient(circle_at_center,#a78bfa_0%,#f3f4f6_70%,white_100%)]"></div>
                                     <div class="absolute inset-0 flex items-center justify-center font-mono text-[10px] text-violet-300 z-30 bg-neutral-900 rounded-full w-7 h-7 m-auto shadow-lg shadow-violet-500/20">RLS</div>
                                 </div>
                             </div>
@@ -1083,7 +1090,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     <!-- Works Page (initially hidden) -->
     <section id="works-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-transparent">
         <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
-        <div class="relative px-6 md:px-12 pt-24 md:pt-32 pb-16 md:pb-20 z-10">
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
             <!-- Grid Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[800px]">
                 
@@ -1132,11 +1139,13 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
                 </div>
 
-                <!-- Projects Grid -->
-                <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 bg-paper lg:pr-12">
-                    
-                    <!-- Project 01 -->
-                    <div class="works-card group relative border-b border-r border-neutral-200 aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                <!-- Projects Grid Container (White Edge) -->
+                <div class="lg:col-span-9 bg-paper rounded-tr-[40px] rounded-br-[40px] overflow-hidden lg:pr-12">
+                    <!-- Internal Grid (Purple Gaps) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 bg-[#1a103d] gap-[1px] h-full">
+                        
+                        <!-- Project 01 -->
+                        <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
                         <!-- Image -->
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg');"></div>
                         <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
@@ -1162,7 +1171,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 02 -->
-                    <div class="works-card group relative border-b border-neutral-200 aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e1b99b27-460a-4be5-a724-b983cad2af0c_1600w.jpg');"></div>
                         <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
@@ -1185,9 +1194,9 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 03 -->
-                    <div class="works-card group relative border-b md:border-b-0 border-r border-neutral-200 aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fba5101b-3f79-421e-85cd-3bfd94dcd647_1600w.jpg');"></div>
-                        <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blendultiply"></div>
+                        <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
                         <span class="absolute top-6 right-6 text-xs font-mono text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">03</span>
@@ -1208,7 +1217,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 04 (More) -->
-                    <div class="works-card group relative border-neutral-200 aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-[#F5F5F0] hover:bg-neutral-200 transition-colors duration-500">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-[#F5F5F0] hover:bg-neutral-200 transition-colors duration-500">
                         <!-- Grid Pattern -->
                         <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
                         
@@ -1225,15 +1234,15 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                         </div>
                     </div>
                     
-                </div>
-            </div>
+                </div> <!-- End Internal Grid -->
+            </div> <!-- End Projects Grid Container (White Edge) -->
         </div>
     </section>
 
     <!-- About Us Page (initially hidden) -->
     <section id="about-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-paper">
         <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
-        <div class="relative px-6 md:px-12 pt-24 md:pt-32 pb-16 md:pb-20 z-10">
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="h-px w-12 bg-rust"></div>
                 <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">About Us</span>

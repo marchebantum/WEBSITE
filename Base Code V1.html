@@ -755,6 +755,13 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                         
                         <!-- Poster Content -->
                         <div class="relative z-10 border border-white/20 p-6 w-full max-w-md h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
+                            <!-- Discount Code Secret Animation Overlay -->
+                            <div id="falling-money-container" class="absolute inset-0 pointer-events-none z-30 hidden overflow-hidden"></div>
+                            <div id="discount-popup" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper/95 backdrop-blur-sm border border-sepia p-4 rounded-sm shadow-2xl z-40 hidden text-center scale-90 opacity-0 transition-all duration-500">
+                                <p class="font-mono text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Easter Egg Discovered</p>
+                                <p class="font-serif text-xl text-ink">Use Code: JSONDerulo</p>
+                            </div>
+
                             <div class="relative z-20 flex flex-col justify-between h-full">
                                 <div class="flex justify-between items-start">
                                     <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink transition-opacity duration-300">
@@ -1661,6 +1668,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         }
 
         // Auditable Lottie Animation
+        const auditableLottieData = {"v":"5.4.4","fr":60,"ip":0,"op":140,"w":100,"h":100,"nm":"Menu","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Buttom","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,70,0],"e":[51,78,0],"to":[0,1.333,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,78,0],"e":[51,50,0],"to":[0,-3.333,0],"ti":[0,4.667,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,78,0],"to":[0,4.667,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,78,0],"e":[51,70,0],"to":[0,3.333,0],"ti":[0,1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Buttom","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Center","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[45],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[45],"e":[0]},{"t":105}],"ix":10},"p":{"a":0,"k":[51,50,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Center","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Upper","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,30,0],"e":[51,22,0],"to":[0,-1.333,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,22,0],"e":[51,50,0],"to":[0,3.333,0],"ti":[0,-4.667,0]},{"i":{"x":0.831,"y":0.831},"o":{"x":0.165,"y":0.165},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,22,0],"to":[0,-4.667,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,22,0],"e":[51,30,0],"to":[0,-3.333,0],"ti":[0,-1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Upper","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0}],"markers":[]};
         const auditableLottieContainer = document.getElementById('service-auditable-visualization');
         let auditableLottieAnim = null;
         if (auditableLottieContainer) {
@@ -1671,6 +1679,47 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 autoplay: false,
                 path: 'Document OCR Scan.json'
             });
+        }
+
+        // Falling Money Easter Egg Lottie Animation
+        let fallingMoneyAnim = null;
+        const fallingMoneyContainer = document.getElementById('falling-money-container');
+        if (fallingMoneyContainer) {
+            fallingMoneyAnim = lottie.loadAnimation({
+                container: fallingMoneyContainer,
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                path: 'Falling money.json'
+            });
+        }
+
+        function triggerFallingMoney() {
+            const container = document.getElementById('falling-money-container');
+            const popup = document.getElementById('discount-popup');
+            if (!container || !popup) return;
+
+            container.classList.remove('hidden');
+            popup.classList.remove('hidden');
+            // Small delay to trigger transition
+            setTimeout(() => {
+                popup.classList.remove('scale-90', 'opacity-0');
+                popup.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            
+            if (fallingMoneyAnim) {
+                fallingMoneyAnim.goToAndPlay(0, true);
+            }
+
+            // Hide after 6 seconds
+            setTimeout(() => {
+                popup.classList.add('scale-90', 'opacity-0');
+                popup.classList.remove('scale-100', 'opacity-100');
+                setTimeout(() => {
+                    popup.classList.add('hidden');
+                    container.classList.add('hidden');
+                }, 500);
+            }, 6000);
         }
 
         function toggleMenu() {
@@ -1798,7 +1847,13 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     name: 'Operations',
                     children: [
                         { id: 'hr', name: 'Agreement' },
-                        { id: 'finance', name: 'Earnings' }
+                        { 
+                            id: 'finance', 
+                            name: 'Earnings',
+                            children: [
+                                { id: 'discount-code', name: 'Discount Code' }
+                            ]
+                        }
                     ]
                 }
             ]
@@ -1833,6 +1888,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         }
 
         function toggleTreeItem(id, isTopLevel) {
+            // Trigger Easter Egg if discount code clicked
+            if (id === 'discount-code') {
+                triggerFallingMoney();
+                return;
+            }
+
             // Accordion behavior for top-level items
             if (isTopLevel && !treeExpandedItems[id]) {
                 // Collapse all other top-level items

@@ -111,6 +111,171 @@ stroke: #78350F; stroke-width: 0.8;
 stroke-dasharray: 4, 4; opacity: 0.4;
 }
 
+/* Strategic circular graph */
+.circle-chart {
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+.progress-circle {
+    stroke-dasharray: var(--circumference);
+    stroke-dashoffset: var(--circumference);
+    animation: progressAnimation 1.6s ease-out forwards;
+}
+
+@keyframes progressAnimation {
+    0% { stroke-dashoffset: var(--circumference); }
+    100% { stroke-dashoffset: var(--dash-offset); }
+}
+
+/* Pragmatic timeline animation */
+.pragmatic-timeline {
+    --timeline-cycle: 4.2s;
+    --launch-fly: -170px;
+}
+
+.pragmatic-line-active {
+    width: 0%;
+    z-index: 10;
+    will-change: width;
+    position: relative;
+}
+
+/* Glowing head for the timeline line */
+.pragmatic-line-active::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #10b981, 0 0 5px #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-line-active::after {
+    opacity: 1;
+}
+
+.pragmatic-label {
+    display: inline-block;
+    transform: translateY(0);
+    will-change: transform;
+    transition: all 0.3s ease;
+}
+
+.pragmatic-phase {
+    transform: translate(-50%, -120%) rotate(-35deg);
+    transform-origin: bottom center;
+}
+
+.pragmatic-phase-text {
+    display: inline-block;
+    transform: translateY(0) scale(1);
+    transform-origin: center;
+    will-change: transform;
+}
+
+.pragmatic-launch {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-line-active {
+    animation: timelineSweep var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-phase-1 {
+    animation: timelinePhase1 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-phase-2 {
+    animation: timelinePhase2 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-phase-3 {
+    animation: timelinePhase3 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-phase-4 {
+    animation: timelinePhase4 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-dot-1 {
+    animation: dotPulse1 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-dot-2 {
+    animation: dotPulse2 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-dot-3 {
+    animation: dotPulse3 var(--timeline-cycle) linear infinite;
+}
+
+.pragmatic-timeline.is-animating .pragmatic-dot-4 {
+    animation: dotPulse4 var(--timeline-cycle) linear infinite;
+}
+
+@keyframes timelineSweep {
+    0% { width: 0%; opacity: 0.8; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+}
+
+@keyframes dotPulse1 {
+    0%, 10%, 100% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    12.5% { transform: scale(1.4) translate(-50%, -50%); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+    15% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+}
+
+@keyframes dotPulse2 {
+    0%, 35%, 100% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    37.5% { transform: scale(1.4) translate(-50%, -50%); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+    40% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+}
+
+@keyframes dotPulse3 {
+    0%, 60%, 100% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    62.5% { transform: scale(1.4) translate(-50%, -50%); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+    65% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+}
+
+@keyframes dotPulse4 {
+    0%, 85%, 100% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    87.5% { transform: scale(1.4) translate(-50%, -50%); box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+    90% { transform: scale(1) translate(-50%, -50%); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+}
+
+@keyframes timelinePhase1 {
+    0%, 10%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    12.5% { transform: translateY(-5px) scale(1.15); opacity: 1; }
+    15% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes timelinePhase2 {
+    0%, 35%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    37.5% { transform: translateY(-5px) scale(1.15); opacity: 1; }
+    40% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes timelinePhase3 {
+    0%, 60%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    62.5% { transform: translateY(-5px) scale(1.15); opacity: 1; }
+    65% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes timelinePhase4 {
+    0%, 85%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    87.5% { transform: translateY(-5px) scale(1.15); opacity: 1; }
+    90% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
 /* Service Tabs Custom Styles */
 .service-tab-item {
     transition: all 0.3s ease;
@@ -178,12 +343,90 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     to { transform: rotate(-360deg); }
 }
 
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.connector {
+    stroke-dasharray: 4;
+    animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+    to { stroke-dashoffset: 1000; }
+}
+
+.animate-pulse-dot {
+    animation: pulseDot 2s ease-in-out infinite;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+
 .animate-spin-slow {
     animation: spin-slow 20s linear infinite;
 }
 
 .animate-spin-reverse {
     animation: spin-reverse 15s linear infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Clipped star decorative element */
+.clipped-star-container {
+    width: 120px;
+    height: 120px;
+    margin: 16px auto;
+    opacity: 0.85;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    z-index: 15;
+    animation: float 3s ease-in-out infinite;
+}
+
+.clipped-star-container:hover {
+    opacity: 1;
+}
+
+.clipped-star-container.expanded {
+    width: 240px;
+    height: 240px;
+    opacity: 1;
+}
+
+.clipped-star-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: polygon(
+        50% 0%, 
+        61% 35%, 
+        98% 35%, 
+        68% 57%, 
+        79% 91%, 
+        50% 70%, 
+        21% 91%, 
+        32% 57%, 
+        2% 35%, 
+        39% 35%
+    );
+    transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>
 <script>
@@ -357,22 +600,26 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 <div class="grid grid-cols-1 lg:grid-cols-2 border border-neutral-300 bg-transparent shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
                     <!-- Left: Visual -->
                     <div class="relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
-                        <div id="service-bg" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop')]"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
+                        <div id="service-bg" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop')] z-0"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-0"></div>
                         
                         <!-- Poster Content -->
                         <div class="relative z-10 border border-white/20 p-6 w-full max-w-md h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
-                            <div class="flex justify-between items-start">
-                                <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink">
-                                    M7.4<br>KINETIC<br>LABS
-                                </h4>
-                                <span id="service-poster-num" class="text-neutral-500 font-mono text-lg">+02</span>
-                            </div>
+                            <div class="relative z-20 flex flex-col justify-between h-full">
+                                <div class="flex justify-between items-start">
+                                    <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink transition-opacity duration-300">
+                                        M7.4<br>KINETIC<br>LABS
+                                    </h4>
+                                    <span id="service-poster-num" class="text-neutral-500 font-mono text-lg">+02</span>
+                                </div>
+                            
+                            <!-- Central Content Area (Visualization, Subtext) -->
+                            <div id="service-card-central-content" class="relative flex-1 flex flex-col justify-center min-h-0 py-4">
                             
                             <!-- Node Visualization (shown for specific slides) -->
-                            <div id="service-node-visualization" class="hidden flex justify-center items-center my-2">
+                            <div id="service-node-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
                                 <!-- Nodes 3D Visualization -->
-                                <div class="relative w-28 h-28 mb-2 z-20" style="transform-style: preserve-3d;">
+                                <div class="relative w-28 h-28 z-20" style="transform-style: preserve-3d;">
                                     <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0" style="animation-duration: 20s;">
                                         <!-- Central Node -->
                                         <circle cx="50" cy="50" r="8" fill="#171717" stroke="#8b5cf6" stroke-width="2"></circle>
@@ -397,22 +644,240 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                                 </div>
                             </div>
 
-                            <!-- Subtext for carousel (shown on left card) -->
-                            <div id="service-left-subtext-container" class="hidden mt-3">
-                                <p id="service-left-subtext" class="text-ink text-sm leading-relaxed opacity-70 mb-4"></p>
+                            <!-- Clipped Star Decoration (shown for BEAUTIFUL slide) -->
+                            <div id="service-star-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
+                                <div class="clipped-star-container" onclick="toggleStarExpansion(this)">
+                                    <img src="https://images.unsplash.com/photo-1681238093193-1b3a8fcdf225?q=80&w=1962&auto=format&fit=crop" alt="Natural design element" class="clipped-star-image" />
+                                </div>
                             </div>
 
-                            <div class="flex justify-between items-end">
-                                <!-- Carousel Controls (Moved to Left Card) -->
-                                <div id="service-carousel-controls" class="flex items-center gap-4">
-                                    <button onclick="prevSlide()" class="text-xl text-ink hover:text-sepia transition-colors">←</button>
-                                    <span id="slide-indicator" class="font-mono text-xs text-neutral-500 tracking-widest">1/3</span>
-                                    <button onclick="nextSlide()" class="text-xl text-ink hover:text-sepia transition-colors">→</button>
+                            <!-- Node/Connection Preview (shown for INTELLIGENT slide) -->
+                            <div id="service-intelligent-visualization" class="hidden flex justify-center items-center mt-8 mb-2 transition-opacity duration-300">
+                                <div class="relative w-full max-w-sm h-48 scale-[0.8] origin-top">
+                                    <!-- Connections and nodes -->
+                                    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 200">
+                                        <!-- Connection lines with dots at ends -->
+                                        <g stroke="#f97316" stroke-width="1.5" fill="none">
+                                            <!-- User to Orders -->
+                                            <path class="connector" d="M120,60 L200,60"></path>
+                                            <circle cx="120" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            <circle cx="200" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Orders to Products -->
+                                            <path class="connector" d="M200,60 L280,60"></path>
+                                            <circle cx="280" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- User to Address -->
+                                            <path class="connector" d="M120,60 L120,140 L160,140"></path>
+                                            <circle cx="160" cy="140" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Orders to Payments -->
+                                            <path class="connector" d="M200,60 L200,140 L240,140"></path>
+                                            <circle cx="240" cy="140" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Address to Payments -->
+                                            <path class="connector" d="M160,140 L240,140"></path>
+                                        </g>
+                                    </svg>
+                                    
+                                    <!-- Entity Cards -->
+                                    <div class="absolute inset-0 w-full h-full">
+                                        <!-- Top row -->
+                                        <div class="absolute flex justify-center space-x-10" style="left: 0; right: 0; top: 35px">
+                                            <!-- Users card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Users</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-2/3 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-5/6 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Orders card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Orders</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/4 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-1/2 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Products card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Products</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-4/5 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/5 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Bottom row -->
+                                        <div class="absolute flex justify-center space-x-16" style="left: 0; right: 0; top: 125px">
+                                            <!-- Addresses card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Addresses</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-2/3 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-5/6 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Payments card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Payments</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-1/2 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/4 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="text-right">
-                                     <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-wide">Category</div>
-                                     <div id="service-category" class="text-ink font-bold text-sm uppercase">Cybernetics</div>
+                            <!-- Strategic Circular Graph (shown for STRATEGIC slide) -->
+                            <div id="service-strategic-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative w-36 h-36 bg-[#030712] rounded-full p-1.5 flex items-center justify-center">
+                                        <svg class="circle-chart w-full h-full block" viewBox="0 0 200 200" aria-hidden="true">
+                                            <defs>
+                                                <filter id="ring-glow" x="-50%" y="-50%" width="200%" height="200%">
+                                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"></feGaussianBlur>
+                                                    <feMerge>
+                                                        <feMergeNode in="coloredBlur"></feMergeNode>
+                                                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                                                    </feMerge>
+                                                </filter>
+                                            </defs>
+                                            <!-- Background grid circles -->
+                                            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+
+                                            <!-- Grid lines -->
+                                            <line x1="100" y1="10" x2="100" y2="190" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="10" y1="100" x2="190" y2="100" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="29.3" y1="29.3" x2="170.7" y2="170.7" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="29.3" y1="170.7" x2="170.7" y2="29.3" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+
+                                            <!-- Base circle -->
+                                            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(28,25,23,0.18)" stroke-width="6" filter="url(#ring-glow)"></circle>
+
+                                            <!-- Progress circles -->
+                                            <circle class="progress-circle" style="--circumference: 565.49; --dash-offset: 140;" cx="100" cy="100" r="90" fill="none" stroke="#60A5FA" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+                                            <circle class="progress-circle" style="--circumference: 439.82; --dash-offset: 210;" cx="100" cy="100" r="70" fill="none" stroke="#A78BFA" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+                                            <circle class="progress-circle" style="--circumference: 314.16; --dash-offset: 100;" cx="100" cy="100" r="50" fill="none" stroke="#F472B6" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+
+                                            <!-- Center point -->
+                                            <circle cx="100" cy="100" r="3" fill="#1C1917"></circle>
+
+                                            <!-- Data points -->
+                                            <circle cx="100" cy="10" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="170.7" cy="29.3" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="190" cy="100" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="170.7" cy="170.7" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="100" cy="190" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="29.3" cy="170.7" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="10" cy="100" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="29.3" cy="29.3" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                        </svg>
+                                    </div>
+                                    <div class="bg-[#030712] rounded-lg px-2.5 py-2 border border-white/10 shadow-[0_4px_12px_rgba(0,0,0,0.28)]">
+                                        <div class="flex flex-col gap-1.5 text-[10px] text-slate-200">
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#60A5FA]"></span>
+                                                <span>Engagement</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#A78BFA]"></span>
+                                                <span>Conversion</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#F472B6]"></span>
+                                                <span>Retention</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pragmatic Timeline (shown for PRAGMATIC slide) -->
+                            <div id="service-pragmatic-visualization" class="hidden flex justify-center items-center mt-6 mb-2 transition-opacity duration-300">
+                                <div class="pragmatic-timeline relative w-full max-w-sm h-20">
+                                    <div class="absolute left-0 right-0 top-1/2 -mt-1 h-2 rounded-full bg-emerald-200/70"></div>
+                                    <div class="pragmatic-line-active absolute left-0 top-1/2 -mt-1 h-2 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]"></div>
+                                    <div class="relative grid grid-cols-4 h-full">
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-1">Design</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 1</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-2">Dev</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 2</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-3">Test</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 3</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-4">Launch</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 4</span>
+                                             </div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Adaptive Lottie (shown for ADAPTIVE slide) -->
+                            <div id="service-adaptive-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Foundational Arrow Down Lottie (shown for FOUNDATIONAL slide) -->
+                            <div id="service-foundational-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Subtext for carousel (shown on left card) -->
+                            <div id="service-left-subtext-container" class="hidden mt-2 transition-opacity duration-300">
+                                <p id="service-left-subtext" class="text-ink text-sm leading-relaxed opacity-70 relative"></p>
+                            </div>
+                            </div>
+
+                                <div class="flex justify-between items-end">
+                                    <!-- Carousel Controls (Moved to Left Card) -->
+                                    <div id="service-carousel-controls" class="flex items-center gap-4">
+                                        <button onclick="prevSlide()" class="text-xl text-ink hover:text-sepia transition-colors">←</button>
+                                        <span id="slide-indicator" class="font-mono text-xs text-neutral-500 tracking-widest">1/3</span>
+                                        <button onclick="nextSlide()" class="text-xl text-ink hover:text-sepia transition-colors">→</button>
+                                    </div>
+
+                                    <div class="text-right">
+                                         <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-wide">Category</div>
+                                         <div id="service-category" class="text-ink font-bold text-sm uppercase">Cybernetics</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -728,6 +1193,34 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         // Speed up animation slightly
         menuAnim.setSpeed(1.5);
 
+        // Adaptive Lottie Animation
+        const adaptiveLottieData = {"v":"4.8.0","meta":{"g":"LottieFiles AE 1.0.0","a":"","k":"","d":"","tc":"#FFFFFF"},"fr":29.9700012207031,"ip":0,"op":31.0000012626559,"w":500,"h":500,"nm":"Loading ","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Rectangle_1","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":135,"ix":10},"p":{"a":0,"k":[250,156.235,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2627,0.102,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Rectangle_2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":585,"ix":10},"p":{"a":0,"k":[343,250,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,0.5437,0.26,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Rectangle_3","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":315,"ix":10},"p":{"a":0,"k":[250,342.86,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2627,0.102,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"Rectangle_4","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":45,"ix":10},"p":{"a":0,"k":[157.156,250,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,0.5437,0.26,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0}],"markers":[]};
+        const adaptiveLottieContainer = document.getElementById('service-adaptive-visualization');
+        let adaptiveLottieAnim = null;
+        if (adaptiveLottieContainer) {
+            adaptiveLottieAnim = lottie.loadAnimation({
+                container: adaptiveLottieContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: false,
+                animationData: adaptiveLottieData
+            });
+        }
+
+        // Foundational Arrow Down Lottie Animation
+        const foundationalLottieData = {"v":"4.8.0","meta":{"g":"LottieFiles AE 1.0.0","a":"","k":"","d":"","tc":"#FFFFFF"},"fr":30,"ip":0,"op":117,"w":1920,"h":1920,"nm":"Download","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Shape Layer 5","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":92,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":112,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":117,"s":[100]},{"t":127,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":92,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":112,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":117,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":127,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":92,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":112,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":117,"s":[100,100,100]},{"t":127,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":92,"op":242,"st":92,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Shape Layer 4","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":69,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":89,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":94,"s":[100]},{"t":104,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":69,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":89,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":94,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":104,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":69,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":89,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":94,"s":[100,100,100]},{"t":104,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":69,"op":219,"st":69,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Shape Layer 3","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":46,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":66,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":71,"s":[100]},{"t":81,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":46,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":66,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":71,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":81,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":46,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":66,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":71,"s":[100,100,100]},{"t":81,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":46,"op":196,"st":46,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"Shape Layer 2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":23,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":43,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":48,"s":[100]},{"t":58,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":23,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":43,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":48,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":58,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":23,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":43,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":48,"s":[100,100,100]},{"t":58,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":23,"op":173,"st":23,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"Shape Layer 1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":0,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":20,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":25,"s":[100]},{"t":35,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":0,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":20,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":25,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":35,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":0,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":20,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":25,"s":[100,100,100]},{"t":35,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":0,"op":150,"st":0,"bm":0}],"markers":[]};
+        const foundationalLottieContainer = document.getElementById('service-foundational-visualization');
+        let foundationalLottieAnim = null;
+        if (foundationalLottieContainer) {
+            foundationalLottieAnim = lottie.loadAnimation({
+                container: foundationalLottieContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: false,
+                animationData: foundationalLottieData
+            });
+        }
+
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
@@ -762,11 +1255,11 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 category: 'Engineering',
                 suffix: 'DEVELOPMENT',
                 image: 'https://images.unsplash.com/photo-1724525647065-f948fc102e68?w=2160&q=80',
-                staticDescription: 'We build custom full-stack applications completely tailored to your needs—AI-powered, automation-first, and intelligently designed from the ground up for any business requirement.',
+                staticDescription: 'We build bespoke full-stack applications completely tailored to your needs. We bake in automation from inception, guaranteeing time savings and margin maximisation.',
                 slides: [
-                    { title: 'SECURE', subtext: 'Built on sovereign infrastructure. Your data, your rules.', category: 'PRIVACY & SECURITY' },
-                    { title: 'BEAUTIFUL', subtext: 'Interfaces that feel intuitive. Architecture that scales elegantly.', category: 'DESIGN & EXPERIENCE' },
-                    { title: 'INTELLIGENT', subtext: 'AI-native systems that learn, adapt, and automate.', category: 'AUTOMATION & AI' }
+                    { title: 'SECURE', subtext: 'Safeguard your data with sovereign infrastructure and world-class security', category: 'PRIVACY & SECURITY' },
+                    { title: 'BEAUTIFUL', subtext: 'Elegent interfaces built around your personal workflow.', category: 'DESIGN & EXPERIENCE' },
+                    { title: 'INTELLIGENT', subtext: 'AI-native systems that learn, streamline, and automate your processes.', category: 'AUTOMATION & AI' }
                 ]
             },
             {
@@ -778,7 +1271,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 category: 'Consulting',
                 suffix: 'CONSULTING',
                 image: 'https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80',
-                staticDescription: 'We guide organisations through AI transformation with strategic market analysis, readiness assessments, and governance frameworks—ensuring you adopt intelligently, not recklessly.',
+                staticDescription: 'We guide organisations through AI transformation with strategic competitor analysis, readiness assessments, and goal-setting frameworks - ensuring you adopt intelligently, not recklessly.',
                 slides: [
                     { title: 'STRATEGIC', subtext: 'Market positioning and competitive analysis for the AI era.', category: 'STRATEGY & POSITIONING' },
                     { title: 'PRAGMATIC', subtext: 'AI readiness assessments and phased implementation roadmaps.', category: 'IMPLEMENTATION & PLANNING' },
@@ -794,11 +1287,11 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 category: 'Simulation',
                 suffix: 'TRAINING',
                 image: 'https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80',
-                staticDescription: 'We teach teams to master AI—from enterprise tool adoption to building custom solutions. Through workshops and hands-on training, we install the competence needed to innovate independently.',
+                staticDescription: 'We teach teams to fish in digital waters. Whether you need to master ChatGPT for daily workflows or build production-grade AI agents from scratch, our training installs lasting competence - not over-hyped tricks.',
                 slides: [
-                    { title: 'FOUNDATIONAL', subtext: 'AI fundamentals and enterprise tool mastery (ChatGPT, Copilot, Gemini).', category: 'AI ESSENTIALS' },
+                    { title: 'FOUNDATIONAL', subtext: 'AI fundamentals, enterprise tool mastery (ChatGPT, Copilot, Gemini).', category: 'AI ESSENTIALS' },
                     { title: 'APPLIED', subtext: 'Workflow automation and no-code/low-code system building.', category: 'PRACTICAL AUTOMATION' },
-                    { title: 'TECHNICAL', subtext: 'Developer training with templates, frameworks, and live support.', category: 'FULL-STACK DEVELOPMENT' }
+                    { title: 'TECHNICAL', subtext: 'Full-stack training with templates, frameworks, and on-going support.', category: 'FULL-STACK DEVELOPMENT' }
                 ]
             },
             {
@@ -854,21 +1347,190 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             const data = serviceData[currentServiceIndex];
             const slide = data.slides[currentSlideIndex];
             
-            // All services now use the same carousel structure: Left card carousel, Right side static
-            // Update Left Card (Carousel) with character-by-character animation
-            animateText('service-poster-title', slide.title);
-            document.getElementById('service-category').innerText = slide.category;
-            
-            // Show/hide node visualization for SECURE slide
+            // Elements to fade
+            const titleEl = document.getElementById('service-poster-title');
             const nodeViz = document.getElementById('service-node-visualization');
-            if (slide.title === 'SECURE') {
-                nodeViz.classList.remove('hidden');
-            } else {
-                nodeViz.classList.add('hidden');
-            }
+            const starViz = document.getElementById('service-star-visualization');
+            const intelligentViz = document.getElementById('service-intelligent-visualization');
+            const strategicViz = document.getElementById('service-strategic-visualization');
+            const pragmaticViz = document.getElementById('service-pragmatic-visualization');
+            const adaptiveViz = document.getElementById('service-adaptive-visualization');
+            const foundationalViz = document.getElementById('service-foundational-visualization');
+            const subtextContainer = document.getElementById('service-left-subtext-container');
+            const subtextEl = document.getElementById('service-left-subtext');
             
-            document.getElementById('service-left-subtext-container').classList.remove('hidden');
-            document.getElementById('service-left-subtext').innerText = slide.subtext;
+            // Fade out
+            titleEl.style.opacity = '0';
+            nodeViz.style.opacity = '0';
+            starViz.style.opacity = '0';
+            intelligentViz.style.opacity = '0';
+            strategicViz.style.opacity = '0';
+            pragmaticViz.style.opacity = '0';
+            adaptiveViz.style.opacity = '0';
+            foundationalViz.style.opacity = '0';
+            subtextContainer.style.opacity = '0';
+            
+            // Update content after fade out
+            setTimeout(() => {
+                // Update title
+                animateText('service-poster-title', slide.title);
+                document.getElementById('service-category').innerText = slide.category;
+                
+                // Show/hide node visualization for SECURE slide
+                if (slide.title === 'SECURE') {
+                    nodeViz.classList.remove('hidden');
+                } else {
+                    nodeViz.classList.add('hidden');
+                }
+                
+                // Show/hide star visualization for BEAUTIFUL slide
+                const starContainer = starViz.querySelector('.clipped-star-container');
+                if (slide.title === 'BEAUTIFUL' && data.name === 'Development') {
+                    starViz.classList.remove('hidden');
+                    // Reset expansion state when slide changes
+                    if (starContainer) {
+                        starContainer.classList.remove('expanded');
+                    }
+                } else {
+                    starViz.classList.add('hidden');
+                    // Reset expansion state when hiding
+                    if (starContainer) {
+                        starContainer.classList.remove('expanded');
+                    }
+                }
+
+                // Show/hide node visualization for INTELLIGENT slide
+                if (slide.title === 'INTELLIGENT' && data.name === 'Development') {
+                    intelligentViz.classList.remove('hidden');
+                } else {
+                    intelligentViz.classList.add('hidden');
+                }
+
+                // Show/hide strategic graph for STRATEGIC slide (Consulting)
+                if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
+                    strategicViz.classList.remove('hidden');
+                    const progressCircles = strategicViz.querySelectorAll('.progress-circle');
+                    progressCircles.forEach((circle) => {
+                        circle.style.animation = 'none';
+                        circle.getBoundingClientRect();
+                        circle.style.animation = '';
+                    });
+                } else {
+                    strategicViz.classList.add('hidden');
+                }
+
+                // Show/hide pragmatic timeline for PRAGMATIC slide (Consulting)
+                if (slide.title === 'PRAGMATIC' && data.name === 'Consulting') {
+                    pragmaticViz.classList.remove('hidden');
+                    const timeline = pragmaticViz.querySelector('.pragmatic-timeline');
+                    if (timeline) {
+                        timeline.classList.remove('is-animating');
+                        timeline.getBoundingClientRect();
+                        timeline.classList.add('is-animating');
+                    }
+                } else {
+                    pragmaticViz.classList.add('hidden');
+                }
+
+                // Show/hide adaptive Lottie for ADAPTIVE slide (Consulting)
+                if (slide.title === 'ADAPTIVE' && data.name === 'Consulting') {
+                    adaptiveViz.classList.remove('hidden');
+                    if (adaptiveLottieAnim) {
+                        adaptiveLottieAnim.goToAndPlay(0, true);
+                    }
+                } else {
+                    adaptiveViz.classList.add('hidden');
+                    if (adaptiveLottieAnim) {
+                        adaptiveLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide foundational Lottie for FOUNDATIONAL slide (Training)
+                if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                    foundationalViz.classList.remove('hidden');
+                    if (foundationalLottieAnim) {
+                        foundationalLottieAnim.goToAndPlay(0, true);
+                    }
+                } else {
+                    foundationalViz.classList.add('hidden');
+                    if (foundationalLottieAnim) {
+                        foundationalLottieAnim.stop();
+                    }
+                }
+
+                // Update subtext
+                subtextContainer.classList.remove('hidden');
+                subtextEl.innerText = slide.subtext;
+                subtextContainer.classList.remove('mt-4', 'mt-6', 'mt-8');
+                subtextContainer.classList.add('mt-2');
+                subtextEl.classList.remove('translate-y-4', 'translate-y-6', 'translate-y-8');
+                if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
+                    subtextContainer.classList.remove('mt-2');
+                    subtextContainer.classList.add('mt-4');
+                    subtextEl.classList.add('translate-y-4');
+                } else if (slide.title === 'PRAGMATIC' && data.name === 'Consulting') {
+                    subtextContainer.classList.remove('mt-2');
+                    subtextContainer.classList.add('mt-8');
+                    subtextEl.classList.add('translate-y-8');
+                } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                    subtextContainer.classList.remove('mt-2');
+                    subtextContainer.classList.add('mt-8');
+                    subtextEl.classList.add('translate-y-8');
+                }
+                
+                // Adjust subtext position per slide
+                subtextEl.classList.remove('-top-6', 'top-0', '-top-2', 'top-[4.5rem]', 'top-2', 'top-8');
+                if (slide.title === 'SECURE') {
+                    subtextEl.classList.add('top-0'); // Moves it down relative to -top-6
+                } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                    subtextEl.classList.add('top-8'); // Move down even more specifically for Foundational
+                } else if (slide.title === 'ADAPTIVE' && data.name === 'Consulting') {
+                    subtextEl.classList.add('top-[4.5rem]'); // top-18 equivalent (4.5rem)
+                } else {
+                    subtextEl.classList.add('-top-6'); // Keep INTELLIGENT and others higher
+                }
+                
+                // Fade in
+                setTimeout(() => {
+                    titleEl.style.opacity = '1';
+                    if (!nodeViz.classList.contains('hidden')) {
+                        nodeViz.style.opacity = '1';
+                    } else {
+                        nodeViz.style.opacity = '0';
+                    }
+                    if (!starViz.classList.contains('hidden')) {
+                        starViz.style.opacity = '1';
+                    } else {
+                        starViz.style.opacity = '0';
+                    }
+                    if (!intelligentViz.classList.contains('hidden')) {
+                        intelligentViz.style.opacity = '1';
+                    } else {
+                        intelligentViz.style.opacity = '0';
+                    }
+                    if (!strategicViz.classList.contains('hidden')) {
+                        strategicViz.style.opacity = '1';
+                    } else {
+                        strategicViz.style.opacity = '0';
+                    }
+                    if (!pragmaticViz.classList.contains('hidden')) {
+                        pragmaticViz.style.opacity = '1';
+                    } else {
+                        pragmaticViz.style.opacity = '0';
+                    }
+                    if (!adaptiveViz.classList.contains('hidden')) {
+                        adaptiveViz.style.opacity = '1';
+                    } else {
+                        adaptiveViz.style.opacity = '0';
+                    }
+                    if (!foundationalViz.classList.contains('hidden')) {
+                        foundationalViz.style.opacity = '1';
+                    } else {
+                        foundationalViz.style.opacity = '0';
+                    }
+                    subtextContainer.style.opacity = '1';
+                }, 10);
+            }, 200);
             
             // Update Right Side (Static - doesn't change with carousel)
             document.getElementById('service-main-title').innerHTML = data.suffix;
@@ -923,6 +1585,10 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         function prevSlide() {
             currentSlideIndex = (currentSlideIndex - 1 + 3) % 3;
             updateSlideContent();
+        }
+
+        function toggleStarExpansion(element) {
+            element.classList.toggle('expanded');
         }
 
         updateService(0);

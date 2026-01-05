@@ -639,22 +639,22 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 
         <!-- Subtle bottom blur transition -->
         <div class="absolute -bottom-12 left-0 right-0 h-12 bg-gradient-to-b from-paper/95 via-paper/50 to-transparent backdrop-blur-[1px] pointer-events-none"></div>
+
+        <!-- Mobile Menu Overlay (Moved to header for global visibility) -->
+        <div id="mobile-menu" class="absolute top-24 right-6 flex flex-col items-end gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible z-[60]">
+            <a href="#" id="mobile-services" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
+            <a href="#" id="mobile-works" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Works</a>
+            <a href="#" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
+            <button id="mobile-inquire" class="font-serif italic text-lg px-6 py-1 border border-transparent bg-sepia text-paper rounded-full">
+                Inquire
+            </button>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main class="absolute inset-0 z-20 pointer-events-none p-6 md:p-12 h-full w-full">
         <div id="home-page" class="relative h-full w-full">
             <!-- Header removed from here -->
-
-            <!-- Mobile Menu Overlay (Inline Expansion) -->
-            <div id="mobile-menu" class="absolute top-32 right-6 flex flex-col items-end gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible">
-                <a href="#" id="mobile-services" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
-                <a href="#" id="mobile-works" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Works</a>
-                <a href="#" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
-                <button class="font-serif italic text-lg px-6 py-1 border border-transparent bg-sepia text-paper rounded-full">
-                    Inquire
-                </button>
-            </div>
 
             <!-- Hero Text -->
             <div id="hero-block" class="absolute top-24 left-6 right-6 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
@@ -1585,6 +1585,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         let isMenuOpen = false;
+        let menuTimeout = null;
 
         // Load Lottie Animation
         // Note: Using the JSON data provided by user inline to avoid CORS/file path issues if running locally without a server
@@ -1724,7 +1725,9 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         }
 
         function toggleMenu() {
+            if (menuTimeout) clearTimeout(menuTimeout);
             isMenuOpen = !isMenuOpen;
+            
             if (isMenuOpen) {
                 // Open Menu
                 mobileMenu.classList.remove('invisible', 'opacity-0', 'translate-y-[-10px]');
@@ -1737,7 +1740,10 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 // Close Menu
                 mobileMenu.classList.add('opacity-0', 'translate-y-[-10px]');
                 mobileMenu.classList.remove('opacity-100', 'translate-y-0');
-                setTimeout(() => mobileMenu.classList.add('invisible'), 300);
+                menuTimeout = setTimeout(() => {
+                    mobileMenu.classList.add('invisible');
+                    menuTimeout = null;
+                }, 300);
                 
                 // Play from frame 85 to return to hamburger
                 menuAnim.playSegments([85, 140], true);
@@ -2632,9 +2638,10 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         navServices?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         navWorks?.addEventListener('click', (e) => { e.preventDefault(); goToWorks(); });
         navAbout?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); });
-        mobileServices?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); toggleMenu(); });
-        mobileWorks?.addEventListener('click', (e) => { e.preventDefault(); goToWorks(); toggleMenu(); });
-        mobileAbout?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); toggleMenu(); });
+        mobileServices?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToServices(); });
+        mobileWorks?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToWorks(); });
+        mobileAbout?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToAbout(); });
+        document.getElementById('mobile-inquire')?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); });
         btnStartDesktop?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         btnStartMobile?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         logoHome?.addEventListener('click', (e) => { e.preventDefault(); goToHome(); });

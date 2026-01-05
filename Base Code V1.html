@@ -27,7 +27,9 @@ paper: '#FDFCF8',
 ink: '#1C1917',
 sepia: '#78350F',
 stone: '#E7E5E4',
-rust: '#9A3412'
+rust: '#9A3412',
+dark: '#0A0A0A',
+gold: '#D4AF37'
 },
 animation: {
 'fade-in': 'fadeIn 1.2s ease-out forwards',
@@ -108,6 +110,27 @@ background-image:
 linear-gradient(to right, rgba(28, 25, 23, 0.12) 1px, transparent 1px),
 linear-gradient(to bottom, rgba(28, 25, 23, 0.12) 1px, transparent 1px);
 mask-image: radial-gradient(circle at center, black 60%, transparent 95%);
+}
+.grid-overlay-dark {
+background-size: 40px 40px;
+background-image:
+linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+mask-image: radial-gradient(circle at center, black 50%, transparent 90%);
+}
+
+#works-page {
+    background: radial-gradient(circle at 0% 0%, rgba(26, 16, 61, 0.3) 0%, transparent 50%), 
+                radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.15) 0%, transparent 50%),
+                #0A0A0A;
+}
+
+#works-title-renaissance {
+    background: linear-gradient(to right, #C084FC, #6366F1, #38BDF8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block; /* Ensure it's a block for gradient to work properly on the line */
 }
 /* SVG Line Animation */
 .sketch-line {
@@ -480,10 +503,27 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     }
 }
 
+/* Left-to-right split animation for service headlines */
+.char-split-ltr {
+    display: inline-block;
+    clip-path: inset(0 100% 0 0);
+    animation: splitLeftToRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes splitLeftToRight {
+    to {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
 /* Spinning node animations */
 @keyframes spin-slow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+#service-right-content {
+    position: relative;
 }
 
 @keyframes spin-reverse {
@@ -576,6 +616,58 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     );
     transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     animation: slowSpin 25s linear infinite;
+}
+
+/* Header Dark Mode Integration */
+header.header-dark .absolute.inset-x-0.top-0 {
+    background-image: linear-gradient(to bottom, #0A0A0A, rgba(10, 10, 10, 0.9), transparent) !important;
+}
+
+header.header-dark #logo-home span {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+header.header-dark #logo-home .w-8.h-8, 
+header.header-dark #logo-home .w-10.h-10 {
+    background-color: #0A0A0A !important;
+    border-color: #9A3412 !important; /* Rust accent on logo border */
+}
+
+header.header-dark nav a {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+header.header-dark nav a:hover {
+    color: #9A3412 !important; /* Rust accent on hover */
+}
+
+header.header-dark #nav-inquire {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+header.header-dark #nav-inquire:hover {
+    background: #ffffff !important;
+    color: #0A0A0A !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Mobile Menu Integration for Dark Header */
+header.header-dark #mobile-menu a {
+    color: #ffffff !important;
+}
+
+header.header-dark #mobile-menu button {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+header.header-dark #mobile-menu button:hover {
+    background: #ffffff !important;
+    color: #0A0A0A !important;
 }
 </style>
 <script>
@@ -775,7 +867,6 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                                     <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink transition-opacity duration-300">
                                         M7.4<br>KINETIC<br>LABS
                                     </h4>
-                                    <span id="service-poster-num" class="text-neutral-700 font-mono text-lg font-bold">+02</span>
                                 </div>
                             
                             <!-- Central Content Area (Visualization, Subtext) -->
@@ -1068,9 +1159,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     <!-- Right: Details -->
                     <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent relative">
                         <div id="service-right-content">
-                            <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight mb-6">
-                                <span class="text-neutral-400">V7.</span>DEVELOPMENT
-                            </h3>
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+                                    <span class="text-neutral-400">V7.</span>DEVELOPMENT
+                                </h3>
+                                <span id="service-poster-num" class="text-neutral-700 font-mono text-lg font-bold" style="padding-left: 20px; padding-right: 20px;">+02</span>
+                            </div>
                             <div class="w-12 h-0.5 bg-neutral-300 mb-6"></div>
                             
                             <div id="service-right-details" class="space-y-6 text-neutral-700">
@@ -1088,82 +1182,84 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     </section>
 
     <!-- Works Page (initially hidden) -->
-    <section id="works-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-transparent">
-        <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
+    <section id="works-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-dark">
+        <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
+        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
+        
         <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
             <!-- Grid Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[800px]">
                 
-                <!-- Sidebar Info -->
-                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-200 border-r pt-8 pr-8 pb-8 pl-8 relative justify-between">
+                <!-- Sidebar Info (Dark Mode) -->
+                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-8 pr-8 pb-8 pl-8 relative justify-between">
                     <div class="">
                         <div class="flex items-center gap-3 mb-8">
                             <span class="w-2 h-2 bg-rust rounded-full animate-pulse shadow-[0_0_10px_rgba(154,52,18,0.3)]"></span>
                             <span id="works-selected-label" class="text-xs font-bold text-rust tracking-widest uppercase font-mono">Selected Works</span>
                         </div>
                         
-                        <h3 class="text-4xl lg:text-5xl font-serif text-ink tracking-tight leading-none mb-6">
+                        <h3 class="text-4xl lg:text-5xl font-serif text-white tracking-tight leading-none mb-6">
                             <span id="works-title-digital">Digital</span>
-                            <span id="works-title-renaissance" class="text-neutral-400 italic font-light text-3xl lg:text-4xl block mt-1">Renaissance</span>
+                            <span id="works-title-renaissance" class="italic font-light text-3xl lg:text-4xl block mt-1">Renaissance</span>
                         </h3>
                         
-                        <div class="text-neutral-600 text-sm leading-relaxed mb-8 font-sans font-light max-w-xs">
+                        <div class="text-neutral-400 text-sm leading-relaxed mb-8 font-sans font-light max-w-xs">
                             <span id="works-intro" class="opacity-0 block md:inline">Every venture needs</span>
-                            <span id="works-four-things" class="italic font-serif text-ink text-base block md:inline">four things:</span>
+                            <span id="works-four-things" class="italic font-serif text-neutral-300 text-base block md:inline">four things:</span>
                             <div class="mt-3 flex flex-col gap-y-1.5 font-mono text-[10px] uppercase tracking-widest text-rust font-bold overflow-hidden">
                                 <span class="works-pillar flex items-center gap-3">
-                                    <span class="text-neutral-500 font-bold">01</span>
+                                    <span class="text-white font-bold">01</span>
                                     Offerings
                                 </span>
                                 <span class="works-pillar flex items-center gap-3">
-                                    <span class="text-neutral-500 font-bold">02</span>
+                                    <span class="text-white font-bold">02</span>
                                     Marketing
                                 </span>
                                 <span class="flex items-center gap-3 works-pillar">
-                                    <span class="text-neutral-500 font-bold">03</span>
+                                    <span class="text-white font-bold">03</span>
                                     Sales
                                 </span>
                                 <span class="flex items-center gap-3 works-pillar">
-                                    <span class="text-neutral-500 font-bold">04</span>
+                                    <span class="text-white font-bold">04</span>
                                     Operations
                                 </span>
                             </div>
                         </div>
 
                         <div class="pt-4 mb-8">
-                            <a href="#" class="group inline-flex items-center justify-between w-full p-4 border border-neutral-300 hover:border-rust hover:bg-rust/5 transition-all duration-300 bg-transparent max-w-xs">
-                                <span class="text-xs font-bold text-ink tracking-widest uppercase group-hover:text-rust transition-colors font-mono">View Archive</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-400 group-hover:text-rust group-hover:translate-x-1 transition-all"></i>
+                            <a href="#" class="group inline-flex items-center justify-between w-full p-4 border border-rust/20 hover:border-rust hover:bg-rust/5 transition-all duration-300 bg-transparent max-w-xs">
+                                <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase group-hover:text-rust transition-colors font-mono">View Archive</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-600 group-hover:text-rust group-hover:translate-x-1 transition-all"></i>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Projects Grid Container (White Edge) -->
-                <div class="lg:col-span-9 bg-paper rounded-tr-[40px] rounded-br-[40px] overflow-hidden lg:pr-12">
-                    <!-- Internal Grid (Purple Gaps) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 bg-[#1a103d] gap-[1px] h-full">
+                <!-- Projects Grid Container (Dark Mode - Seamless) -->
+                <div class="lg:col-span-9 bg-transparent overflow-hidden lg:pr-12">
+                    <!-- Internal Grid (Dark Borders) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 bg-neutral-900 gap-[1px] h-full">
                         
                         <!-- Project 01 -->
-                        <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                        <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
                         <!-- Image -->
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg');"></div>
-                        <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
                         <!-- Number -->
-                        <span class="absolute top-6 right-6 text-xs font-mono text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">01</span>
+                        <span class="absolute top-6 right-6 text-xs font-mono text-white/40 border border-white/10 px-2 py-1 backdrop-blur-sm">01</span>
 
                         <!-- Content -->
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
-                                    <span class="inline-block text-[10px] font-bold text-paper tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
+                                    <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
                                         FinTech
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1 group-hover:text-white transition-colors">Nova Protocol</h4>
-                                <p class="text-neutral-300 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
+                                <p class="text-neutral-400 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
                                     Real-time data visualization infrastructure for decentralized markets.
                                 </p>
                             </div>
@@ -1171,22 +1267,22 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 02 -->
-                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e1b99b27-460a-4be5-a724-b983cad2af0c_1600w.jpg');"></div>
-                        <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
-                        <span class="absolute top-6 right-6 text-xs font-mono text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">02</span>
+                        <span class="absolute top-6 right-6 text-xs font-mono text-white/40 border border-white/10 px-2 py-1 backdrop-blur-sm">02</span>
 
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
-                                    <span class="inline-block text-[10px] font-bold text-ink tracking-widest uppercase bg-paper px-2 py-1 rounded-sm shadow-lg shadow-black/20">
+                                    <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-paper px-2 py-1 rounded-sm shadow-lg shadow-black/20">
                                         AI / Neural
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1">Cortex System</h4>
-                                <p class="text-neutral-300 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
+                                <p class="text-neutral-400 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
                                     Generative neural network interface design and identity system.
                                 </p>
                             </div>
@@ -1194,22 +1290,22 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 03 -->
-                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fba5101b-3f79-421e-85cd-3bfd94dcd647_1600w.jpg');"></div>
-                        <div class="absolute inset-0 bg-ink/80 group-hover:bg-ink/20 transition-colors duration-500 mix-blend-multiply"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
-                        <span class="absolute top-6 right-6 text-xs font-mono text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">03</span>
+                        <span class="absolute top-6 right-6 text-xs font-mono text-white/40 border border-white/10 px-2 py-1 backdrop-blur-sm">03</span>
 
                         <div class="absolute bottom-0 left-0 w-full p-8 md:p-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
-                                    <span class="inline-block text-[10px] font-bold text-paper tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
+                                    <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
                                         Automotive
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1">Hyperion EV</h4>
-                                <p class="text-neutral-300 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
+                                <p class="text-neutral-400 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
                                     In-cabin HMI design and global launch campaign visuals.
                                 </p>
                             </div>
@@ -1217,25 +1313,27 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                     </div>
 
                     <!-- Project 04 (More) -->
-                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-[#F5F5F0] hover:bg-neutral-200 transition-colors duration-500">
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-neutral-900 hover:bg-neutral-800 transition-colors duration-500">
                         <!-- Grid Pattern -->
-                        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
                         
-                        <span class="absolute top-6 right-6 text-xs font-mono text-neutral-400 border border-neutral-300 px-2 py-1">04</span>
+                        <span class="absolute top-6 right-6 text-xs font-mono text-neutral-600 border border-neutral-700 px-2 py-1">04</span>
 
                         <div class="absolute inset-0 flex items-center justify-center p-12">
                              <div class="text-center">
-                                <div class="w-16 h-16 rounded-full border border-neutral-300 flex items-center justify-center mx-auto mb-6 text-neutral-400 group-hover:text-ink group-hover:border-rust group-hover:bg-rust group-hover:text-paper transition-all duration-300 scale-100 group-hover:scale-110">
+                                <div class="w-16 h-16 rounded-full border border-neutral-700 flex items-center justify-center mx-auto mb-6 text-neutral-500 group-hover:text-dark group-hover:border-rust group-hover:bg-rust group-hover:text-white transition-all duration-300 scale-100 group-hover:scale-110">
                                     <i data-lucide="plus" class="w-6 h-6"></i>
                                 </div>
-                                <h4 class="text-xl font-semibold text-ink tracking-tight mb-2 group-hover:text-rust transition-colors">Project Vault</h4>
-                                <p class="text-xs text-neutral-500 uppercase tracking-widest font-mono">Explore All 84+ Cases</p>
+                                <h4 class="text-xl font-semibold text-neutral-300 tracking-tight mb-2 group-hover:text-rust transition-colors">Project Vault</h4>
+                                <p class="text-xs text-neutral-600 uppercase tracking-widest font-mono">Explore All 84+ Cases</p>
                              </div>
                         </div>
                     </div>
                     
                 </div> <!-- End Internal Grid -->
-            </div> <!-- End Projects Grid Container (White Edge) -->
+            </div> <!-- End Projects Grid Container -->
+        </div>
+    </section>
         </div>
     </section>
 
@@ -1966,12 +2064,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
             el.innerHTML = '';
             
             if (preserveClasses) {
-                // For elements that already have their own classes (like h2 headline)
+                // For service headline - left-to-right split animation
                 [...text].forEach((char, i) => {
                     const span = document.createElement('span');
                     span.textContent = char === ' ' ? '\u00A0' : char;
-                    span.className = 'char-slide';
-                    span.style.animationDelay = `${i * 0.02}s`; 
+                    span.className = 'char-split-ltr';
+                    span.style.animationDelay = `${i * 0.03}s`; 
                     el.appendChild(span);
                 });
             } else {
@@ -2395,6 +2493,15 @@ stroke-dasharray: 4, 4; opacity: 0.4;
                 'works': worksPage,
                 'about': aboutPage
             };
+
+            // Toggle header dark mode
+            const header = document.querySelector('header');
+            if (targetPageId === 'works') {
+                header.classList.add('header-dark');
+            } else {
+                header.classList.remove('header-dark');
+            }
+
             Object.keys(pages).forEach(key => {
                 if (key === targetPageId) {
                     pages[key].style.display = 'block';

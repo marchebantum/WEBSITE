@@ -126,11 +126,11 @@ mask-image: radial-gradient(circle at center, black 50%, transparent 90%);
 }
 
 #works-title-renaissance {
-    background: linear-gradient(to right, #C084FC, #6366F1, #38BDF8);
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 22%, #C084FC 38%, #6366F1 68%, #38BDF8 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: block; /* Ensure it's a block for gradient to work properly on the line */
+    display: inline-block; /* Changed from block to inline-block */
 }
 /* SVG Line Animation */
 .sketch-line {
@@ -488,32 +488,17 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     font-weight: 700;
 }
 
-/* Character-by-character animation for carousel titles */
-.char-slide {
-    display: inline-block;
+/* Simple reveal animation for headlines */
+.reveal-text {
     opacity: 0;
-    transform: translateY(-20px);
-    animation: slideDown 0.5s ease-out forwards;
-}
-
-@keyframes slideDown {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Left-to-right split animation for service headlines */
-.char-split-ltr {
-    display: inline-block;
     clip-path: inset(0 100% 0 0);
-    animation: splitLeftToRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: revealEffect 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    overflow: visible;
 }
 
-@keyframes splitLeftToRight {
-    to {
-        clip-path: inset(0 0% 0 0);
-    }
+@keyframes revealEffect {
+    from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-10px); }
+    to { opacity: 1; clip-path: inset(0 0% 0 0); transform: translateX(0); }
 }
 
 /* Spinning node animations */
@@ -765,7 +750,7 @@ header.header-dark #mobile-menu button:hover {
             <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-3 mb-4 md:mb-6">
                     <div class="h-px w-8 md:w-12 bg-rust"></div>
-                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Consulting | Training | Governance</span>
+                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Training | Consulting | Governance</span>
                 </div>
                 
                 <!-- Title - Bigger on mobile -->
@@ -817,43 +802,104 @@ header.header-dark #mobile-menu button:hover {
     </main>
 
     <!-- Services Page (initially hidden) -->
-    <section id="services-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-transparent">
-        <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
-        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="h-px w-12 bg-rust"></div>
-                <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">Services</span>
-            </div>
-            <h2 id="service-headline" class="font-serif text-4xl md:text-6xl text-ink leading-tight tracking-tight mb-12">'Form follows function.'</h2>
+    <section id="services-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-paper">
+        <!-- Seamless Atmospheric Background (Light Mode) - Stretches to cover all scrollable content -->
+        <div id="services-bg-container" class="absolute top-0 left-0 right-0 pointer-events-none z-0">
+            <div class="absolute inset-0 grid-overlay opacity-40"></div>
+            <!-- Rust on the left -->
+            <div class="absolute inset-0 bg-[radial-gradient(1200px_circle_at_0%_30%,rgba(154,52,18,0.25)_0%,transparent_75%)]"></div>
+            <!-- Purple on the bottom right -->
+            <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
+        </div>
+        
+        <div class="relative px-6 md:px-12 pt-20 md:pt-36 pb-6 md:pb-8 z-10">
+            <!-- Integrated Header (No Box) -->
+            <div class="relative mb-6 md:mb-8 group">
+                <!-- Subtly Integrated Tech Sketch Photo -->
+                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-[url('isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none"></div>
+                
+                <!-- Technical/Architectural Elements (Light Mode) -->
+                <div class="absolute inset-0 pointer-events-none opacity-50">
+                    <!-- Blueprint Corner Markers -->
+                    <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-rust/10"></div>
+                    <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2 border-rust/10"></div>
+                    
+                    <!-- Circular Drafting Element -->
+                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-30">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.4"></path>
+                        </svg>
+                    </div>
 
-            <!-- Services / Tabs adapted -->
-            <div class="space-y-10">
-                <!-- Tabs Navigation -->
-                <div class="grid grid-cols-2 md:grid-cols-4 border border-neutral-300">
+                    <!-- Tech Lines -->
+                    <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-rust/10 to-transparent"></div>
+                    <div class="absolute right-1/4 top-0 w-px h-48 bg-gradient-to-b from-rust/10 to-transparent"></div>
+                </div>
+
+                <div class="flex flex-col relative z-10">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-rust rounded-full animate-pulse shadow-[0_0_8px_rgba(154,52,18,0.2)]"></span>
+                                <span id="service-protocol-label" class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-rust bg-rust shadow-md">Services</span>
+                            </div>
+
+                            <!-- Relocated Archival Marker -->
+                            <div class="flex flex-col border-l border-rust/20 pl-4 ml-2 mt-1">
+                                <span id="service-archival-num" class="font-mono text-[10px] text-rust font-bold tracking-[0.2em] leading-none">// 01</span>
+                                <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1">Ref. Archive_SYS.v2</span>
+                            </div>
+
+                            <div class="h-px flex-1 bg-gradient-to-r from-rust/80 via-rust/40 to-transparent"></div>
+                            <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Status: Synchronized</span>
+                        </div>
+                        
+                        <div class="relative inline-block">
+                            <div aria-hidden="true" class="absolute -inset-x-6 -inset-y-4 bg-[radial-gradient(520px_circle_at_28%_40%,rgba(249,115,22,0.05)_0%,transparent_72%)] blur-2xl opacity-60"></div>
+                            <h2 id="service-headline" class="font-serif text-[clamp(2.6rem,6vw,4.35rem)] text-ink leading-[1.08] tracking-tight max-w-4xl italic pr-2">
+                                'Form follows function.'
+                            </h2>
+                        </div>
+                        
+                        <div class="mt-8 flex items-center gap-4 opacity-90">
+                            <div class="h-[1px] w-12 bg-rust/40"></div>
+                            <span class="font-mono text-[8px] text-neutral-700 tracking-[0.3em] uppercase font-medium">Humanism // Structure // Future</span>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-rust/30 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services / Tabs Navigation (Light Mode) -->
+            <div class="space-y-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 border border-neutral-300 bg-white/40 backdrop-blur-sm">
                     <div onclick="updateService(0)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group active border-r border-neutral-300 last:border-r-0">
-                        <div class="service-tab-item-dot"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2">// 01</span>
-                        <span class="tab-label" data-original="Development">Development</span>
+                        <div class="service-tab-item-dot bg-rust"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-400">// 01</span>
+                        <span class="tab-label text-ink" data-original="Development">Development</span>
                     </div>
                     <div onclick="updateService(1)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-neutral-300 last:border-r-0">
-                        <div class="service-tab-item-dot"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2">// 02</span>
-                        <span class="tab-label" data-original="Consulting">Consulting</span>
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 02</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Training">Training</span>
                     </div>
                     <div onclick="updateService(2)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-neutral-300 last:border-r-0">
-                        <div class="service-tab-item-dot"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2">// 03</span>
-                        <span class="tab-label" data-original="Training">Training</span>
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 03</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Consulting">Consulting</span>
                     </div>
                     <div onclick="updateService(3)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-neutral-300 last:border-r-0">
-                        <div class="service-tab-item-dot"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2">// 04</span>
-                        <span class="tab-label" data-original="Governance">Governance</span>
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 04</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Governance">Governance</span>
                     </div>
                 </div>
 
-                <!-- Active Content -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 border border-neutral-300 bg-transparent shadow-[0_4px_16px_rgba(0,0,0,0.06)] rounded-2xl overflow-hidden">
+                <!-- Active Content Card (Light Mode) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 border border-neutral-300 bg-white/40 backdrop-blur-md shadow-lg rounded-2xl overflow-hidden">
                     <!-- Left: Visual -->
                     <div class="relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
                         <div id="service-bg" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop')] z-0"></div>
@@ -1163,7 +1209,7 @@ header.header-dark #mobile-menu button:hover {
                     </div>
 
                     <!-- Right: Details -->
-                    <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent relative opacity-80">
+                    <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent relative opacity-95">
                         <div id="service-right-content">
                             <div class="flex justify-between items-start mb-6">
                                 <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
@@ -1192,22 +1238,72 @@ header.header-dark #mobile-menu button:hover {
         <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
         
-        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-6 md:pb-8 z-10">
+            <!-- Integrated Works Header (Dark Mode) -->
+            <div class="relative mb-4 md:mb-12 group">
+                <!-- Subtly Integrated Tech Sketch Photo - Bleeding into background -->
+                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-[url('abstract-portrait-with-geometric-glitch-layers-4k.png')] bg-[length:90%_auto] bg-no-repeat bg-[center_3%] opacity-[0.15] mix-blend-lighten pointer-events-none" style="mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
+                
+                <!-- Technical/Architectural Elements (Dark Mode) -->
+                <div class="absolute inset-0 pointer-events-none opacity-50">
+                    <!-- Blueprint Corner Markers -->
+                    <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-violet-500/20"></div>
+                    <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2 border-violet-500/20"></div>
+                    
+                    <!-- Circular Drafting Element -->
+                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-30">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.4"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Tech Lines -->
+                    <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-violet-500/20 to-transparent"></div>
+                    <div class="absolute right-1/4 top-0 w-px h-48 bg-gradient-to-b from-violet-500/20 to-transparent"></div>
+                </div>
+
+                <div class="flex flex-col relative z-10">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3 md:mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-violet-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(139,92,246,0.3)]"></span>
+                                <span id="works-protocol-label" class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-violet-500 bg-violet-600 shadow-md">Works</span>
+                            </div>
+
+                            <!-- Archival Marker (// 02) -->
+                            <div class="flex flex-col border-l border-violet-500/20 pl-4 ml-2 mt-1">
+                                <span id="works-archival-num" class="font-mono text-[10px] text-violet-400 font-bold tracking-[0.2em] leading-none">// 02</span>
+                                <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1 hidden sm:block">Ref. Portfolio_SYS.v4</span>
+                            </div>
+
+                            <div class="h-px flex-1 bg-gradient-to-r from-violet-500/80 via-violet-500/40 to-transparent"></div>
+                            <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Archive: Active</span>
+                        </div>
+                        
+                        <div class="relative">
+                            <div aria-hidden="true" class="absolute -inset-x-6 -inset-y-4 bg-[radial-gradient(520px_circle_at_28%_40%,rgba(139,92,246,0.1)_0%,transparent_72%)] blur-2xl opacity-60"></div>
+                            <h2 id="works-main-headline" class="font-serif text-[clamp(2.2rem,9vw,3.6rem)] md:text-[clamp(2.6rem,6vw,4.35rem)] text-white leading-[1.02] md:leading-[1.08] tracking-tight max-w-4xl italic pr-4 flex flex-wrap items-baseline gap-x-4">
+                                <span id="works-title-digital">Digital</span>
+                                <span id="works-title-renaissance" class="italic font-light pr-2">Renaissance</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Grid Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[800px]">
+            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-0 lg:min-h-[800px]">
                 
                 <!-- Sidebar Info (Dark Mode) -->
-                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-8 pr-8 pb-8 pl-8 relative justify-between">
+                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-8 pr-8 pb-8 pl-8 relative justify-start lg:justify-between">
                     <div class="">
                         <div class="flex items-center gap-3 mb-8">
                             <span class="w-2 h-2 bg-rust rounded-full animate-pulse shadow-[0_0_10px_rgba(154,52,18,0.3)]"></span>
                             <span id="works-selected-label" class="text-xs font-bold text-rust tracking-widest uppercase font-mono">Selected Works</span>
                         </div>
-                        
-                        <h3 class="text-4xl lg:text-5xl font-serif text-white tracking-tight leading-none mb-6">
-                            <span id="works-title-digital">Digital</span>
-                            <span id="works-title-renaissance" class="italic font-light text-3xl lg:text-4xl block mt-1">Renaissance</span>
-                        </h3>
                         
                         <div class="text-neutral-400 text-sm leading-relaxed mb-8 font-sans font-light max-w-xs">
                             <span id="works-intro" class="opacity-0 block md:inline">Every venture needs</span>
@@ -1232,7 +1328,7 @@ header.header-dark #mobile-menu button:hover {
                             </div>
                         </div>
 
-                        <div class="pt-4 mb-8">
+                        <div class="pt-4 mb-8 hidden md:block">
                             <a href="#" class="group inline-flex items-center justify-between w-full p-4 border border-rust/20 hover:border-rust hover:bg-rust/5 transition-all duration-300 bg-transparent max-w-xs">
                                 <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase group-hover:text-rust transition-colors font-mono">View Archive</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-600 group-hover:text-rust group-hover:translate-x-1 transition-all"></i>
@@ -1249,7 +1345,7 @@ header.header-dark #mobile-menu button:hover {
                         <!-- Project 01 -->
                         <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
                         <!-- Image -->
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg');"></div>
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e1b99b27-460a-4be5-a724-b983cad2af0c_1600w.jpg');"></div>
                         <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1261,7 +1357,7 @@ header.header-dark #mobile-menu button:hover {
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
                                     <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
-                                        FinTech
+                                        Offerings
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1 group-hover:text-white transition-colors">Nova Protocol</h4>
@@ -1274,7 +1370,7 @@ header.header-dark #mobile-menu button:hover {
 
                     <!-- Project 02 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e1b99b27-460a-4be5-a724-b983cad2af0c_1600w.jpg');"></div>
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('smartphone-with-vibrant-gradient-screen-in-hand-4k.jpeg'); background-size: 140%; background-position: center;"></div>
                         <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1284,7 +1380,7 @@ header.header-dark #mobile-menu button:hover {
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
                                     <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-paper px-2 py-1 rounded-sm shadow-lg shadow-black/20">
-                                        AI / Neural
+                                        Marketing
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1">Cortex System</h4>
@@ -1297,7 +1393,7 @@ header.header-dark #mobile-menu button:hover {
 
                     <!-- Project 03 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fba5101b-3f79-421e-85cd-3bfd94dcd647_1600w.jpg');"></div>
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('vibrant-abstract-gradient-light-pillars-4k.jpeg');"></div>
                         <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1307,7 +1403,7 @@ header.header-dark #mobile-menu button:hover {
                             <div class="flex flex-col gap-2">
                                 <div class="overflow-hidden mb-2">
                                     <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-rust px-2 py-1 rounded-sm shadow-lg shadow-rust/20">
-                                        Automotive
+                                        Sales
                                     </span>
                                 </div>
                                 <h4 class="text-3xl font-semibold text-white tracking-tight mb-1">Hyperion EV</h4>
@@ -1318,21 +1414,26 @@ header.header-dark #mobile-menu button:hover {
                         </div>
                     </div>
 
-                    <!-- Project 04 (More) -->
-                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-neutral-900 hover:bg-neutral-800 transition-colors duration-500">
-                        <!-- Grid Pattern -->
-                        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <!-- Project 04 -->
+                    <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 ease-out" style="background-image: url('futuristic-glass-ui-panels-with-neon-gradient-4k.webp'); background-size: 115%; background-position: center;"></div>
+                        <div class="absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
-                        <span class="absolute top-6 right-6 text-xs font-mono text-neutral-600 border border-neutral-700 px-2 py-1">04</span>
+                        <span class="absolute top-6 right-6 text-xs font-mono text-white/40 border border-white/10 px-2 py-1 backdrop-blur-sm">04</span>
 
-                        <div class="absolute inset-0 flex items-center justify-center p-12">
-                             <div class="text-center">
-                                <div class="w-16 h-16 rounded-full border border-neutral-700 flex items-center justify-center mx-auto mb-6 text-neutral-500 group-hover:text-dark group-hover:border-rust group-hover:bg-rust group-hover:text-white transition-all duration-300 scale-100 group-hover:scale-110">
-                                    <i data-lucide="plus" class="w-6 h-6"></i>
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <div class="flex flex-col gap-2">
+                                <div class="overflow-hidden mb-2">
+                                    <span class="inline-block text-[10px] font-bold text-dark tracking-widest uppercase bg-paper px-2 py-1 rounded-sm shadow-lg shadow-black/20">
+                                        Operations
+                                    </span>
                                 </div>
-                                <h4 class="text-xl font-semibold text-neutral-300 tracking-tight mb-2 group-hover:text-rust transition-colors">Project Vault</h4>
-                                <p class="text-xs text-neutral-600 uppercase tracking-widest font-mono">Explore All 84+ Cases</p>
-                             </div>
+                                <h4 class="text-3xl font-semibold text-white tracking-tight mb-1">Kessle</h4>
+                                <p class="text-neutral-400 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed translate-y-2 group-hover:translate-y-0 transform">
+                                    Generative neural network interface design and identity system.
+                                </p>
+                            </div>
                         </div>
                     </div>
                     
@@ -1346,7 +1447,7 @@ header.header-dark #mobile-menu button:hover {
     <!-- About Us Page (initially hidden) -->
     <section id="about-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-paper">
         <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60 z-0"></div>
-        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-16 md:pb-20 z-10">
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-6 md:pb-8 z-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="h-px w-12 bg-rust"></div>
                 <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em]">About Us</span>
@@ -1885,26 +1986,10 @@ header.header-dark #mobile-menu button:hover {
             },
             {
                 id: '02',
-                name: 'Consulting',
-                headline: "'Measure twice, cut once.'",
-                posterTitle: 'M7.1<br>STRATEGY<br>LABS',
-                posterNum: '+02',
-                category: 'Consulting',
-                suffix: 'CONSULTING',
-                image: 'https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80',
-                staticDescription: 'We guide organisations through AI transformation with strategic competitor analysis, readiness assessments, and goal-setting frameworks - ensuring you adopt intelligently, not recklessly.',
-                slides: [
-                    { title: 'STRATEGIC', subtext: 'Market positioning and competitive analysis for the AI era.', category: 'STRATEGY & POSITIONING' },
-                    { title: 'PRAGMATIC', subtext: 'AI readiness assessments and phased implementation roadmaps.', category: 'IMPLEMENTATION & PLANNING' },
-                    { title: 'ADAPTIVE', subtext: 'Ongoing advisory as your capabilities and the landscape evolve.', category: 'CONTINUOUS ADVISORY' }
-                ]
-            },
-            {
-                id: '03',
                 name: 'Training',
                 headline: "'Teach a man to fish.'",
                 posterTitle: 'M7.8<br>VISUAL<br>LABS',
-                posterNum: '+03',
+                posterNum: '+02',
                 category: 'Simulation',
                 suffix: 'TRAINING',
                 image: 'https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80',
@@ -1913,6 +1998,22 @@ header.header-dark #mobile-menu button:hover {
                     { title: 'FOUNDATIONAL', subtext: 'AI fundamentals, enterprise tool mastery (ChatGPT, Copilot, Gemini).', category: 'AI ESSENTIALS' },
                     { title: 'APPLIED', subtext: 'Workflow automation and no-code/low-code system building.', category: 'PRACTICAL AUTOMATION' },
                     { title: 'TECHNICAL', subtext: 'Full-stack training with templates, frameworks, and on-going support.', category: 'FULL-STACK DEVELOPMENT' }
+                ]
+            },
+            {
+                id: '03',
+                name: 'Consulting',
+                headline: "'Measure twice, cut once.'",
+                posterTitle: 'M7.1<br>STRATEGY<br>LABS',
+                posterNum: '+03',
+                category: 'Consulting',
+                suffix: 'CONSULTING',
+                image: 'https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80',
+                staticDescription: 'We guide organisations through AI transformation with strategic competitor analysis, readiness assessments, and goal-setting frameworks - ensuring you adopt intelligently, not recklessly.',
+                slides: [
+                    { title: 'STRATEGIC', subtext: 'Market positioning and competitive analysis for the AI era.', category: 'STRATEGY & POSITIONING' },
+                    { title: 'PRAGMATIC', subtext: 'AI readiness assessments and phased implementation roadmaps.', category: 'IMPLEMENTATION & PLANNING' },
+                    { title: 'ADAPTIVE', subtext: 'Ongoing advisory as your capabilities and the landscape evolve.', category: 'CONTINUOUS ADVISORY' }
                 ]
             },
             {
@@ -2064,32 +2165,19 @@ header.header-dark #mobile-menu button:hover {
             }, 30);
         }
 
-        function animateText(elementId, text, preserveClasses = false) {
+        function animateText(elementId, text, isHeadline = false) {
             const el = document.getElementById(elementId);
-            if (!el) return; // Safety check
-            el.innerHTML = '';
+            if (!el) return;
             
-            if (preserveClasses) {
-                // For service headline - left-to-right split animation
-                [...text].forEach((char, i) => {
-                    const span = document.createElement('span');
-                    span.textContent = char === ' ' ? '\u00A0' : char;
-                    span.className = 'char-split-ltr';
-                    span.style.animationDelay = `${i * 0.03}s`; 
-                    el.appendChild(span);
-                });
+            if (isHeadline) {
+                // Simple reveal for service headlines
+                el.innerText = text;
+                el.classList.remove('reveal-text');
+                void el.offsetWidth; // trigger reflow
+                el.classList.add('reveal-text');
             } else {
-                // For carousel titles that need wrapper with size classes
-                const wrapper = document.createElement('span');
-                wrapper.className = 'text-3xl md:text-4xl';
-                [...text].forEach((char, i) => {
-                    const span = document.createElement('span');
-                    span.textContent = char === ' ' ? '\u00A0' : char;
-                    span.className = 'char-slide';
-                    span.style.animationDelay = `${i * 0.02}s`; 
-                    wrapper.appendChild(span);
-                });
-                el.appendChild(wrapper);
+                // Keep slide titles simple but matching aesthetic
+                el.innerHTML = `<span class="text-3xl md:text-4xl reveal-text">${text}</span>`;
             }
         }
 
@@ -2144,10 +2232,19 @@ header.header-dark #mobile-menu button:hover {
                 
                 // Show/hide node visualization for SECURE slide
                 if (nodeViz) {
+                    const nodeInner = nodeViz.querySelector('div');
                     if (slide.title === 'SECURE') {
                         nodeViz.classList.remove('hidden');
+                        if (nodeInner) {
+                            nodeInner.classList.remove('w-28', 'h-28');
+                            nodeInner.classList.add('w-36', 'h-36');
+                        }
                     } else {
                         nodeViz.classList.add('hidden');
+                        if (nodeInner) {
+                            nodeInner.classList.add('w-28', 'h-28');
+                            nodeInner.classList.remove('w-36', 'h-36', 'w-44', 'h-44');
+                        }
                     }
                 }
                 
@@ -2293,7 +2390,10 @@ header.header-dark #mobile-menu button:hover {
                     subtextContainer.classList.add('mt-2');
                     subtextEl.classList.remove('translate-y-4', 'translate-y-6', 'translate-y-8');
                     
-                    if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
+                    if (slide.title === 'SECURE') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-4');
+                    } else if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
                         subtextContainer.classList.remove('mt-2');
                         subtextContainer.classList.add('mt-4');
                         subtextEl.classList.add('translate-y-4');
@@ -2330,7 +2430,9 @@ header.header-dark #mobile-menu button:hover {
                     // Adjust subtext position per slide
                     subtextEl.classList.remove('-top-6', 'top-0', '-top-2', 'top-[4.5rem]', 'top-2', 'top-8', 'top-20', 'top-10', 'top-12', 'top-14', 'top-18', 'top-24', 'top-[4.75rem]');
                     if (slide.title === 'SECURE') {
-                        subtextEl.classList.add('top-0');
+                        subtextEl.classList.add('-top-2');
+                    } else if (slide.title === 'BEAUTIFUL') {
+                        subtextEl.classList.add('-top-2');
                     } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
                         subtextEl.classList.add('top-8');
                     } else if (slide.title === 'APPLIED' && data.name === 'Training') {
@@ -2425,6 +2527,17 @@ header.header-dark #mobile-menu button:hover {
 
             // Animate headline change with character-by-character animation
             animateText('service-headline', data.headline, true);
+            
+            // Update archival number and protocol label
+            const archivalNum = document.getElementById('service-archival-num');
+            if (archivalNum) {
+                archivalNum.innerText = `// ${(index + 1).toString().padStart(2, '0')}`;
+            }
+            
+            const protocolLabel = document.getElementById('service-protocol-label');
+            if (protocolLabel) {
+                protocolLabel.innerText = 'Services';
+            }
 
             document.getElementById('service-poster-num').innerText = data.posterNum;
             
@@ -2440,6 +2553,15 @@ header.header-dark #mobile-menu button:hover {
                     tab.classList.remove('active');
                 }
             });
+
+            // Sync background height after content updates
+            setTimeout(() => {
+                const servicesPage = document.getElementById('services-page');
+                const bgContainer = document.getElementById('services-bg-container');
+                if (servicesPage && bgContainer) {
+                    bgContainer.style.height = servicesPage.scrollHeight + 'px';
+                }
+            }, 300);
         }
 
         function nextSlide() {
@@ -2472,6 +2594,24 @@ header.header-dark #mobile-menu button:hover {
         });
 
         updateService(0);
+
+        // Sync services background height function
+        function syncServicesBackgroundHeight() {
+            const servicesPage = document.getElementById('services-page');
+            const bgContainer = document.getElementById('services-bg-container');
+            if (servicesPage && bgContainer && servicesPage.style.display !== 'none') {
+                bgContainer.style.height = servicesPage.scrollHeight + 'px';
+            }
+        }
+
+        // Resize observer for services page to handle dynamic content changes
+        const servicesPageEl = document.getElementById('services-page');
+        if (servicesPageEl && window.ResizeObserver) {
+            const resizeObserver = new ResizeObserver(() => {
+                syncServicesBackgroundHeight();
+            });
+            resizeObserver.observe(servicesPageEl);
+        }
 
         // --- Page Transitions ---
         const homePage = document.getElementById('home-page');
@@ -2512,6 +2652,17 @@ header.header-dark #mobile-menu button:hover {
                 if (key === targetPageId) {
                     pages[key].style.display = 'block';
                     pages[key].style.pointerEvents = 'auto';
+                    
+                    // Sync services background height with content
+                    if (key === 'services') {
+                        setTimeout(() => {
+                            const servicesPage = document.getElementById('services-page');
+                            const bgContainer = document.getElementById('services-bg-container');
+                            if (servicesPage && bgContainer) {
+                                bgContainer.style.height = servicesPage.scrollHeight + 'px';
+                            }
+                        }, 100);
+                    }
                 } else {
                     pages[key].style.display = 'none';
                     pages[key].style.pointerEvents = 'none';

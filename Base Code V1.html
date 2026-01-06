@@ -821,16 +821,22 @@ header.header-dark #mobile-menu button:hover {
                 <!-- Technical/Architectural Elements (Light Mode) -->
                 <div class="absolute inset-0 pointer-events-none opacity-50">
                     <!-- Blueprint Corner Markers -->
-                    <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-rust/10"></div>
-                    <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2 border-rust/10"></div>
+                    <div class="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #9A3412, #D4AF37) 1;"></div>
+                    <div class="absolute -top-4 -right-4 w-16 h-16 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #9A3412, #D4AF37) 1;"></div>
                     
                     <!-- Circular Drafting Element -->
-                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-30">
+                    <div class="absolute -right-24 -top-24 w-[32rem] h-[32rem] opacity-60">
                         <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
-                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
-                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
-                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
-                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.4"></path>
+                            <defs>
+                                <linearGradient id="drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#9A3412" />
+                                    <stop offset="100%" stop-color="#D4AF37" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15"></circle>
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="url(#drafting-gradient)" stroke-width="0.05" opacity="0.4"></path>
                         </svg>
                     </div>
 
@@ -865,9 +871,9 @@ header.header-dark #mobile-menu button:hover {
                         </div>
                         
                         <div class="mt-8 flex items-center gap-4 opacity-90">
-                            <div class="h-[1px] w-12 bg-rust/40"></div>
+                            <div class="h-[1px] w-12 bg-rust/70"></div>
                             <span class="font-mono text-[8px] text-neutral-700 tracking-[0.3em] uppercase font-medium">Humanism // Structure // Future</span>
-                            <div class="h-[1px] flex-1 bg-gradient-to-r from-rust/30 to-transparent"></div>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-rust/60 to-transparent"></div>
                         </div>
                     </div>
                 </div>
@@ -1247,11 +1253,11 @@ header.header-dark #mobile-menu button:hover {
                 <!-- Technical/Architectural Elements (Dark Mode) -->
                 <div class="absolute inset-0 pointer-events-none opacity-50">
                     <!-- Blueprint Corner Markers -->
-                    <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-violet-500/20"></div>
-                    <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2 border-violet-500/20"></div>
+                    <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #8b5cf6, #f97316) 1;"></div>
+                    <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #8b5cf6, #f97316) 1;"></div>
                     
                     <!-- Circular Drafting Element -->
-                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-30">
+                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-55">
                         <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
                             <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
                             <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
@@ -1279,7 +1285,7 @@ header.header-dark #mobile-menu button:hover {
                                 <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1 hidden sm:block">Ref. Portfolio_SYS.v4</span>
                             </div>
 
-                            <div class="h-px flex-1 bg-gradient-to-r from-violet-500/80 via-violet-500/40 to-transparent"></div>
+                            <div class="h-px flex-1 bg-gradient-to-r from-violet-500/80 via-orange-400/80 to-transparent"></div>
                             <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Archive: Active</span>
                         </div>
                         
@@ -1289,6 +1295,12 @@ header.header-dark #mobile-menu button:hover {
                                 <span id="works-title-digital">Digital</span>
                                 <span id="works-title-renaissance" class="italic font-light pr-2">Renaissance</span>
                             </h2>
+                        </div>
+
+                        <div class="mt-8 flex items-center gap-4 opacity-90">
+                            <div class="h-[1px] w-12 bg-violet-500/40"></div>
+                            <span class="font-mono text-[8px] text-neutral-300 tracking-[0.3em] uppercase font-medium">Humanism // Structure // Future</span>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-violet-500/30 via-orange-400/20 to-transparent"></div>
                         </div>
                     </div>
                 </div>

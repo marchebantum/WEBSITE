@@ -1299,7 +1299,7 @@ header.header-dark #mobile-menu button:hover {
 
                         <div class="mt-8 flex items-center gap-4 opacity-90">
                             <div class="h-[1px] w-12 bg-violet-500/40"></div>
-                            <span class="font-mono text-[8px] text-neutral-300 tracking-[0.3em] uppercase font-medium">Humanism // Structure // Future</span>
+                            <span class="font-mono text-[8px] text-neutral-300 tracking-[0.3em] uppercase font-medium">Soul // Flow // System</span>
                             <div class="h-[1px] flex-1 bg-gradient-to-r from-violet-500/30 via-orange-400/20 to-transparent"></div>
                         </div>
                     </div>
@@ -2181,8 +2181,12 @@ header.header-dark #mobile-menu button:hover {
             const el = document.getElementById(elementId);
             if (!el) return;
             
-            if (isHeadline) {
-                // Simple reveal for service headlines
+            if (isHeadline && elementId === 'service-headline') {
+                el.innerHTML = text.split('').map(c => `<span style="display:inline-block">${c === ' ' ? '\u00A0' : c}</span>`).join('');
+                const chars = el.querySelectorAll('span');
+                gsap.fromTo(chars, { opacity: 0, y: 30, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.03 });
+            } else if (isHeadline) {
+                // Simple reveal for other headlines
                 el.innerText = text;
                 el.classList.remove('reveal-text');
                 void el.offsetWidth; // trigger reflow

@@ -137,6 +137,16 @@ box-shadow:
 .works-card.is-selected:hover .works-card-gradient {
     opacity: 0.9;
 }
+/* Intrepid top mask */
+.works-card-top-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(65% 70% at 0% 0%, rgba(5, 5, 5, 0.55) 0%, rgba(5, 5, 5, 0) 60%),
+        radial-gradient(65% 70% at 100% 0%, rgba(5, 5, 5, 0.55) 0%, rgba(5, 5, 5, 0) 60%),
+        linear-gradient(180deg, rgba(5, 5, 5, 0.25) 0%, rgba(5, 5, 5, 0) 55%);
+}
 /* Works card expanded copy */
 .works-card-full {
     max-height: 0;
@@ -200,6 +210,12 @@ mask-image: radial-gradient(circle at center, black 50%, transparent 90%);
 #works-page {
     background: radial-gradient(circle at 0% 0%, rgba(26, 16, 61, 0.3) 0%, transparent 50%), 
                 radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.15) 0%, transparent 50%),
+                #0A0A0A;
+}
+
+#inquire-page {
+    background: radial-gradient(circle at 0% 0%, rgba(26, 16, 61, 0.35) 0%, transparent 55%), 
+                radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.2) 0%, transparent 50%),
                 #0A0A0A;
 }
 
@@ -622,13 +638,13 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 .melt-headline {
     color: transparent;
     background-image: linear-gradient(135deg, 
-        rgba(20, 20, 20, 0.85) 0%, 
-        rgba(80, 80, 80, 0.75) 50%,
-        rgba(255, 248, 245, 0.5) 100%
+        rgba(10, 10, 10, 0.95) 0%, 
+        rgba(40, 40, 40, 0.9) 50%,
+        rgba(100, 100, 100, 0.75) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-stroke: 1px rgba(60, 60, 60, 0.6);
+    -webkit-text-stroke: 1px rgba(40, 40, 40, 0.8);
     mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
     padding-top: 2px;
     display: block;
@@ -1524,6 +1540,7 @@ header.header-dark #mobile-menu button:hover {
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
                         <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('abstract-glowing-rounded-bar-pillars-on-dark-background-4k.jpeg');"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
+                        <div class="works-card-top-mask"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
                         <span class="absolute top-6 right-6 text-xs font-mono text-white/40 border border-white/10 px-2 py-1 backdrop-blur-sm">03</span>
@@ -1577,6 +1594,72 @@ header.header-dark #mobile-menu button:hover {
                 <p>We believe that the future of automation isn't just about speed, but about harmony between human intuition and machine intelligence.</p>
             </div>
         </div>
+    </section>
+
+    <!-- Inquire Page (initially hidden) -->
+    <section id="inquire-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-dark">
+        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
+
+        <footer class="relative min-h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-12 pt-20 md:pt-32 pb-16">
+            <div class="absolute inset-0 z-0">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/1c6b6980-54e4-4d8c-9ff6-e09b844d7b01_3840w.webp" class="w-full h-full object-cover opacity-25 pointer-events-none grayscale" alt="">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-5xl">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-violet-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(139,92,246,0.3)]"></span>
+                        <span class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-violet-500 bg-violet-600 shadow-md">Inquire</span>
+                    </div>
+                    <div class="flex flex-col border-l border-violet-500/20 pl-4 ml-2 mt-1">
+                        <span class="font-mono text-[10px] text-violet-400 font-bold tracking-[0.2em] leading-none">// 03</span>
+                        <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1 hidden sm:block">Ref. Inquiry_SYS.v1</span>
+                    </div>
+                    <div class="h-px flex-1 bg-gradient-to-r from-violet-500/70 via-orange-400/70 to-transparent"></div>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+                        <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-300 font-mono">Accepting new commissions</span>
+                    </div>
+                    
+                    <a href="mailto:hello@littleline.com" class="block group">
+                        <h2 class="font-serif text-[clamp(3rem,10vw,7rem)] leading-[0.85] font-semibold tracking-tight text-white group-hover:text-neutral-300 transition-colors duration-500">
+                            LET'S BUILD
+                        </h2>
+                        <div class="h-[1px] w-0 group-hover:w-full bg-white/50 mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4"></div>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 text-left border-t border-white/10 pt-10">
+                    <div class="flex flex-col gap-4">
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold font-mono">Socials</span>
+                        <a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors font-open-sans">Instagram</a>
+                        <a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors font-open-sans">LinkedIn</a>
+                        <a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors font-open-sans">Are.na</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold font-mono">Office</span>
+                        <p class="text-xs text-neutral-400 font-open-sans">
+                            Akersgata 12<br>
+                            0158 Oslo<br>
+                            Norway
+                        </p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold font-mono">Contact</span>
+                        <a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors font-open-sans">hello@littleline.com</a>
+                        <a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors font-open-sans">+47 22 33 44 55</a>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold font-mono">© 2025</span>
+                        <div class="text-[10px] text-neutral-600 uppercase tracking-widest font-mono">Little Line Studio</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </section>
 
     <!-- Shaders -->
@@ -2743,15 +2826,18 @@ header.header-dark #mobile-menu button:hover {
         const servicesPage = document.getElementById('services-page');
         const worksPage = document.getElementById('works-page');
         const aboutPage = document.getElementById('about-page');
+        const inquirePage = document.getElementById('inquire-page');
         const heroBlock = document.getElementById('hero-block');
         const btnStartDesktop = document.getElementById('btn-start-desktop');
         const btnStartMobile = document.getElementById('btn-start-mobile');
         const navServices = document.getElementById('nav-services');
         const navWorks = document.getElementById('nav-works');
         const navAbout = document.getElementById('nav-about');
+        const navInquire = document.getElementById('nav-inquire');
         const mobileServices = document.getElementById('mobile-services');
         const mobileWorks = document.getElementById('mobile-works');
         const mobileAbout = document.getElementById('mobile-about');
+        const mobileInquire = document.getElementById('mobile-inquire');
         const logoHome = document.getElementById('logo-home');
 
         let currentPage = 'home';
@@ -2762,12 +2848,13 @@ header.header-dark #mobile-menu button:hover {
                 'home': homePage,
                 'services': servicesPage,
                 'works': worksPage,
-                'about': aboutPage
+                'about': aboutPage,
+                'inquire': inquirePage
             };
 
             // Toggle header dark mode
             const header = document.querySelector('header');
-            if (targetPageId === 'works') {
+            if (targetPageId === 'works' || targetPageId === 'inquire') {
                 header.classList.add('header-dark');
             } else {
                 header.classList.remove('header-dark');
@@ -2806,6 +2893,8 @@ header.header-dark #mobile-menu button:hover {
                 tl.to(worksPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
             } else if (prevPageId === 'about') {
                 tl.to(aboutPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
+            } else if (prevPageId === 'inquire') {
+                tl.to(inquirePage, { opacity: 0, y: -30, duration: 1.0 }, 0);
             }
             
             // Orb Scale UP and Rotate
@@ -2845,6 +2934,8 @@ header.header-dark #mobile-menu button:hover {
                 tl.to(servicesPage, { opacity: 0, y: -30, duration: 0.8 }, 0);
             } else if (prevPageId === 'about') {
                 tl.to(aboutPage, { opacity: 0, y: -30, duration: 0.8 }, 0);
+            } else if (prevPageId === 'inquire') {
+                tl.to(inquirePage, { opacity: 0, y: -30, duration: 0.8 }, 0);
             }
 
             // Orb Logic for Works
@@ -2924,6 +3015,8 @@ header.header-dark #mobile-menu button:hover {
                 tl.to(servicesPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
             } else if (prevPageId === 'works') {
                 tl.to(worksPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
+            } else if (prevPageId === 'inquire') {
+                tl.to(inquirePage, { opacity: 0, y: -30, duration: 1.0 }, 0);
             }
 
             tl.add(() => showPage('about'));
@@ -2936,6 +3029,38 @@ header.header-dark #mobile-menu button:hover {
             }, 0);
             tl.to(systemsGroup.scale, { x: 2.0, y: 2.0, z: 2.0, duration: 2.5 }, 0);
             tl.to(uniforms.uOpacity, { value: 0, duration: 1.5 }, 0);
+        }
+
+        function goToInquire() {
+            if (currentPage === 'inquire' || isAnimating) return;
+            isAnimating = true;
+            const prevPageId = currentPage;
+            currentPage = 'inquire';
+            const tl = gsap.timeline({ 
+                defaults: { ease: "power2.out" },
+                onComplete: () => { isAnimating = false; }
+            });
+
+            if (prevPageId === 'home') {
+                tl.to(heroBlock, { opacity: 0, y: -40, duration: 0.6 }, 0);
+            } else if (prevPageId === 'services') {
+                tl.to(servicesPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
+            } else if (prevPageId === 'works') {
+                tl.to(worksPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
+            } else if (prevPageId === 'about') {
+                tl.to(aboutPage, { opacity: 0, y: -30, duration: 1.0 }, 0);
+            }
+
+            tl.to(uniforms.uOpacity, { value: 0, duration: 1.5 }, 0);
+            tl.to(transitionRotationY, { 
+                value: transitionRotationY.value + Math.PI * 1.5, 
+                duration: 2.0 
+            }, 0);
+            tl.to(systemsGroup.scale, { x: 2.5, y: 2.5, z: 6.0, duration: 2.0 }, 0);
+            tl.to(systemsGroup.position, { z: 4, duration: 2.0 }, 0);
+
+            tl.add(() => showPage('inquire'), 0.6);
+            tl.fromTo(inquirePage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2 }, 0.7);
         }
 
         function goToHome() {
@@ -2954,6 +3079,8 @@ header.header-dark #mobile-menu button:hover {
                 tl.to(worksPage, { opacity: 0, y: -20, duration: 1.0 }, 0);
             } else if (prevPageId === 'about') {
                 tl.to(aboutPage, { opacity: 0, y: -20, duration: 1.0 }, 0);
+            } else if (prevPageId === 'inquire') {
+                tl.to(inquirePage, { opacity: 0, y: -20, duration: 1.0 }, 0);
             }
 
             tl.add(() => {
@@ -2989,9 +3116,17 @@ header.header-dark #mobile-menu button:hover {
                         goToAbout();
                         lastScrollTime = now;
                     }
+                } else if (currentPage === 'about') {
+                    if (aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) {
+                        goToInquire();
+                        lastScrollTime = now;
+                    }
                 }
             } else if (e.deltaY < -50) {
-                if (currentPage === 'about' && aboutPage.scrollTop <= 0) {
+                if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) {
+                    goToAbout();
+                    lastScrollTime = now;
+                } else if (currentPage === 'about' && aboutPage.scrollTop <= 0) {
                     goToWorks();
                     lastScrollTime = now;
                 } else if (currentPage === 'works' && worksPage.scrollTop <= 0) {
@@ -3019,8 +3154,10 @@ header.header-dark #mobile-menu button:hover {
                     if (currentPage === 'home') goToServices();
                     else if (currentPage === 'services' && servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) goToWorks();
                     else if (currentPage === 'works' && worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) goToInquire();
                 } else { // Swipe Down
-                    if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToWorks();
+                    if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToWorks();
                     else if (currentPage === 'works' && worksPage.scrollTop <= 0) goToServices();
                     else if (currentPage === 'services' && servicesPage.scrollTop <= 0) goToHome();
                 }
@@ -3066,10 +3203,11 @@ header.header-dark #mobile-menu button:hover {
         navServices?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         navWorks?.addEventListener('click', (e) => { e.preventDefault(); goToWorks(); });
         navAbout?.addEventListener('click', (e) => { e.preventDefault(); goToAbout(); });
+        navInquire?.addEventListener('click', (e) => { e.preventDefault(); goToInquire(); });
         mobileServices?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToServices(); });
         mobileWorks?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToWorks(); });
         mobileAbout?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToAbout(); });
-        document.getElementById('mobile-inquire')?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); });
+        mobileInquire?.addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); goToInquire(); });
         btnStartDesktop?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         btnStartMobile?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
         logoHome?.addEventListener('click', (e) => { e.preventDefault(); goToHome(); });

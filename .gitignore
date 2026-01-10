@@ -13,11 +13,31 @@ Thumbs.db
 *.swp
 *.swo
 *~
+.project
+.settings/
 
-# Logs
+# Temporary files
+*.tmp
+*.temp
 *.log
-npm-debug.log*
 
-# Dependencies (if you add them later)
+# Node modules (if any)
 node_modules/
+npm-debug.log
+yarn-error.log
 
+# Build files
+dist/
+build/
+*.min.js.map
+
+# Tailwind build (keep source files, ignore node_modules)
+# Note: css/output.css should be committed for deployment
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Development backups (already organized in dev-docs/)
+# Keep main backups in dev-docs/backups/

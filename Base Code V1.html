@@ -676,7 +676,7 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-stroke: 1px rgba(40, 40, 40, 0.8);
-    mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 100%);
     padding-top: 2px;
     display: block;
 }
@@ -807,6 +807,20 @@ header.header-dark #mobile-menu button:hover {
     background: #ffffff !important;
     color: #0A0A0A !important;
 }
+
+/* About page specific styling for inquire buttons (both mobile and desktop) */
+header.header-dark.about-active #nav-inquire,
+header.header-dark.about-active #mobile-menu button#mobile-inquire {
+    background: linear-gradient(135deg, #064e3b 0%, #78350f 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+header.header-dark.about-active #nav-inquire:hover,
+header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
+    background: linear-gradient(135deg, #065f46 0%, #92400e 100%) !important;
+    color: #ffffff !important;
+}
 .process-card {
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -828,6 +842,39 @@ header.header-dark #mobile-menu button:hover {
 }
 .process-card:hover::before {
     opacity: 1;
+}
+
+/* Inquiry Modal styling (light + rust primary) */
+.inquiry-service-card {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.inquiry-service-card .check-icon {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.inquiry-service-card.selected {
+    border-color: #9A3412;
+    background-color: rgba(154, 52, 18, 0.08);
+    box-shadow: 0 10px 30px rgba(154, 52, 18, 0.14);
+}
+
+.inquiry-service-card.selected .check-icon {
+    opacity: 1 !important;
+    transform: scale(1);
+}
+
+.inquiry-goal-pill {
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.inquiry-goal-pill.active {
+    background-color: #9A3412;
+    color: #FDFCF8;
+    box-shadow: 0 12px 30px rgba(154, 52, 18, 0.25);
+    transform: translateY(-1px);
 }
 </style>
 <script>
@@ -1645,7 +1692,7 @@ header.header-dark #mobile-menu button:hover {
             </div> <!-- End Grid Layout -->
 
             <!-- Scroll Indicator -->
-            <div class="mt-12 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="inquire">
+            <div class="mt-12 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="about">
                 <div class="flex items-center gap-3">
                     <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">//</span>
                     <i data-lucide="arrow-down" class="w-3 h-3 text-white/50 animate-bounce"></i>
@@ -1692,7 +1739,7 @@ header.header-dark #mobile-menu button:hover {
                         </div>
 
                         <!-- Compressed Desktop Layout: Text left, interactive graphic right -->
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-8 md:mt-10">
+		                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-8 md:mt-10">
                             <!-- Left: Title + Subtext -->
                             <div class="lg:col-span-7 text-center md:text-left">
                                 <div class="relative inline-block">
@@ -1720,53 +1767,56 @@ header.header-dark #mobile-menu button:hover {
                                     </h1>
                                 </div>
 
-                                <p class="mt-4 font-serif text-[clamp(1.05rem,2.2vw,1.85rem)] text-stone italic tracking-[0.28em] font-light opacity-90">
+                                <p id="about-zen-subtitle" class="mt-4 md:mt-6 font-serif text-[clamp(1.22rem,2.45vw,2.02rem)] text-stone italic tracking-[0.28em] font-light opacity-0">
                                     Zen Inspired Agentic Systems
                                 </p>
-                                <p id="about-hero-subtext" class="mt-7 max-w-xl mx-auto md:mx-0 font-open-sans text-base md:text-lg text-white/90 leading-relaxed opacity-0">
-                                    We build agentic systems with a tranquil core: deliberate, beautiful, and compelling. Digital Renaissance is our north star - the craft of classical engineering, reborn in modern computation.
-                                </p>
+                                <div id="about-hero-subtext" class="mt-7 max-w-xl mx-auto md:mx-0 font-open-sans text-base md:text-lg text-white/80 leading-relaxed opacity-0 space-y-6">
+                                    <p class="font-open-sans">Zenias was founded by Marche Bantum, an artist, lawyer and entrepreneur from Australia. After scaling a marketing company built on high-quality commercial production and software and culminating in a major vendor acquisition, the journey into software development became inevitable. As an extremely early adopter of AI, the gap became clear: businesses need automated systems, but they also need to look and feel amazing.</p>
+                                    <p class="font-open-sans">Observing the incredible democratisation of technology through AI, Marche assembled a team of passionate developers and designers to help people and organisations build their next chapter of digital success. As a passionate educator, his belief is simple: everyone has the right to learn these tools and build their Next.</p>
+                                    <p class="font-open-sans">Digital Renaissance is our central philosophy. It is where the craft of classical engineering is reborn in modern computation. We are living through the digital renaissance at this very moment. Zenias is your thought partner and collaborator throughout this time of incredible opportunity and change.</p>
+                                </div>
                             </div>
 
                             <!-- Right: Tranquil build + Interactive graphic -->
-                            <div class="lg:col-span-5 lg:pt-2">
-                                <h2 id="about-method-title" class="font-serif text-[clamp(1.9rem,3vw,2.6rem)] text-white leading-tight opacity-0 text-center md:text-left">
-                                    A tranquil build process.
+                            <div class="lg:col-span-5 relative">
+                                <h2 id="about-method-title" 
+                                    class="font-serif text-[clamp(2rem,3.5vw,4.2rem)] text-white/75 leading-tight opacity-0 text-center lg:text-left lg:absolute lg:-left-8 lg:top-0 lg:z-30 whitespace-nowrap lg:mix-blend-normal">
+                                    Where craft meets code.
                                 </h2>
 
-                                <div class="mt-6 relative w-full h-[420px] md:h-[500px] lg:h-[420px] rounded-2xl border border-white/10 bg-transparent backdrop-blur-none overflow-hidden group select-none cursor-pointer shadow-2xl transition-all duration-700 hover:border-white/20"
+                                <div class="mt-16 md:mt-24 lg:mt-64 relative w-full h-[450px] md:h-[520px] lg:h-[480px] rounded-2xl border border-white/10 bg-transparent backdrop-blur-none overflow-hidden group select-none cursor-pointer shadow-2xl transition-all duration-700 hover:border-white/20"
                                      id="zen-tech-container"
-                                     style="--zen-theme: 251, 191, 36; --zen-glow: 251, 191, 36;">
+                                     style="--zen-theme: 157, 122, 35; --zen-glow: 157, 122, 35;">
                                 
                                 <!-- Background Tech/Zen Animation -->
                                 <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                                     <!-- Zen-garden photo blended as base background (keeps grid/rings/atmosphere on top) -->
                                     <div aria-hidden="true"
-                                         class="absolute inset-0 opacity-55 mix-blend-soft-light"
+                                         class="absolute inset-0 opacity-40 mix-blend-soft-light"
                                          style="background-image: url('night-zen-garden-with-rocks-and-raked-sand-4k.png'); background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
                                     </div>
                                     <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25"></div>
 
                                     <!-- Abstract glowing core - much more visible -->
-                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[100px] animate-pulse-slow transition-all duration-1000 group-hover:scale-125" style="background-color: rgba(var(--zen-theme), 0.4);"></div>
-                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[60px] animate-pulse-slow" style="animation-delay: 0.5s; background-color: rgba(var(--zen-theme), 0.3);"></div>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[100px] animate-pulse-slow transition-all duration-1000 group-hover:scale-125" style="background-color: rgba(var(--zen-theme), 0.25);"></div>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[60px] animate-pulse-slow" style="animation-delay: 0.5s; background-color: rgba(var(--zen-theme), 0.15);"></div>
                                     
                                     <!-- Grid overlay - much more visible -->
                                     <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px] opacity-70"></div>
-                                    <div class="absolute inset-0 opacity-50" style="background-image: linear-gradient(rgba(var(--zen-theme), 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--zen-theme), 0.15) 1px, transparent 1px); background-size: 80px 80px;"></div>
+                                    <div class="absolute inset-0 opacity-50" style="background-image: linear-gradient(rgba(var(--zen-theme), 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--zen-theme), 0.1) 1px, transparent 1px); background-size: 80px 80px;"></div>
                                     
                                     <!-- Outer Rotating Ring - much more visible -->
                                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] border-2 border-white/30 rounded-full opacity-90" style="animation: spin-60s 60s linear infinite;">
-                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.8); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.8);"></div>
-                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.8); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.8);"></div>
+                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.5); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.5);"></div>
+                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.5); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.5);"></div>
                                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white/60 rounded-full"></div>
                                         <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white/60 rounded-full"></div>
                                     </div>
                                     
                                     <!-- Inner Rotating Ring - counter-rotating -->
-                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] border rounded-full opacity-80" style="animation: spin-40s-reverse 40s linear infinite; border-color: rgba(var(--zen-theme), 0.4);">
-                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.7);"></div>
-                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.7);"></div>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] border rounded-full opacity-80" style="animation: spin-40s-reverse 40s linear infinite; border-color: rgba(var(--zen-theme), 0.25);">
+                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.4);"></div>
+                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.4);"></div>
                                     </div>
                                     
                                     <!-- Scanning line effect -->
@@ -1784,47 +1834,47 @@ header.header-dark #mobile-menu button:hover {
                                     <!-- Slides remain the same but their icons can be colored by the theme -->
                                     <!-- Slide 1: Discovery -->
                                     <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-100 pointer-events-none transition-all duration-700 transform scale-100" data-index="0">
-                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.35); background-color: rgba(var(--zen-theme), 0.12); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.18);">
-                                            <i data-lucide="search" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.65)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="search" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
                                         </div>
-                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Discovery</h3>
-                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
-                                            We begin in silence. Mapping the unseen currents of your workflow, identifying risks, and defining the boundaries of data. A deliberate pause before motion.
-                                        </p>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">The Problem</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Mass adoption has stripped software of personality. Systems are rigid, impersonal, and built for the average user – not your personalised workflow. Software should fit you, not force you to adapt. Zenias rejects the template. We build systems that move with you, shaped around how you think and work.
+	                                        </p>
                                     </div>
                                     <!-- ... other slides will be handled by the same logic if I can target them ... -->
 
                                     <!-- Slide 2: Design -->
                                     <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="1">
-                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.35); background-color: rgba(var(--zen-theme), 0.12); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.18);">
-                                            <i data-lucide="pencil-ruler" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.65)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="pencil-ruler" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
                                         </div>
-                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Design</h3>
-                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
-                                            Architecture as art. Selecting patterns that flow naturally with your needs. We craft guardrails not as walls, but as riverbanks guiding the stream of intelligence.
-                                        </p>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Our Mission</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Our mission is to architect AI-powered systems that respect human judgment, creative intuition, and operational sovereignty. We believe automation should enhance, but never replace, the craft. Digital Renaissance is our philosophy: timeless principles of design, precision, and beauty, applied to intelligent systems that evolve with you.
+	                                        </p>
                                     </div>
 
                                     <!-- Slide 3: Deploy -->
                                     <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="2">
-                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.35); background-color: rgba(var(--zen-theme), 0.12); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.18);">
-                                            <i data-lucide="rocket" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.65)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="rocket" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
                                         </div>
-                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Deploy</h3>
-                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
-                                            A governed release. Like a stone placed perfectly in a garden, the system settles into existence. Monitored, evaluated, and observed with calm precision.
-                                        </p>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Our Team</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Our team comprises of software developers, data security experts, designers and creatives. We coverd every core pillar of AI and agentic systems, from architecture and compliance to interface design and deployment. We focus on building experiences that feel effortless, secure, and entirely yours.
+	                                        </p>
                                     </div>
 
                                     <!-- Slide 4: Teach -->
                                     <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="3">
-                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.35); background-color: rgba(var(--zen-theme), 0.12); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.18);">
-                                            <i data-lucide="graduation-cap" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.65)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="graduation-cap" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
                                         </div>
-                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Teach</h3>
-                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
-                                            Knowledge transfer as a cycle. Empowering your team to tend the garden, ensuring the system evolves safely and harmoniously with your growth.
-                                        </p>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Who We Serve</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            We serve anyone willing to learn and embrace the future. Commercial teams. Sole traders. Creative studios. Founders. Educators. If you believe software should work for you, then Zenias is for you.
+	                                        </p>
                                     </div>
                                 </div>
 
@@ -1833,7 +1883,7 @@ header.header-dark #mobile-menu button:hover {
                                     <span class="w-1.5 h-1.5 rounded-full animate-pulse transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.9); box-shadow: 0 0 8px rgba(var(--zen-theme), 0.6);"></span>
                                     SYS.ZEN.01
                                 </div>
-                                <div class="absolute top-6 right-6 font-mono text-[11px] text-white/70 tracking-widest uppercase pointer-events-none" id="zen-phase-indicator">PHASE: 01 // DISCOVER</div>
+	                                <div class="absolute top-6 right-6 font-mono text-[11px] text-white/70 tracking-widest uppercase pointer-events-none" id="zen-phase-indicator">PHASE: 01 // THE PROBLEM</div>
                                 
                                 <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 pointer-events-none">
                                     <div class="flex gap-2" id="zen-dots">
@@ -1851,7 +1901,7 @@ header.header-dark #mobile-menu button:hover {
                         </div>
 
                         <!-- Scroll Indicator -->
-                        <div class="mt-10 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="services">
+                        <div class="mt-10 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="inquire">
                             <div class="flex items-center gap-3">
                                 <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">//</span>
                                 <i data-lucide="arrow-down" class="w-3 h-3 text-white/50 animate-bounce"></i>
@@ -1880,8 +1930,7 @@ header.header-dark #mobile-menu button:hover {
 	    </section>
 
     <!-- Inquire Page (initially hidden) -->
-    <section id="inquire-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto">
-        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay opacity-70"></div>
+    <section id="inquire-page" class="hidden absolute inset-0 overflow-hidden z-30 pointer-events-auto">
         <!-- Rust/Purple Gradient Background -->
         <div class="absolute inset-0 pointer-events-none z-[-1]">
             <!-- Rust on the left -->
@@ -1889,10 +1938,10 @@ header.header-dark #mobile-menu button:hover {
             <!-- Purple on the bottom right -->
             <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
         </div>
-        <div class="absolute inset-0 pointer-events-none z-[-1] bg-[url('isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.08] mix-blend-multiply"></div>
+        <div class="absolute inset-0 pointer-events-none z-[-1] bg-[url('isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.05]"></div>
 
         <!-- Technical/Architectural Elements (Light Mode) -->
-        <div class="absolute inset-0 pointer-events-none z-0 opacity-50">
+        <div class="absolute inset-0 pointer-events-none z-0 opacity-70">
             <!-- Circular Drafting Element - Top Right -->
             <div class="absolute top-8 right-8 md:top-12 md:right-16 w-80 h-80 md:w-[32rem] md:h-[32rem] opacity-60">
                 <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
@@ -1949,7 +1998,7 @@ header.header-dark #mobile-menu button:hover {
             </div>
         </div>
 
-        <footer class="relative z-10 min-h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-12 pt-20 md:pt-32 pb-16">
+        <footer class="relative z-10 h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-12 pt-20 md:pt-32 pb-16">
             <div class="relative z-10 w-full max-w-5xl">
                 <div class="flex items-center gap-3 mb-10">
                     <div class="flex items-center gap-2">
@@ -1964,7 +2013,7 @@ header.header-dark #mobile-menu button:hover {
                 </div>
 
                 <div class="text-center">
-                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-ink/10 bg-paper/60 backdrop-blur-sm mb-8">
+                    <div id="inquiry-badge" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-ink/10 bg-paper/60 backdrop-blur-sm mb-8">
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                         <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
                         <span class="text-[10px] uppercase tracking-widest text-neutral-600 font-mono font-semibold">Click to Inquire</span>
@@ -1972,12 +2021,12 @@ header.header-dark #mobile-menu button:hover {
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                     </div>
                     
-                    <a href="mailto:contact@zenias.io" class="block group">
-                        <h2 class="font-serif text-[clamp(3.75rem,12vw,6.75rem)] md:text-[clamp(3rem,8vw,7rem)] leading-[0.85] font-semibold tracking-tight text-ink mix-blend-multiply group-hover:text-neutral-700 transition-colors duration-500">
+                    <button type="button" id="open-inquiry-form" class="block group w-full">
+                        <h2 id="inquiry-headline" class="font-serif text-[clamp(3.75rem,12vw,6.75rem)] md:text-[clamp(3rem,8vw,7rem)] leading-[0.85] font-semibold tracking-tight text-ink mix-blend-multiply group-hover:text-neutral-700 transition-colors duration-500">
                             LET'S BUILD
                         </h2>
                         <div class="h-[1px] w-0 group-hover:w-full bg-ink/30 mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4"></div>
-                    </a>
+                    </button>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-20 text-left border-t border-ink/10 pt-10">
@@ -1997,6 +2046,186 @@ header.header-dark #mobile-menu button:hover {
                 </div>
             </div>
         </footer>
+
+        <!-- Inquiry Modal -->
+        <div id="inquiry-modal" class="fixed inset-0 z-[130] hidden overflow-y-auto">
+            <div class="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" data-overlay></div>
+            <div class="relative flex items-start justify-center min-h-full px-4 sm:px-6 pt-24 pb-10">
+                <div class="relative w-full max-w-5xl bg-paper text-ink rounded-[30px] shadow-2xl border border-stone/70 overflow-hidden my-auto">
+                    <div class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+                        <button type="button" id="close-inquiry-modal" aria-label="Close inquiry form" class="w-10 h-10 rounded-full border border-stone/60 bg-white/90 backdrop-blur-sm flex items-center justify-center text-ink hover:border-rust hover:text-rust transition-colors duration-200 shadow-sm z-20 relative">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="overflow-y-auto max-h-[90vh]">
+                        <div class="p-6 sm:p-10 space-y-10">
+                            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+                                <div class="space-y-3">
+                                    <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-500">Project Intake</p>
+                                    <div>
+                                        <h3 class="text-3xl sm:text-4xl font-serif text-ink leading-tight">Project Inquiry</h3>
+                                        <p class="mt-2 text-sm text-neutral-600 max-w-xl font-open-sans">Tell us about what you want to build. We keep replies under 24 hours.</p>
+                                    </div>
+                                </div>
+                                <div class="inline-flex items-center gap-2 rounded-full border border-stone/70 bg-white/80 px-4 py-2 shadow-sm md:mt-10">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.35)]"></span>
+                                    <span class="text-xs font-semibold tracking-[0.18em] text-ink uppercase font-mono">Accepting Clients</span>
+                                </div>
+                            </div>
+
+                            <form class="space-y-10">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Name</span>
+                                        <input id="inquiry-name" name="name" type="text" placeholder="Your full name" class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Email</span>
+                                        <input id="inquiry-email" name="email" type="email" placeholder="you@example.com" class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                    </label>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                        <div>
+                                            <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Services Required</p>
+                                            <p class="text-sm text-neutral-600 font-open-sans">Pick everything that applies.</p>
+                                        </div>
+                                        <div class="text-[11px] text-neutral-500 uppercase tracking-[0.18em] font-mono">Multi-select</div>
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        <button type="button" data-service-option="Strategy" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="target" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Strategy</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Consulting & roadmaps</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+
+                                        <button type="button" data-service-option="Design" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Design</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Brand, Product, Web</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+
+                                        <button type="button" data-service-option="Development" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="code-2" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Development</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Web, apps & agents</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+
+                                        <button type="button" data-service-option="Marketing" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="megaphone" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Marketing</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Content & growth</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+
+                                        <button type="button" data-service-option="Automation" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="bot" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Automation</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Ops & workflow builds</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+
+                                        <button type="button" data-service-option="Custom" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors sm:col-span-2 lg:col-span-1">
+                                            <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
+                                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                            </div>
+                                            <div class="text-left space-y-1">
+                                                <span class="block text-sm font-semibold text-ink">Custom Request</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Tell us what you need</span>
+                                            </div>
+                                            <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Primary Goals</p>
+                                    <div class="flex flex-wrap gap-3">
+                                        <button type="button" data-goal-option="Scale & Revenue" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Scale & Revenue
+                                        </button>
+                                        <button type="button" data-goal-option="Learn AI" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Learn AI
+                                        </button>
+                                        <button type="button" data-goal-option="Automate Processes" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Automate Processes
+                                        </button>
+                                        <button type="button" data-goal-option="Develop Tools" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Develop Tools
+                                        </button>
+                                        <button type="button" data-goal-option="Customer Acquisition" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Customer Acquisition
+                                        </button>
+                                        <button type="button" data-goal-option="Content & Socials" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Content & Socials
+                                        </button>
+                                        <button type="button" data-goal-option="Other" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Other
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Additional Details</p>
+                                        <span class="text-[11px] text-neutral-500 uppercase tracking-[0.14em] font-mono">Optional</span>
+                                    </div>
+                                    <textarea id="inquiry-notes" name="notes" rows="5" placeholder="Project summary, timelines, budget expectations..." class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] resize-none"></textarea>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-stone/60">
+                                    <div class="flex items-center gap-2 text-sm text-neutral-600 font-open-sans">
+                                        <i data-lucide="clock-3" class="w-4 h-4 text-rust"></i>
+                                        <span>Average response under 24 hours.</span>
+                                    </div>
+                                    <button type="button" class="inline-flex items-center gap-2 rounded-full bg-rust text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg shadow-rust/20 hover:shadow-xl hover:-translate-y-0.5 transition-transform duration-200">
+                                        Submit inquiry
+                                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Shaders -->
@@ -2695,7 +2924,7 @@ header.header-dark #mobile-menu button:hover {
                     element.innerText = originalText;
                     delete element._scrambleInterval;
                 }
-                iteration += originalText.length / (duration * 60);
+                iteration += originalText.length / (duration * 33);
             }, 30);
         }
 
@@ -2704,13 +2933,20 @@ header.header-dark #mobile-menu button:hover {
             if (!el) return;
             
             if (isHeadline && elementId === 'service-headline') {
-                // Ensure melt-headline class is preserved
+                // Reverted to scramble as per user preference
                 if (!el.classList.contains('melt-headline')) {
                     el.classList.add('melt-headline');
                 }
-                el.innerHTML = text.split(' ').map(word => `<span style="display:inline-block">${word}</span>`).join(' ');
-                const words = el.querySelectorAll('span');
-                gsap.fromTo(words, { opacity: 0, y: 30, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 });
+                
+                // Specific sizing for the Governance headline to prevent wrapping on mobile
+                // reducing by roughly 4-6pts for this specific long quote
+                if (text.includes('Innovation from foundation')) {
+                    el.style.fontSize = 'clamp(calc(1.8rem-6pt), calc(5vw-6pt), calc(4rem-6pt))';
+                } else {
+                    el.style.fontSize = ''; 
+                }
+                
+                scrambleText(el, text, 0.6);
             } else if (isHeadline) {
                 // Simple reveal for other headlines
                 el.innerText = text;
@@ -3189,13 +3425,20 @@ header.header-dark #mobile-menu button:hover {
                 'inquire': inquirePage
             };
 
- 	            // Toggle header dark mode
- 	            const header = document.querySelector('header');
- 	            if (targetPageId === 'about' || targetPageId === 'works') {
- 	                header.classList.add('header-dark');
- 	            } else {
- 	                header.classList.remove('header-dark');
- 	            }
+	            // Toggle header dark mode
+	            const header = document.querySelector('header');
+	            if (targetPageId === 'about' || targetPageId === 'works') {
+	                header.classList.add('header-dark');
+	            } else {
+	                header.classList.remove('header-dark');
+	            }
+	            
+	            // Add about-active class specifically for about page
+	            if (targetPageId === 'about') {
+	                header.classList.add('about-active');
+	            } else {
+	                header.classList.remove('about-active');
+	            }
 
 	            Object.keys(pages).forEach(key => {
                 if (key === targetPageId) {
@@ -3250,7 +3493,7 @@ header.header-dark #mobile-menu button:hover {
             tl.add(() => {
                 showPage('services');
                 const headline = document.getElementById('service-headline');
-                if (headline) scrambleText(headline, serviceData[currentServiceIndex].headline, 0.6);
+                if (headline) animateText('service-headline', serviceData[currentServiceIndex].headline, true);
             }, 0.8);
             tl.fromTo(servicesPage, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.8 }, 1.0);
             
@@ -3305,7 +3548,7 @@ header.header-dark #mobile-menu button:hover {
                 if (worksIntro) animElements.push(worksIntro);
                 
                 gsap.set(animElements, { opacity: 0 });
-                gsap.set(pillars, { y: 20 });
+                gsap.set(pillars, { y: 40, x: -20 });
                 gsap.set(cards, { y: 30, scale: 0.95, filter: "blur(10px)" });
 
                 // Content Scrambles
@@ -3329,10 +3572,17 @@ header.header-dark #mobile-menu button:hover {
 
                 gsap.to(pillars, { 
                     y: 0, 
+                    x: 0,
                     opacity: 1, 
-                    duration: 0.6, 
-                    stagger: 0.1, 
-                    ease: "power2.out"
+                    duration: 1.0, 
+                    stagger: {
+                        each: 0.15,
+                        onStart: function() {
+                            const label = this.targets()[0].querySelector('span:nth-child(2)');
+                            if (label) scrambleText(label, label.innerText, 0.5);
+                        }
+                    },
+                    ease: "expo.out"
                 });
 
             }, 0.6);
@@ -3365,22 +3615,33 @@ header.header-dark #mobile-menu button:hover {
                 
                 // Slick Header Animations
                 const aboutTitle = document.getElementById('about-zenias-title');
+                const aboutSubtitle = document.getElementById('about-zen-subtitle');
                 const aboutSubtext = document.getElementById('about-hero-subtext');
                 const methodTitle = document.getElementById('about-method-title');
                 const processCards = document.querySelectorAll('.process-card');
                 const verticalLabel = document.querySelector('.about-vertical-label');
 
                 if (aboutTitle) {
-                    scrambleText(aboutTitle, aboutTitle.innerText, 0.8);
-                    gsap.fromTo(aboutTitle, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" });
+                    gsap.fromTo(aboutTitle, 
+                        { opacity: 0, y: 80 }, 
+                        { opacity: 1, y: 0, duration: 1.8, ease: "expo.out" }
+                    );
+                }
+
+                if (aboutSubtitle) {
+                    gsap.fromTo(aboutSubtitle, 
+                        { opacity: 0, y: 60 }, 
+                        { opacity: 0.9, y: 0, duration: 1.8, delay: 0.15, ease: "expo.out" }
+                    );
                 }
                 
                 if (aboutSubtext) {
-                    gsap.fromTo(aboutSubtext, { opacity: 0 }, { opacity: 1, duration: 1.5, delay: 0.4 });
+                    gsap.fromTo(aboutSubtext, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: "power2.out" });
                 }
 
                 if (methodTitle) {
-                    gsap.fromTo(methodTitle, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.6 });
+                    scrambleText(methodTitle, methodTitle.innerText, 0.5);
+                    gsap.fromTo(methodTitle, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.4, ease: "power3.out" });
                 }
 
                 if (processCards.length) {
@@ -3440,6 +3701,25 @@ header.header-dark #mobile-menu button:hover {
 
             tl.add(() => showPage('inquire'), 0.6);
             tl.fromTo(inquirePage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2 }, 0.7);
+
+            tl.add(() => {
+                const badge = document.getElementById('inquiry-badge');
+                const headline = document.getElementById('inquiry-headline');
+                
+                if (badge) {
+                    gsap.fromTo(badge, 
+                        { opacity: 0, y: 40, scale: 0.8 }, 
+                        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" }
+                    );
+                }
+                
+                if (headline) {
+                    gsap.fromTo(headline, 
+                        { opacity: 0, y: 60 }, 
+                        { opacity: 1, y: 0, duration: 1.6, ease: "expo.out" }
+                    );
+                }
+            }, 0.8);
         }
 
         function goToHome() {
@@ -3475,7 +3755,13 @@ header.header-dark #mobile-menu button:hover {
         let lastScrollTime = 0;
         const scrollCooldown = 800;
 
+        const isInquiryModalOpen = () => {
+            const modal = document.getElementById('inquiry-modal');
+            return !!(modal && !modal.classList.contains('hidden'));
+        };
+
         window.addEventListener('wheel', (e) => {
+            if (isInquiryModalOpen()) return;
             const now = Date.now();
             if (now - lastScrollTime < scrollCooldown) return;
 
@@ -3521,24 +3807,26 @@ header.header-dark #mobile-menu button:hover {
         // --- Touch Navigation ---
         let touchStartY = 0;
         window.addEventListener('touchstart', (e) => {
+            if (isInquiryModalOpen()) return;
             touchStartY = e.touches[0].clientY;
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
+            if (isInquiryModalOpen()) return;
             const touchEndY = e.changedTouches[0].clientY;
             const deltaY = touchStartY - touchEndY;
 
             if (Math.abs(deltaY) > 50) {
-                if (deltaY > 0) { // Swipe Up
-                    if (currentPage === 'home') goToAbout();
-                    else if (currentPage === 'about' && aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) goToServices();
+                if (deltaY > 0) { // Swipe Up (Scrolling Down)
+                    if (currentPage === 'home') goToServices();
                     else if (currentPage === 'services' && servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) goToWorks();
-                    else if (currentPage === 'works' && worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) goToInquire();
-                } else { // Swipe Down
-                    if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) goToWorks();
+                    else if (currentPage === 'works' && worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) goToInquire();
+                } else { // Swipe Down (Scrolling Up)
+                    if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToWorks();
                     else if (currentPage === 'works' && worksPage.scrollTop <= 0) goToServices();
-                    else if (currentPage === 'services' && servicesPage.scrollTop <= 0) goToAbout();
-                    else if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToHome();
+                    else if (currentPage === 'services' && servicesPage.scrollTop <= 0) goToHome();
                 }
             }
         }, { passive: true });
@@ -3611,23 +3899,24 @@ header.header-dark #mobile-menu button:hover {
             let currentZenIndex = 0;
             const zenSlides = document.querySelectorAll('.zen-slide');
             const zenDots = document.querySelectorAll('#zen-dots div');
-            const zenPhaseIndicator = document.getElementById('zen-phase-indicator');
-            const phases = [
-                "PHASE: 01 // DISCOVER",
-                "PHASE: 02 // DESIGN",
-                "PHASE: 03 // DEPLOY",
-                "PHASE: 04 // TEACH"
-            ];
+	            const zenPhaseIndicator = document.getElementById('zen-phase-indicator');
+	            const phases = [
+	                "PHASE: 01 // THE PROBLEM",
+	                "PHASE: 02 // OUR MISSION",
+	                "PHASE: 03 // OUR TEAM",
+	                "PHASE: 04 // WHO WE SERVE"
+	            ];
 
             // Atmosphere palette (loop):
-            // - Deeper/muted gold
-            // - Forest green (lighter than before so icons stay readable)
-            // - Two darker complementary tones
+            // - Muted Gold (slightly more vibrant)
+            // - Muted Sage (slightly more vibrant)
+            // - Muted Copper (slightly more vibrant)
+            // - Muted Slate (slightly more vibrant)
             const themeColors = [
-                "184, 134, 11",  // Deep Gold
-                "16, 185, 129",  // Forest Green (emerald)
-                "192, 65, 12",   // Deep Copper (orange/rust)
-                "67, 56, 202"    // Deep Indigo
+                "157, 122, 35",   // Muted Gold
+                "38, 142, 107",   // Muted Sage
+                "151, 70, 36",    // Muted Copper
+                "73, 70, 156"     // Muted Slate
             ];
             let themeIndex = 0;
             // Apply initial theme immediately (matches the initial CSS variable on the element)
@@ -3698,6 +3987,83 @@ header.header-dark #mobile-menu button:hover {
                 zenInterval = setInterval(rotateZenContent, 6000);
             });
         }
+
+        // --- Inquiry Form Modal Logic ---
+        const inquiryModal = document.getElementById('inquiry-modal');
+        const openInquiryForm = document.getElementById('open-inquiry-form');
+        const closeInquiryForm = document.getElementById('close-inquiry-modal');
+        const inquiryOverlay = document.querySelector('#inquiry-modal [data-overlay]');
+        const serviceOptions = document.querySelectorAll('[data-service-option]');
+        const goalOptions = document.querySelectorAll('[data-goal-option]');
+
+        const showInquiryModal = () => {
+            if (inquiryModal) {
+                inquiryModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            }
+        };
+
+        const hideInquiryModal = () => {
+            if (inquiryModal) {
+                inquiryModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
+
+        openInquiryForm?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            showInquiryModal();
+        });
+
+        closeInquiryForm?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            hideInquiryModal();
+        });
+
+        inquiryOverlay?.addEventListener('click', (event) => {
+            event.preventDefault();
+            hideInquiryModal();
+        });
+
+        // Service option selection
+        serviceOptions.forEach((button) => {
+            button.setAttribute('aria-pressed', 'false');
+            const checkIcon = button.querySelector('.check-icon');
+            button.addEventListener('click', () => {
+                const isSelected = button.classList.toggle('selected');
+                button.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+                if (checkIcon) {
+                    checkIcon.style.opacity = isSelected ? '1' : '0';
+                }
+            });
+        });
+
+        // Goal option selection
+        goalOptions.forEach((button) => {
+            button.setAttribute('aria-pressed', 'false');
+            button.addEventListener('click', () => {
+                const isActive = button.classList.toggle('active');
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && inquiryModal && !inquiryModal.classList.contains('hidden')) {
+                hideInquiryModal();
+            }
+        });
+
+        // Prevent modal close when clicking inside the form
+        inquiryModal?.addEventListener('click', (event) => {
+            const modalContent = inquiryModal.querySelector('.max-w-5xl');
+            if (modalContent && !modalContent.contains(event.target) && event.target === inquiryOverlay) {
+                hideInquiryModal();
+            }
+        });
 
     </script>
 

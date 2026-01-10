@@ -92,6 +92,14 @@ max-width: 100vw;
     box-sizing: border-box;
 }
 
+/* Desktop-only: prevent tiny document scroll on Home (other pages use normal document scroll) */
+@media (min-width: 768px) {
+    html.home-no-scroll,
+    body.home-no-scroll {
+        overflow-y: hidden;
+    }
+}
+
 /* Prevent horizontal scrolling on all pages */
 section {
     max-width: 100vw;
@@ -3690,6 +3698,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         let isAnimating = false;
 
 	        function showPage(targetPageId) {
+            const isHome = targetPageId === 'home';
+            document.documentElement.classList.toggle('home-no-scroll', isHome);
+            document.body.classList.toggle('home-no-scroll', isHome);
+
             const pages = {
                 'home': homePage,
                 'services': servicesPage,
@@ -3754,6 +3766,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 	                setTimeout(() => window.initInViewAnimations('#about-page .animate-on-scroll'), 50);
 	            }
 	        }
+
+        // Initial state (Home)
+        document.documentElement.classList.add('home-no-scroll');
+        document.body.classList.add('home-no-scroll');
 
         function goToServices() {
             if (currentPage === 'services' || isAnimating) return;

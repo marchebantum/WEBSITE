@@ -3718,6 +3718,28 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                     pages[key].style.display = 'block';
                     pages[key].style.pointerEvents = 'auto';
                     
+                    // Reset scroll position to top when showing a page
+                    // Reset immediately and multiple times to ensure it sticks
+                    const resetScroll = () => {
+                        pages[key].scrollTop = 0;
+                        // Also reset window scroll in case it's being used
+                        window.scrollTo(0, 0);
+                        document.documentElement.scrollTop = 0;
+                        document.body.scrollTop = 0;
+                    };
+                    
+                    // Reset immediately
+                    resetScroll();
+                    
+                    // Reset after display change is rendered
+                    requestAnimationFrame(() => {
+                        resetScroll();
+                        // Reset again after a short delay to catch any late updates
+                        setTimeout(() => {
+                            resetScroll();
+                        }, 50);
+                    });
+                    
                     // Sync services background height with content
                     if (key === 'services') {
                         setTimeout(syncServicesBackgroundHeight, 100);
@@ -3740,7 +3762,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             currentPage = 'services';
             const tl = gsap.timeline({ 
                 defaults: { ease: "power2.out" },
-                onComplete: () => { isAnimating = false; }
+                onComplete: () => { 
+                    // Ensure scroll is at top after animations complete
+                    servicesPage.scrollTop = 0;
+                    window.scrollTo(0, 0);
+                    isAnimating = false; 
+                }
             });
 
             // Exit Logic
@@ -3765,6 +3792,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
             tl.add(() => {
                 showPage('services');
+                // Force scroll reset after page is shown
+                servicesPage.scrollTop = 0;
+                window.scrollTo(0, 0);
                 const headline = document.getElementById('service-headline');
                 if (headline) animateText('service-headline', serviceData[currentServiceIndex].headline, true);
             }, 0.8);
@@ -3781,7 +3811,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             
             const tl = gsap.timeline({ 
                 defaults: { ease: "power2.out" },
-                onComplete: () => { isAnimating = false; }
+                onComplete: () => { 
+                    // Ensure scroll is at top after animations complete
+                    worksPage.scrollTop = 0;
+                    window.scrollTo(0, 0);
+                    isAnimating = false; 
+                }
             });
 
             // Exit Logic for previous pages
@@ -3806,6 +3841,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
             tl.add(() => {
                 showPage('works');
+                
+                // Force scroll reset after page is shown
+                worksPage.scrollTop = 0;
+                window.scrollTo(0, 0);
                 
                 // Selection
                 const worksIntro = document.getElementById('works-intro');
@@ -3870,7 +3909,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             currentPage = 'about';
             const tl = gsap.timeline({ 
                 defaults: { ease: "power2.out" },
-                onComplete: () => { isAnimating = false; }
+                onComplete: () => { 
+                    // Ensure scroll is at top after animations complete
+                    aboutPage.scrollTop = 0;
+                    window.scrollTo(0, 0);
+                    isAnimating = false; 
+                }
             });
 
             if (prevPageId === 'home') {
@@ -3885,6 +3929,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
             tl.add(() => {
                 showPage('about');
+                // Force scroll reset after page is shown
+                aboutPage.scrollTop = 0;
+                window.scrollTo(0, 0);
                 
                 // Slick Header Animations
                 const aboutTitle = document.getElementById('about-zenias-title');
@@ -3959,7 +4006,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             currentPage = 'inquire';
             const tl = gsap.timeline({ 
                 defaults: { ease: "power2.out" },
-                onComplete: () => { isAnimating = false; }
+                onComplete: () => { 
+                    // Ensure scroll is at top after animations complete
+                    inquirePage.scrollTop = 0;
+                    window.scrollTo(0, 0);
+                    isAnimating = false; 
+                }
             });
 
             if (prevPageId === 'home') {
@@ -3980,7 +4032,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             tl.to(systemsGroup.scale, { x: 2.5, y: 2.5, z: 6.0, duration: 2.0 }, 0);
             tl.to(systemsGroup.position, { z: 4, duration: 2.0 }, 0);
 
-            tl.add(() => showPage('inquire'), 0.6);
+            tl.add(() => {
+                showPage('inquire');
+                // Force scroll reset after page is shown
+                inquirePage.scrollTop = 0;
+                window.scrollTo(0, 0);
+            }, 0.6);
             tl.fromTo(inquirePage, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2 }, 0.7);
 
             tl.add(() => {
@@ -4010,7 +4067,11 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             currentPage = 'home';
             const tl = gsap.timeline({ 
                 defaults: { ease: "power2.out" },
-                onComplete: () => { isAnimating = false; }
+                onComplete: () => { 
+                    // Ensure scroll is at top after animations complete
+                    window.scrollTo(0, 0);
+                    isAnimating = false; 
+                }
             });
 
             if (prevPageId === 'services') {
@@ -4043,6 +4104,8 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
             tl.add(() => {
                 showPage('home');
+                // Force scroll reset after page is shown
+                window.scrollTo(0, 0);
                 // adjustLayout will ensure correct values, but GSAP animation should have already set them
                 // Call it to sync any edge cases
                 adjustLayout();

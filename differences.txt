@@ -1,0 +1,242 @@
+66,103d65
+< <!-- TAILWIND CONFIGURATION -->
+< <!-- ============================================ -->
+< <script>
+<     tailwind.config = {
+<         theme: {
+<             extend: {
+<                 fontFamily: {
+<                     sans: ['Inter', 'sans-serif'],
+<                     serif: ['Cormorant Garamond', 'serif'],
+<                     mono: ['JetBrains Mono', 'monospace'],
+<                     'open-sans': ['Open Sans', 'sans-serif'],
+<                     'orange-avenue': ['Orange Avenue', 'serif'],
+<                 },
+<                 colors: {
+<                     paper: '#FDFCF8',
+<                     ink: '#1C1917',
+<                     sepia: '#78350F',
+<                     stone: '#E7E5E4',
+<                     rust: '#9A3412',
+<                     dark: '#0A0A0A',
+<                     gold: '#D4AF37'
+<                 },
+<                 animation: {
+<                     'fade-in': 'fadeIn 1.2s ease-out forwards',
+<                     'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+<                 },
+<                 keyframes: {
+<                     fadeIn: {
+<                         '0%': { opacity: '0', transform: 'translateY(10px)' },
+<                         '100%': { opacity: '1', transform: 'translateY(0)' },
+<                     }
+<                 }
+<             }
+<         }
+<     }
+< </script>
+< 
+< <!-- ============================================ -->
+107a70,93
+>     /* CSS VARIABLES */
+>     /* ============================================ */
+>     :root {
+>         --color-paper: #FDFCF8;
+>         --color-ink: #1C1917;
+>         --color-sepia: #78350F;
+>         --color-stone: #E7E5E4;
+>         --color-rust: #9A3412;
+>         --color-dark: #0A0A0A;
+>         --color-gold: #D4AF37;
+>         --color-bg: #CECECE;
+>         --color-rust-rgba-08: rgba(154, 52, 18, 0.08);
+>         --color-rust-rgba-15: rgba(154, 52, 18, 0.15);
+>         --color-rust-rgba-22: rgba(154, 52, 18, 0.22);
+>         --color-rust-rgba-04: rgba(154, 52, 18, 0.04);
+>         --color-dark-rgba-20: rgba(10, 10, 10, 0.2);
+>         --color-dark-rgba-80: rgba(10, 10, 10, 0.8);
+>         --color-dark-rgba-90: rgba(10, 10, 10, 0.9);
+>         --color-dark-rgba-08: rgba(28, 25, 23, 0.08);
+>         --color-dark-rgba-05: rgba(28, 25, 23, 0.05);
+>         --color-dark-rgba-10: rgba(28, 25, 23, 0.1);
+>     }
+> 
+>     /* ============================================ */
+123,124c109,110
+<         background-color: #CECECE;
+<         color: #1C1917;
+---
+>         background-color: var(--color-bg);
+>         color: var(--color-ink);
+130d115
+<     
+149c134
+< background: #1C1917; border: 1px solid #FDFCF8;
+---
+> background: var(--color-ink); border: 1px solid var(--color-paper);
+164c149
+< border: 1px solid rgba(28, 25, 23, 0.08);
+---
+> border: 1px solid var(--color-dark-rgba-08);
+167c152
+< 0 20px 40px -4px rgba(28, 25, 23, 0.05);
+---
+> 0 20px 40px -4px var(--color-dark-rgba-05);
+170,171c155,156
+< ::selection { background: #E7E5E4; color: #1C1917; }
+< .thin-border { border: 1px solid rgba(28, 25, 23, 0.1); }
+---
+> ::selection { background: var(--color-stone); color: var(--color-ink); }
+> .thin-border { border: 1px solid var(--color-dark-rgba-10); }
+312,313c297,298
+<                     radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.15) 0%, transparent 50%),
+<                     #0A0A0A;
+---
+>                     radial-gradient(circle at 100% 100%, var(--color-rust-rgba-15) 0%, transparent 50%),
+>                     var(--color-dark);
+317c302
+<         background: #FDFCF8;
+---
+>         background: var(--color-paper);
+325c310
+<     display: inline-block; /* Changed from block to inline-block */
+---
+>     display: inline-block;
+329c314
+< stroke: #78350F; stroke-width: 0.8;
+---
+> stroke: var(--color-sepia); stroke-width: 0.8;
+380c365
+<     color: #1C1917;
+---
+>     color: var(--color-ink);
+392c377
+<     color: #78350F;
+---
+>     color: var(--color-sepia);
+557c542
+<     background: linear-gradient(135deg, rgba(154, 52, 18, 0.08), rgba(109, 40, 217, 0.02));
+---
+>     background: linear-gradient(135deg, var(--color-rust-rgba-08), rgba(109, 40, 217, 0.02));
+560c545
+<     border: 1px solid rgba(154, 52, 18, 0.15);
+---
+>     border: 1px solid var(--color-rust-rgba-15);
+624c609
+<     background: linear-gradient(135deg, rgba(154, 52, 18, 0.15), rgba(109, 40, 217, 0.05));
+---
+>     background: linear-gradient(135deg, var(--color-rust-rgba-15), rgba(109, 40, 217, 0.05));
+634c619
+<     background: linear-gradient(135deg, rgba(154, 52, 18, 0.22), rgba(109, 40, 217, 0.08));
+---
+>     background: linear-gradient(135deg, var(--color-rust-rgba-22), rgba(109, 40, 217, 0.08));
+636c621
+<     border-top: 2px solid #9A3412; /* Deep rust */
+---
+>     border-top: 2px solid var(--color-rust);
+647c632
+<     background: linear-gradient(rgba(154, 52, 18, 0.04) 1px, transparent 1px);
+---
+>     background: linear-gradient(var(--color-rust-rgba-04) 1px, transparent 1px);
+660c645
+<     background: #9A3412;
+---
+>     background: var(--color-rust);
+662c647
+<     box-shadow: 0 0 8px #9A3412;
+---
+>     box-shadow: 0 0 8px var(--color-rust);
+844c829
+<     background-image: linear-gradient(to bottom, #0A0A0A, rgba(10, 10, 10, 0.9), transparent) !important;
+---
+>     background-image: linear-gradient(to bottom, var(--color-dark), var(--color-dark-rgba-90), transparent) !important;
+853,854c838,839
+<     background-color: #0A0A0A !important;
+<     border-color: #9A3412 !important; /* Rust accent on logo border */
+---
+>     background-color: var(--color-dark) !important;
+>     border-color: var(--color-rust) !important;
+862c847
+<     color: #9A3412 !important; /* Rust accent on hover */
+---
+>     color: var(--color-rust) !important;
+873c858
+<     color: #0A0A0A !important;
+---
+>     color: var(--color-dark) !important;
+891c876
+<     color: #0A0A0A !important;
+---
+>     color: var(--color-dark) !important;
+897c882
+<     background: linear-gradient(135deg, #064e3b 0%, #78350f 100%) !important;
+---
+>     background: linear-gradient(135deg, #064e3b 0%, var(--color-sepia) 100%) !important;
+942,943c927,928
+<     border-color: #9A3412;
+<     background-color: rgba(154, 52, 18, 0.08);
+---
+>     border-color: var(--color-rust);
+>     background-color: var(--color-rust-rgba-08);
+957,958c942,943
+<     background-color: #9A3412;
+<     color: #FDFCF8;
+---
+>     background-color: var(--color-rust);
+>     color: var(--color-paper);
+961a947,957
+> 
+> /* Inline Style Replacements - Animation Classes */
+> .anim-delay-300 { animation-delay: 0.3s; }
+> .anim-delay-500 { animation-delay: 0.5s; }
+> .anim-duration-90s { animation-duration: 90s; }
+> .anim-duration-20s { animation-duration: 20s; }
+> .anim-duration-3s { animation-duration: 3s; }
+> .anim-duration-60s { animation-duration: 60s; }
+> .anim-duration-40s { animation-duration: 40s; }
+> .anim-duration-120s { animation-duration: 120s; }
+> .filter-grayscale-bright { filter: grayscale(1) brightness(0.8) contrast(1.4); }
+1064c1060
+<             <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
+---
+>             <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0 anim-delay-300">
+1091c1087
+<             <div class="absolute bottom-8 left-6 right-6 z-20 md:hidden animate-fade-in opacity-0 pointer-events-auto" style="animation-delay: 0.5s;">
+---
+>             <div class="absolute bottom-8 left-6 right-6 z-20 md:hidden animate-fade-in opacity-0 pointer-events-auto anim-delay-500">
+1139c1135
+<                         <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
+---
+>                         <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow anim-duration-90s">
+1247c1243
+<                                     <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0 z-10" style="animation-duration: 20s;">
+---
+>                                     <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0 z-10 anim-duration-20s">
+1252c1248
+<                                         <g class="animate-pulse" style="animation-duration: 3s;">
+---
+>                                         <g class="animate-pulse anim-duration-3s">
+1499c1495
+<                             <div id="service-protected-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300" style="filter: grayscale(1) brightness(0.8) contrast(1.4);"></div>
+---
+>                             <div id="service-protected-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300 filter-grayscale-bright"></div>
+1502c1498
+<                             <div id="service-auditable-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-56 h-56 pointer-events-none transition-opacity duration-300" style="filter: grayscale(1) brightness(0.8) contrast(1.4);"></div>
+---
+>                             <div id="service-auditable-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-56 h-56 pointer-events-none transition-opacity duration-300 filter-grayscale-bright"></div>
+1595c1591
+<                         <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
+---
+>                         <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow anim-duration-90s">
+1860c1856
+<                                             <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow" style="animation-duration: 90s; color: rgba(255,255,255,0.42);">
+---
+>                                             <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow anim-duration-90s" style="color: rgba(255,255,255,0.42);">
+1945c1941
+<                                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[60px] animate-pulse-slow" style="animation-delay: 0.5s; background-color: rgba(var(--zen-theme), 0.15);"></div>
+---
+>                                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[60px] animate-pulse-slow anim-delay-500" style="background-color: rgba(var(--zen-theme), 0.15);"></div>
+2110c2106
+<             <div class="absolute bottom-8 left-8 md:bottom-12 md:left-16 w-64 h-64 md:w-96 md:h-96 opacity-55 animate-spin-reverse" style="animation-duration: 120s;">
+---
+>             <div class="absolute bottom-8 left-8 md:bottom-12 md:left-16 w-64 h-64 md:w-96 md:h-96 opacity-55 animate-spin-reverse anim-duration-120s">

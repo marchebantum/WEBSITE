@@ -1,15 +1,29 @@
-<html lang="en"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zenias | Digital Renaissance</title>
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-<!-- Tailwind & Icons -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============================================ -->
+    <!-- META TAGS -->
+    <!-- ============================================ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenias | Digital Renaissance</title>
+
+    <!-- ============================================ -->
+    <!-- EXTERNAL DEPENDENCIES -->
+    <!-- ============================================ -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+    <!-- Third-Party Libraries (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <!-- Local Scripts (GSAP) -->
     <script src="js/gsap/gsap.min.js"></script>
     <script src="js/gsap/ScrollTrigger.min.js"></script>
     <script src="js/gsap/Flip.min.js"></script>
@@ -47,22 +61,75 @@ fadeIn: {
 }
 }
 </script>
-<style>
-@font-face {
-    font-family: 'Orange Avenue';
-    src: url('documents/OrangeAvenueDEMO-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
 
-body {
-margin: 0;
-overflow: hidden;
-background-color: #CECECE;
-color: #1C1917;
-}
-/* Scroll-in animation */
-@keyframes animationIn {
+<!-- ============================================ -->
+<!-- TAILWIND CONFIGURATION -->
+<!-- ============================================ -->
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    serif: ['Cormorant Garamond', 'serif'],
+                    mono: ['JetBrains Mono', 'monospace'],
+                    'open-sans': ['Open Sans', 'sans-serif'],
+                    'orange-avenue': ['Orange Avenue', 'serif'],
+                },
+                colors: {
+                    paper: '#FDFCF8',
+                    ink: '#1C1917',
+                    sepia: '#78350F',
+                    stone: '#E7E5E4',
+                    rust: '#9A3412',
+                    dark: '#0A0A0A',
+                    gold: '#D4AF37'
+                },
+                animation: {
+                    'fade-in': 'fadeIn 1.2s ease-out forwards',
+                    'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                },
+                keyframes: {
+                    fadeIn: {
+                        '0%': { opacity: '0', transform: 'translateY(10px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<!-- ============================================ -->
+<!-- CUSTOM STYLES -->
+<!-- ============================================ -->
+<style>
+    /* ============================================ */
+    /* FONTS */
+    /* ============================================ */
+    @font-face {
+        font-family: 'Orange Avenue';
+        src: url('OrangeAvenueDEMO-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* ============================================ */
+    /* BASE STYLES */
+    /* ============================================ */
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #CECECE;
+        color: #1C1917;
+    }
+
+    /* ============================================ */
+    /* CSS ANIMATIONS (@keyframes) */
+    /* ============================================ */
+    
+    /* Scroll-in animation */
+    @keyframes animationIn {
   0% {
     opacity: 0;
     transform: translateY(30px);
@@ -102,12 +169,20 @@ box-shadow:
 /* Utility */
 ::selection { background: #E7E5E4; color: #1C1917; }
 .thin-border { border: 1px solid rgba(28, 25, 23, 0.1); }
-/* Hardware Acceleration for Animations */
-.works-card, .works-pillar, #works-intro, #works-four-things, #works-title-digital, #works-title-renaissance {
-    will-change: transform, opacity, filter;
-}
+    /* ============================================ */
+    /* COMPONENT STYLES */
+    /* ============================================ */
+    
+    /* ============================================ */
+    /* WORKS PAGE COMPONENTS */
+    /* ============================================ */
+    
+    /* Hardware Acceleration for Animations */
+    .works-card, .works-pillar, #works-intro, #works-four-things, #works-title-digital, #works-title-renaissance {
+        will-change: transform, opacity, filter;
+    }
 
-/* Works grid sizing: keep large, consistent tiles on desktop */
+    /* Works grid sizing: keep large, consistent tiles on desktop */
 .works-projects-grid {
     align-items: stretch;
 }
@@ -201,8 +276,12 @@ box-shadow:
     opacity: 1;
     transform: translateY(0);
 }
-/* Da Vinci Grid Overlay */
-.grid-overlay {
+    /* ============================================ */
+    /* UTILITY CLASSES */
+    /* ============================================ */
+    
+    /* Da Vinci Grid Overlay */
+    .grid-overlay {
 background-size: 40px 40px;
 background-image:
 linear-gradient(to right, rgba(28, 25, 23, 0.08) 1px, transparent 1px),
@@ -224,15 +303,19 @@ linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 mask-image: radial-gradient(circle at center, black 50%, transparent 90%);
 }
 
-#works-page {
-    background: radial-gradient(circle at 0% 0%, rgba(26, 16, 61, 0.3) 0%, transparent 50%), 
-                radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.15) 0%, transparent 50%),
-                #0A0A0A;
-}
+    /* ============================================ */
+    /* PAGE-SPECIFIC STYLES */
+    /* ============================================ */
+    
+    #works-page {
+        background: radial-gradient(circle at 0% 0%, rgba(26, 16, 61, 0.3) 0%, transparent 50%), 
+                    radial-gradient(circle at 100% 100%, rgba(154, 52, 18, 0.15) 0%, transparent 50%),
+                    #0A0A0A;
+    }
 
-#inquire-page {
-    background: #FDFCF8;
-}
+    #inquire-page {
+        background: #FDFCF8;
+    }
 
 #works-title-renaissance {
     background: linear-gradient(to right, #ffffff 0%, #ffffff 22%, #C084FC 38%, #6366F1 68%, #38BDF8 100%);
@@ -907,19 +990,28 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
     document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
   })();
-</script></head>
+</script>
+</head>
 
 <body class="antialiased font-sans bg-paper h-screen w-screen overflow-hidden">
 
+    <!-- ============================================ -->
+    <!-- BACKGROUND ELEMENTS -->
+    <!-- ============================================ -->
+    
     <!-- Subtle Grid Background -->
     <div class="absolute inset-0 pointer-events-none grid-overlay z-0"></div>
 
     <!-- Gradient Background Transition -->
     <div class="absolute inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-paper from-10% via-paper via-25% to-[#e8e3db] to-40%"></div>
 
-    <!-- Canvas -->
+    <!-- Canvas (Three.js Particle System) -->
     <div id="canvas-container" class="absolute inset-0 z-1"></div>
 
+    <!-- ============================================ -->
+    <!-- HEADER & NAVIGATION -->
+    <!-- ============================================ -->
+    
     <!-- Header - Fixed across pages -->
     <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-3 py-2 md:px-12 md:py-6 transition-all duration-300">
         <!-- Background Gradient & Blur with Soft Masked Edge -->
@@ -927,7 +1019,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         <div class="flex items-center gap-2 md:gap-4 cursor-pointer" id="logo-home">
             <div class="w-8 h-8 md:w-10 md:h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
-                <img src="assets/images/No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain">
+                <img src="No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain">
             </div>
             <span class="font-serif text-2xl md:text-4xl tracking-tight text-ink font-medium">Zenias</span>
         </div>
@@ -957,16 +1049,21 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT AREA -->
+    <!-- ============================================ -->
+    
     <main class="absolute inset-0 z-20 pointer-events-none p-6 md:p-12 h-full w-full">
+        <!-- ============================================ -->
+        <!-- HOME PAGE -->
+        <!-- ============================================ -->
         <div id="home-page" class="relative h-full w-full">
             <!-- Header removed from here -->
 
             <!-- Hero Text -->
             <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-3 mb-4 md:mb-6">
-                    <div class="h-px w-8 md:w-12 bg-rust"></div>
-                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Training | Consulting | Governance</span>
+                    <!-- Headings removed -->
                 </div>
                 
                 <!-- Title - Bigger on mobile -->
@@ -1006,17 +1103,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 </div>
             </div>
 
-            <!-- Footer Coordinates - Perth Global visible on all, Lat/Lon desktop only -->
-            <div class="absolute bottom-40 md:bottom-32 left-6 md:left-0 flex flex-col gap-1 z-10">
-                <span class="font-mono text-[11px] text-neutral-600 uppercase tracking-widest mb-1">Perth | Global</span>
-                <div class="hidden md:flex flex-col opacity-40">
-                    <span class="font-mono text-[9px] text-neutral-400">LAT: 31.9514° S</span>
-                    <span class="font-mono text-[9px] text-neutral-400">LON: 115.8617° E</span>
-                </div>
-            </div>
+
         </div>
     </main>
 
+    <!-- ============================================ -->
+    <!-- SERVICES PAGE -->
+    <!-- ============================================ -->
+    
     <!-- Services Page (initially hidden) -->
     <section id="services-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-paper">
         <!-- Seamless Atmospheric Background (Light Mode) - Stretches to cover all scrollable content -->
@@ -1032,7 +1126,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <!-- Integrated Header (No Box) -->
             <div class="relative mb-6 md:mb-8 group">
                 <!-- Subtly Integrated Tech Sketch Photo -->
-                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-[url('assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none"></div>
+                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-[url('isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none"></div>
                 
                 <!-- Technical/Architectural Elements (Light Mode) -->
                 <div class="absolute inset-0 pointer-events-none opacity-50">
@@ -1475,6 +1569,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- WORKS PAGE -->
+    <!-- ============================================ -->
+    
     <!-- Works Page (initially hidden) -->
     <section id="works-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-dark">
         <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
@@ -1484,7 +1582,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <!-- Integrated Works Header (Dark Mode) -->
             <div class="relative mb-4 md:mb-12 group">
                 <!-- Subtly Integrated Tech Sketch Photo - Bleeding into background -->
-                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-[url('assets/images/abstract-portrait-with-geometric-glitch-layers-4k.png')] bg-[length:90%_auto] bg-no-repeat bg-[center_3%] opacity-[0.3] mix-blend-lighten pointer-events-none" style="mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
+                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-[url('abstract-portrait-with-geometric-glitch-layers-4k.png')] bg-[length:90%_auto] bg-no-repeat bg-[center_3%] opacity-[0.3] mix-blend-lighten pointer-events-none" style="mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
                 
                 <!-- Technical/Architectural Elements (Dark Mode) -->
                 <div class="absolute inset-0 pointer-events-none opacity-50">
@@ -1622,7 +1720,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 02 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/smartphone-with-vibrant-gradient-screen-in-hand-4k.jpeg'); background-size: 140%; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('smartphone-with-vibrant-gradient-screen-in-hand-4k.jpeg'); background-size: 140%; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1648,7 +1746,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 03 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/abstract-glowing-rounded-bar-pillars-on-dark-background-4k.jpeg');"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('abstract-glowing-rounded-bar-pillars-on-dark-background-4k.jpeg');"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-top-mask"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
@@ -1673,7 +1771,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 04 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k.webp'); background-size: 115%; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('futuristic-glass-ui-panels-with-neon-gradient-4k.webp'); background-size: 115%; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1711,7 +1809,11 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         </div>
     </section>
 
-	    <!-- About Us Page (initially hidden) -->
+    <!-- ============================================ -->
+    <!-- ABOUT US PAGE -->
+    <!-- ============================================ -->
+    
+    <!-- About Us Page (initially hidden) -->
 	    <section id="about-page" class="hidden absolute inset-0 overflow-y-auto overscroll-contain scroll-smooth z-30 pointer-events-auto bg-dark text-stone">
 	        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
 
@@ -1720,7 +1822,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 	            <section class="relative min-h-[100svh] flex items-center justify-center px-6 md:px-12 pt-28 pb-16 overflow-hidden">
 	                <!-- Zen Grounding -->
 	                <div class="absolute inset-0 -z-10">
-	                    <img src="assets/images/rainy-bamboo-garden-through-a-moon-gate-4k.jpeg" class="w-full h-full object-cover opacity-50 grayscale-[15%]" alt="Rainy bamboo garden through a moon gate">
+	                    <img src="About%20Us%20Images/rainy-bamboo-garden-through-a-moon-gate-4k.jpeg" class="w-full h-full object-cover opacity-50 grayscale-[15%]" alt="Rainy bamboo garden through a moon gate">
 	                    <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/90"></div>
 	                    <div class="absolute inset-0 bg-[radial-gradient(900px_circle_at_25%_20%,rgba(212,175,55,0.16)_0%,transparent_60%)]"></div>
 	                </div>
@@ -1804,7 +1906,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                             <div class="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0">
                                                 <div class="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-amber-500/30 to-emerald-500/30 blur opacity-40 group-hover:opacity-100 transition-opacity duration-700"></div>
                                                 <div class="relative w-full h-full rounded-full border border-white/20 overflow-hidden shadow-inner">
-                                                    <img src="assets/images/1518138569095.jpeg" alt="Marche Bantum" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 scale-105 group-hover:scale-110">
+                                                    <img src="1518138569095.jpeg" alt="Marche Bantum" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 scale-105 group-hover:scale-110">
                                                 </div>
                                             </div>
                                             
@@ -1834,7 +1936,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                     <!-- Zen-garden photo blended as base background (keeps grid/rings/atmosphere on top) -->
                                     <div aria-hidden="true"
                                          class="absolute inset-0 opacity-40 mix-blend-soft-light"
-                                         style="background-image: url('assets/images/night-zen-garden-with-rocks-and-raked-sand-4k.png'); background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
+                                         style="background-image: url('night-zen-garden-with-rocks-and-raked-sand-4k.png'); background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
                                     </div>
                                     <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25"></div>
 
@@ -1967,9 +2069,13 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
  	                </div>
  	            </section>
 
-	        </div>
-	    </section>
+        </div>
+    </section>
 
+    <!-- ============================================ -->
+    <!-- INQUIRE PAGE -->
+    <!-- ============================================ -->
+    
     <!-- Inquire Page (initially hidden) -->
     <section id="inquire-page" class="hidden absolute inset-0 overflow-hidden z-30 pointer-events-auto">
         <!-- Rust/Purple Gradient Background -->
@@ -1979,7 +2085,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <!-- Purple on the bottom right -->
             <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
         </div>
-        <div class="absolute inset-0 pointer-events-none z-[-1] bg-[url('assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.05]"></div>
+        <div class="absolute inset-0 pointer-events-none z-[-1] bg-[url('isometric-sketch-of-cloud-data-infrastructure-4k.jpeg')] bg-cover bg-center opacity-[0.05]"></div>
 
         <!-- Technical/Architectural Elements (Light Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 opacity-70">
@@ -2057,7 +2163,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                     <div id="inquiry-badge" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-ink/10 bg-paper/60 backdrop-blur-sm mb-8">
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                         <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
-                        <span class="text-[10px] uppercase tracking-widest text-neutral-600 font-mono font-semibold">Click below to Inquire</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-600 font-mono font-semibold">Click to Inquire</span>
                         <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                     </div>
@@ -2269,6 +2375,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- THREE.JS SHADERS -->
+    <!-- ============================================ -->
+    
     <!-- Shaders -->
     <script type="x-shader/x-vertex" id="vertexShader">
         uniform float uTime;
@@ -2384,9 +2494,21 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         }
     </script>
 
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT INITIALIZATION & LOGIC -->
+    <!-- ============================================ -->
+    
     <script>
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
         lucide.createIcons();
 
+        // ============================================
+        // THREE.JS SETUP & ANIMATION
+        // ============================================
+        
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         // Fog to blend into paper background
@@ -2604,6 +2726,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         }
         animate();
 
+        // ============================================
+        // MOBILE MENU & LOTTIE ANIMATIONS
+        // ============================================
+        
         // Mobile Menu Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -2662,7 +2788,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 renderer: 'svg',
                 loop: true,
                 autoplay: false,
-                path: 'data/LZD TEch.json'
+                path: 'LZD TEch.json'
             });
         }
 
@@ -2675,7 +2801,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 renderer: 'svg',
                 loop: true,
                 autoplay: false,
-                path: 'data/Success (2).json'
+                path: 'Success (2).json'
             });
         }
 
@@ -2688,7 +2814,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 renderer: 'svg',
                 loop: true,
                 autoplay: false,
-                path: 'data/Authentication Lock Login.json'
+                path: 'Authentication Lock Login.json'
             });
         }
 
@@ -2702,7 +2828,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 renderer: 'svg',
                 loop: true,
                 autoplay: false,
-                path: 'data/Document OCR Scan.json'
+                path: 'Document OCR Scan.json'
             });
         }
 
@@ -2715,7 +2841,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 renderer: 'svg',
                 loop: false,
                 autoplay: false,
-                path: 'data/Falling money.json'
+                path: 'Falling money.json'
             });
         }
 
@@ -2775,7 +2901,11 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         mobileMenuBtn.addEventListener('click', toggleMenu);
 
-        // --- About Page Data & Tabs ---
+        // ============================================
+        // SERVICES PAGE DATA & FUNCTIONS
+        // ============================================
+        
+        // Service Data & Tabs
         const serviceData = [
             {
                 id: '01',
@@ -2917,6 +3047,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             return html;
         }
 
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        
         function toggleTreeItem(id, isTopLevel) {
             // Trigger Easter Egg if discount code clicked
             if (id === 'discount-code') {
@@ -2943,6 +3077,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         let currentServiceIndex = 0;
         let currentSlideIndex = 0;
 
+        // Text Animation Functions
         function scrambleText(element, targetText, duration = 1.0) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
             // Use data-original if it exists to prevent capturing scrambled state
@@ -3000,6 +3135,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             }
         }
 
+        // ============================================
+        // SERVICES PAGE FUNCTIONS
+        // ============================================
+        
         function updateSlideContent(isServiceChange = false) {
             const data = serviceData[currentServiceIndex];
             const slide = data.slides[currentSlideIndex];
@@ -3435,7 +3574,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             resizeObserver.observe(contentWrapperEl);
         }
 
-        // --- Page Transitions ---
+        // ============================================
+        // PAGE NAVIGATION & TRANSITIONS
+        // ============================================
         const homePage = document.getElementById('home-page');
         const servicesPage = document.getElementById('services-page');
         const worksPage = document.getElementById('works-page');
@@ -3800,7 +3941,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             tl.fromTo(heroBlock, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5 }, 0.8);
         }
 
-        // --- Mouse Wheel / Scroll Navigation ---
+        // ============================================
+        // SCROLL & TOUCH NAVIGATION
+        // ============================================
         let lastScrollTime = 0;
         const scrollCooldown = 800;
 
@@ -3942,7 +4085,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             });
         });
 
-        // --- Zen Tech Component Logic ---
+        // ============================================
+        // ABOUT PAGE - ZEN TECH COMPONENT
+        // ============================================
         const zenContainer = document.getElementById('zen-tech-container');
         if (zenContainer) {
             let currentZenIndex = 0;
@@ -4037,7 +4182,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             });
         }
 
-        // --- Inquiry Form Modal Logic ---
+        // ============================================
+        // INQUIRY FORM MODAL LOGIC
+        // ============================================
         const inquiryModal = document.getElementById('inquiry-modal');
         const openInquiryForm = document.getElementById('open-inquiry-form');
         const closeInquiryForm = document.getElementById('close-inquiry-modal');

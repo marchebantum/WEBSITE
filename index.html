@@ -178,11 +178,9 @@ box-shadow:
     min-height: 320px;
 }
 @media (min-width: 768px) {
-    .works-projects-grid { min-height: 760px; }
     .works-card { min-height: 360px; }
 }
 @media (min-width: 1024px) {
-    .works-projects-grid { min-height: 860px; }
     .works-card { min-height: 420px; }
 }
 /* Works cards default/selected states */
@@ -742,6 +740,17 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 100%);
     padding-top: 2px;
     display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile-specific adjustments for scramble animation to prevent clipping */
+@media (max-width: 768px) {
+    #service-headline.melt-headline {
+        line-height: 1.25 !important;
+        min-height: auto;
+        overflow: visible;
+    }
 }
 
 .melt-headline span {
@@ -1091,6 +1100,22 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
         </div>
         
+        <!-- Circular Drafting Element - Services (Positioned at section level) -->
+        <div class="absolute right-4 md:right-12 top-8 md:top-16 w-[20rem] md:w-[32rem] h-[20rem] md:h-[32rem] opacity-50 pointer-events-none z-[5]">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
+                <defs>
+                    <linearGradient id="drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#9A3412" />
+                        <stop offset="100%" stop-color="#D4AF37" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="48" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15"></circle>
+                <rect x="25" y="25" width="50" height="50" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                <path d="M50 2 L50 98 M2 50 L98 50" stroke="url(#drafting-gradient)" stroke-width="0.05" opacity="0.4"></path>
+            </svg>
+        </div>
+        
         <div id="services-content-wrapper" class="relative px-6 md:px-12 pt-20 md:pt-36 pb-6 md:pb-8 z-10 overflow-x-hidden">
             <!-- Integrated Header (No Box) -->
             <div class="relative mb-6 md:mb-8 group">
@@ -1098,26 +1123,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 <div class="absolute inset-0 -mx-6 md:-mx-12 bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none lazy-bg" data-bg="assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg"></div>
                 
                 <!-- Technical/Architectural Elements (Light Mode) -->
-                <div class="absolute inset-0 pointer-events-none opacity-50 overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none opacity-50">
                     <!-- Blueprint Corner Markers -->
                     <div class="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #9A3412, #D4AF37) 1;"></div>
                     <div class="absolute -top-4 -right-4 w-16 h-16 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #9A3412, #D4AF37) 1;"></div>
-                    
-                    <!-- Circular Drafting Element -->
-                    <div class="absolute right-0 -top-24 w-[32rem] h-[32rem] opacity-60" style="max-width: calc(100vw - 1rem); clip-path: inset(0 0 0 0);">
-                        <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
-                            <defs>
-                                <linearGradient id="drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#9A3412" />
-                                    <stop offset="100%" stop-color="#D4AF37" />
-                                </linearGradient>
-                            </defs>
-                            <circle cx="50" cy="50" r="48" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.3" stroke-dasharray="2 4"></circle>
-                            <circle cx="50" cy="50" r="35" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15"></circle>
-                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
-                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="url(#drafting-gradient)" stroke-width="0.05" opacity="0.4"></path>
-                        </svg>
-                    </div>
 
                     <!-- Tech Lines -->
                     <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-rust/10 to-transparent"></div>
@@ -1144,7 +1153,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         
                         <div class="relative inline-block pt-2 overflow-visible">
                             <div aria-hidden="true" class="absolute -inset-x-6 -inset-y-4 bg-[radial-gradient(520px_circle_at_28%_40%,rgba(249,115,22,0.05)_0%,transparent_72%)] blur-2xl opacity-60"></div>
-                            <h2 id="service-headline" class="font-orange-avenue text-[clamp(calc(2.6rem-6pt),calc(6vw-6pt),calc(4.35rem-6pt))] leading-[1.08] tracking-tight max-w-4xl pr-2 break-words mt-2 melt-headline">
+                            <h2 id="service-headline" class="font-orange-avenue text-[clamp(calc(2.6rem-6pt),calc(6vw-6pt),calc(4.35rem-6pt))] leading-[1.2] md:leading-[1.08] tracking-tight max-w-4xl pr-2 break-words mt-2 melt-headline">
                                 'Form follows function.'
                             </h2>
                         </div>
@@ -1531,7 +1540,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         <span class="font-mono text-[10px] text-rust/50 tracking-[0.2em]">//</span>
                         <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
                         <div class="h-px w-12 bg-gradient-to-r from-rust/60 via-rust/20 to-transparent"></div>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink font-semibold">Scroll</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink font-semibold">Next</span>
                     </div>
                 </div>
             </div>
@@ -1543,27 +1552,30 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
         
-        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-12 md:pb-16 z-10">
+        <!-- Subtly Integrated Tech Sketch Photo - Cropped from bottom -->
+        <div class="absolute left-0 right-0 h-[280px] opacity-[0.015] pointer-events-none overflow-hidden" style="top: 135px;">
+            <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" alt="" class="w-[48%] mx-auto object-cover object-top" style="mask-image: radial-gradient(circle at 65% 15%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 8%, transparent 25%); -webkit-mask-image: radial-gradient(circle at 65% 15%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 8%, transparent 25%);" />
+        </div>
+        
+        <!-- Circular Drafting Element - Works (Positioned at section level) -->
+        <div class="absolute right-4 md:right-12 top-6 md:top-12 w-72 md:w-96 h-72 md:h-96 opacity-30 pointer-events-none z-[5]">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
+                <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.4"></path>
+            </svg>
+        </div>
+        
+        <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-6 z-10">
             <!-- Integrated Works Header (Dark Mode) -->
-            <div class="relative mb-4 md:mb-12 group overflow-hidden">
-                <!-- Subtly Integrated Tech Sketch Photo - Bleeding into background -->
-                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-no-repeat opacity-[0.3] mix-blend-lighten pointer-events-none lazy-bg" data-bg-webp="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" data-bg-fallback="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.png" style="background-size: 90% auto; background-position: center 3%; mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
+            <div class="relative mb-4 md:mb-12 group overflow-visible">
                 
                 <!-- Technical/Architectural Elements (Dark Mode) -->
-                <div class="absolute inset-0 pointer-events-none opacity-50 overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none opacity-50">
                     <!-- Blueprint Corner Markers -->
                     <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #8b5cf6, #f97316) 1;"></div>
                     <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #8b5cf6, #f97316) 1;"></div>
-                    
-                    <!-- Circular Drafting Element -->
-                    <div class="absolute right-0 -top-20 w-96 h-96 opacity-55" style="max-width: calc(100vw - 1rem);">
-                        <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
-                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
-                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
-                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
-                            <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.4"></path>
-                        </svg>
-                    </div>
 
                     <!-- Tech Lines -->
                     <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-violet-500/20 to-transparent"></div>
@@ -1609,7 +1621,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 
                 <!-- Sidebar Info (Dark Mode) -->
-                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-0 pr-8 pb-8 pl-8 relative justify-start lg:justify-between">
+                <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-0 pr-8 pb-8 pl-8 relative justify-start">
                     <div class="-mt-6">
                         <div class="flex items-center gap-3 mb-10">
                             <span class="w-2.5 h-2.5 bg-rust rounded-full animate-pulse shadow-[0_0_12px_rgba(154,52,18,0.4)]"></span>
@@ -1763,12 +1775,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             </div> <!-- End Grid Layout -->
 
             <!-- Scroll Indicator -->
-            <div class="mt-12 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="about">
+            <div class="mt-8 flex justify-center cursor-pointer hover:opacity-80 transition-opacity scroll-indicator" data-next-page="about">
                 <div class="flex items-center gap-3">
                     <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">//</span>
                     <i data-lucide="arrow-down" class="w-3 h-3 text-white/50 animate-bounce"></i>
                     <div class="h-px w-12 bg-gradient-to-r from-amber-200/50 via-white/10 to-transparent"></div>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Scroll</span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Next</span>
                 </div>
             </div>
         </div>
@@ -2009,7 +2021,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                 <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">//</span>
                                 <i data-lucide="arrow-down" class="w-3 h-3 text-white/50 animate-bounce"></i>
                                 <div class="h-px w-12 bg-gradient-to-r from-emerald-400/40 via-amber-200/30 to-transparent"></div>
-                                <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Scroll</span>
+                                <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Next</span>
                             </div>
                         </div>
 
@@ -3082,6 +3094,62 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 clearInterval(element._scrambleInterval);
             }
             
+            // For service-headline specifically: lock height before animation to prevent clipping on mobile
+            if (element.id === 'service-headline') {
+                // Clean up any previous lock first
+                if (element._lockedMinHeight !== undefined) {
+                    element.style.minHeight = element._lockedMinHeight || '';
+                    element.style.height = element._lockedHeight || '';
+                }
+                
+                // Store current inline styles to restore later
+                const tempStyle = {
+                    minHeight: element.style.minHeight || '',
+                    height: element.style.height || ''
+                };
+                
+                // Temporarily reset inline styles to get natural height measurement
+                element.style.minHeight = '';
+                element.style.height = 'auto';
+                
+                // Set the target text to measure its actual rendered height
+                element.innerText = originalText;
+                
+                // Force a reflow to ensure accurate height calculation
+                void element.offsetHeight;
+                
+                // Measure the actual height needed
+                const measuredHeight = element.offsetHeight;
+                const computedStyles = window.getComputedStyle(element);
+                let lineHeight = parseFloat(computedStyles.lineHeight);
+                
+                // Fallback if line-height is invalid
+                if (!lineHeight || isNaN(lineHeight)) {
+                    const fontSize = parseFloat(computedStyles.fontSize) || 24;
+                    lineHeight = fontSize * 1.2; // Default to 1.2x font size
+                }
+                
+                // Add buffer for wide characters during scramble (more on mobile)
+                const isMobile = window.innerWidth < 768;
+                const bufferMultiplier = isMobile ? 0.5 : 0.25; // 50% buffer on mobile, 25% on desktop
+                const bufferHeight = lineHeight * bufferMultiplier;
+                const lockedHeight = Math.ceil(measuredHeight + Math.max(bufferHeight, 8)); // Minimum 8px buffer
+                
+                // Store original styles for later reset
+                element._lockedMinHeight = tempStyle.minHeight;
+                element._lockedHeight = tempStyle.height;
+                
+                // Lock the minimum height to prevent clipping during scramble animation
+                element.style.minHeight = lockedHeight + 'px';
+                element.style.height = 'auto'; // Allow growth if absolutely necessary
+                
+                // Initialize with fully scrambled text to avoid flash and ensure height is respected
+                element.innerText = originalText
+                    .split('')
+                    .map((char) => char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)])
+                    .join('');
+            }
+            
             let iteration = 0;
             element._scrambleInterval = setInterval(() => {
                 element.innerText = originalText
@@ -3092,6 +3160,19 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 if (iteration >= originalText.length) {
                     clearInterval(element._scrambleInterval);
                     element.innerText = originalText;
+                    
+                    // Reset height lock after animation completes with a delay for stability
+                    if (element.id === 'service-headline') {
+                        setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                element.style.minHeight = element._lockedMinHeight || '';
+                                element.style.height = element._lockedHeight || '';
+                                delete element._lockedMinHeight;
+                                delete element._lockedHeight;
+                            });
+                        }, 100);
+                    }
+                    
                     delete element._scrambleInterval;
                 }
                 iteration += originalText.length / (duration * 33);
@@ -3107,6 +3188,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 if (!el.classList.contains('melt-headline')) {
                     el.classList.add('melt-headline');
                 }
+                
+                // Store original text for height measurement
+                el.setAttribute('data-original', text);
                 
                 // Specific sizing for the Governance headline to prevent wrapping on mobile
                 // reducing by roughly 4-6pts for this specific long quote

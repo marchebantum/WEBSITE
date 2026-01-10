@@ -34,21 +34,37 @@
 
 <!-- Canonical URL -->
 <link rel="canonical" href="https://zenias.io/">
-<!-- Fonts -->
+
+<!-- DNS Prefetch for External Resources -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+
+<!-- Preload Critical Resources -->
+<link rel="preload" href="css/output.css" as="style">
+<link rel="preload" href="js/gsap/gsap.min.js" as="script">
+<link rel="preload" href="assets/images/No BG BLACK.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/images/No BG BLACK.png" as="image" type="image/png">
+
+<!-- Fonts with Optimized Loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=Inter:wght@200;300;400&amp;family=JetBrains+Mono:wght@200;300;400&amp;family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>
 
 <!-- Tailwind CSS (Production Build) -->
 <link rel="stylesheet" href="css/output.css">
 
-<!-- External Libraries -->
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<!-- External Libraries (GSAP must load early for scroll functionality) -->
 <script src="js/gsap/gsap.min.js"></script>
 <script src="js/gsap/ScrollTrigger.min.js"></script>
 <script src="js/gsap/Flip.min.js"></script>
+<!-- Other libraries can be deferred -->
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 <style>
 @font-face {
     font-family: 'Orange Avenue';
@@ -57,11 +73,56 @@
     font-style: normal;
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
 body {
 margin: 0;
-overflow: hidden;
 background-color: #CECECE;
 color: #1C1917;
+overflow-x: hidden;
+width: 100%;
+max-width: 100vw;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Prevent horizontal scrolling on all pages */
+section {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Ensure all page containers don't allow horizontal scroll */
+#services-page,
+#works-page,
+#about-page,
+#inquire-page {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative;
+}
+
+/* Prevent child elements from causing overflow */
+#services-page *,
+#works-page *,
+#about-page *,
+#inquire-page * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Fix for elements with negative positioning */
+#services-page [class*="-left-"],
+#services-page [class*="-right-"],
+#works-page [class*="-left-"],
+#works-page [class*="-right-"] {
+    max-width: calc(100vw + 2rem) !important;
 }
 /* Scroll-in animation */
 @keyframes animationIn {
@@ -911,7 +972,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
   })();
 </script></head>
 
-<body class="antialiased font-sans bg-paper h-screen w-screen overflow-hidden">
+<body class="antialiased font-sans bg-paper h-screen">
 
     <!-- Subtle Grid Background -->
     <div class="absolute inset-0 pointer-events-none grid-overlay z-0"></div>
@@ -929,7 +990,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         <div class="flex items-center gap-2 md:gap-4 cursor-pointer" id="logo-home">
             <div class="w-8 h-8 md:w-10 md:h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
-                <img src="assets/images/No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain">
+                <img src="assets/images/No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="eager" fetchpriority="high" id="logo-img">
             </div>
             <span class="font-serif text-2xl md:text-4xl tracking-tight text-ink font-medium">Zenias</span>
         </div>
@@ -968,7 +1029,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <div id="hero-block" class="absolute top-16 left-4 right-4 md:relative md:top-auto md:left-auto md:right-auto md:mt-[10vh] z-20 w-full max-w-4xl animate-fade-in opacity-0" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-3 mb-4 md:mb-6">
                     <div class="h-px w-8 md:w-12 bg-rust"></div>
-                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap">Development | Training | Consulting | Governance</span>
+                    <span class="font-mono text-[10px] md:text-xs text-rust uppercase tracking-[0.2em] whitespace-nowrap max-w-full overflow-hidden">Development | Training | Consulting | Governance</span>
                 </div>
                 
                 <!-- Title - Bigger on mobile -->
@@ -1020,9 +1081,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     </main>
 
     <!-- Services Page (initially hidden) -->
-    <section id="services-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-paper">
+    <section id="services-page" class="hidden absolute inset-0 overflow-y-auto overflow-x-hidden z-30 pointer-events-auto bg-paper">
         <!-- Seamless Atmospheric Background (Light Mode) - Stretches to cover all scrollable content -->
-        <div id="services-bg-container" class="absolute top-0 left-0 right-0 pointer-events-none z-0">
+        <div id="services-bg-container" class="absolute top-0 left-0 right-0 pointer-events-none z-0 overflow-hidden">
             <div class="absolute inset-0 grid-overlay opacity-40"></div>
             <!-- Rust on the left -->
             <div class="absolute inset-0 bg-[radial-gradient(1200px_circle_at_0%_30%,rgba(154,52,18,0.25)_0%,transparent_75%)]"></div>
@@ -1030,20 +1091,20 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
         </div>
         
-        <div id="services-content-wrapper" class="relative px-6 md:px-12 pt-20 md:pt-36 pb-6 md:pb-8 z-10">
+        <div id="services-content-wrapper" class="relative px-6 md:px-12 pt-20 md:pt-36 pb-6 md:pb-8 z-10 overflow-x-hidden">
             <!-- Integrated Header (No Box) -->
             <div class="relative mb-6 md:mb-8 group">
                 <!-- Subtly Integrated Tech Sketch Photo -->
-                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none" style="background-image: url('assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg');"></div>
+                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none lazy-bg" data-bg="assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg"></div>
                 
                 <!-- Technical/Architectural Elements (Light Mode) -->
-                <div class="absolute inset-0 pointer-events-none opacity-50">
+                <div class="absolute inset-0 pointer-events-none opacity-50 overflow-hidden">
                     <!-- Blueprint Corner Markers -->
                     <div class="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #9A3412, #D4AF37) 1;"></div>
                     <div class="absolute -top-4 -right-4 w-16 h-16 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #9A3412, #D4AF37) 1;"></div>
                     
                     <!-- Circular Drafting Element -->
-                    <div class="absolute -right-24 -top-24 w-[32rem] h-[32rem] opacity-60">
+                    <div class="absolute right-0 -top-24 w-[32rem] h-[32rem] opacity-60" style="max-width: calc(100vw - 1rem); clip-path: inset(0 0 0 0);">
                         <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
                             <defs>
                                 <linearGradient id="drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1179,7 +1240,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                             <!-- Clipped Star Decoration (shown for BEAUTIFUL slide) -->
                             <div id="service-star-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
                                 <div class="clipped-star-container" onclick="toggleStarExpansion(this)">
-                                    <img src="https://images.unsplash.com/photo-1681238093193-1b3a8fcdf225?q=80&w=1962&auto=format&fit=crop" alt="Natural design element" class="clipped-star-image" />
+                                    <img src="https://images.unsplash.com/photo-1681238093193-1b3a8fcdf225?q=80&w=1962&auto=format&fit=crop" alt="Natural design element" class="clipped-star-image" loading="lazy" />
                                 </div>
                             </div>
 
@@ -1478,24 +1539,24 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     </section>
 
     <!-- Works Page (initially hidden) -->
-    <section id="works-page" class="hidden absolute inset-0 overflow-y-auto z-30 pointer-events-auto bg-dark">
+    <section id="works-page" class="hidden absolute inset-0 overflow-y-auto overflow-x-hidden z-30 pointer-events-auto bg-dark">
         <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
         
         <div class="relative px-6 md:px-12 pt-16 md:pt-32 pb-12 md:pb-16 z-10">
             <!-- Integrated Works Header (Dark Mode) -->
-            <div class="relative mb-4 md:mb-12 group">
+            <div class="relative mb-4 md:mb-12 group overflow-hidden">
                 <!-- Subtly Integrated Tech Sketch Photo - Bleeding into background -->
-                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-no-repeat opacity-[0.3] mix-blend-lighten pointer-events-none" style="background-image: url('assets/images/abstract-portrait-with-geometric-glitch-layers-4k.png'); background-size: 90% auto; background-position: center 3%; mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
+                <div class="absolute top-0 -left-6 -right-6 h-[180%] bg-no-repeat opacity-[0.3] mix-blend-lighten pointer-events-none lazy-bg" data-bg-webp="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" data-bg-fallback="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.png" style="background-size: 90% auto; background-position: center 3%; mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);"></div>
                 
                 <!-- Technical/Architectural Elements (Dark Mode) -->
-                <div class="absolute inset-0 pointer-events-none opacity-50">
+                <div class="absolute inset-0 pointer-events-none opacity-50 overflow-hidden">
                     <!-- Blueprint Corner Markers -->
                     <div class="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #8b5cf6, #f97316) 1;"></div>
                     <div class="absolute -top-4 -right-4 w-12 h-12 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #8b5cf6, #f97316) 1;"></div>
                     
                     <!-- Circular Drafting Element -->
-                    <div class="absolute -right-20 -top-20 w-96 h-96 opacity-55">
+                    <div class="absolute right-0 -top-20 w-96 h-96 opacity-55" style="max-width: calc(100vw - 1rem);">
                         <svg viewBox="0 0 100 100" class="w-full h-full text-violet-500 animate-spin-slow" style="animation-duration: 90s;">
                             <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 4"></circle>
                             <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.15"></circle>
@@ -1624,7 +1685,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 02 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/smartphone-with-vibrant-gradient-screen-in-hand-4k.jpeg'); background-size: 140%; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg="assets/images/smartphone-with-vibrant-gradient-screen-in-hand-4k.jpeg" style="background-size: 140%; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1650,7 +1711,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 03 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/abstract-glowing-rounded-bar-pillars-on-dark-background-4k.jpeg');"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg="assets/images/abstract-glowing-rounded-bar-pillars-on-dark-background-4k.jpeg"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-top-mask"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
@@ -1675,7 +1736,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                     <!-- Project 04 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out" style="background-image: url('assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k.webp'); background-size: 115%; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg="assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k.webp" style="background-size: 115%; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -1714,7 +1775,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     </section>
 
 	    <!-- About Us Page (initially hidden) -->
-	    <section id="about-page" class="hidden absolute inset-0 overflow-y-auto overscroll-contain scroll-smooth z-30 pointer-events-auto bg-dark text-stone">
+	    <section id="about-page" class="hidden absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain scroll-smooth z-30 pointer-events-auto bg-dark text-stone">
 	        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
 
 	        <div class="relative z-10">
@@ -1722,7 +1783,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 	            <section class="relative min-h-[100svh] flex items-center justify-center px-6 md:px-12 pt-28 pb-16 overflow-hidden">
 	                <!-- Zen Grounding -->
 	                <div class="absolute inset-0 -z-10">
-	                    <img src="assets/images/rainy-bamboo-garden-through-a-moon-gate-4k.jpeg" class="w-full h-full object-cover opacity-50 grayscale-[15%]" alt="Rainy bamboo garden through a moon gate">
+	                    <img src="assets/images/rainy-bamboo-garden-through-a-moon-gate-4k.jpeg" class="w-full h-full object-cover opacity-50 grayscale-[15%]" alt="Rainy bamboo garden through a moon gate" loading="lazy">
 	                    <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/90"></div>
 	                    <div class="absolute inset-0 bg-[radial-gradient(900px_circle_at_25%_20%,rgba(212,175,55,0.16)_0%,transparent_60%)]"></div>
 	                </div>
@@ -1806,7 +1867,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                             <div class="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0">
                                                 <div class="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-amber-500/30 to-emerald-500/30 blur opacity-40 group-hover:opacity-100 transition-opacity duration-700"></div>
                                                 <div class="relative w-full h-full rounded-full border border-white/20 overflow-hidden shadow-inner">
-                                                    <img src="assets/images/1518138569095.jpeg" alt="Marche Bantum" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 scale-105 group-hover:scale-110">
+                                                    <img src="assets/images/1518138569095.jpeg" alt="Marche Bantum" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 scale-105 group-hover:scale-110" loading="lazy">
                                                 </div>
                                             </div>
                                             
@@ -1835,8 +1896,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                 <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                                     <!-- Zen-garden photo blended as base background (keeps grid/rings/atmosphere on top) -->
                                     <div aria-hidden="true"
-                                         class="absolute inset-0 opacity-40 mix-blend-soft-light"
-                                         style="background-image: url('assets/images/night-zen-garden-with-rocks-and-raked-sand-4k.png'); background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
+                                         class="absolute inset-0 opacity-40 mix-blend-soft-light lazy-bg" data-bg-webp="assets/images/night-zen-garden-with-rocks-and-raked-sand-4k.webp" data-bg-fallback="assets/images/night-zen-garden-with-rocks-and-raked-sand-4k.png" style="background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
                                     </div>
                                     <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25"></div>
 
@@ -1973,7 +2033,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 	    </section>
 
     <!-- Inquire Page (initially hidden) -->
-    <section id="inquire-page" class="hidden absolute inset-0 overflow-hidden z-30 pointer-events-auto">
+    <section id="inquire-page" class="hidden absolute inset-0 overflow-y-auto overflow-x-hidden z-30 pointer-events-auto">
         <!-- Grid Overlay -->
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay opacity-40"></div>
         
@@ -1984,7 +2044,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             <!-- Purple on the bottom right -->
             <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
         </div>
-        <div class="absolute inset-0 pointer-events-none z-[-1] bg-cover bg-center opacity-[0.05]" style="background-image: url('assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg');"></div>
+        <div class="absolute inset-0 pointer-events-none z-[-1] bg-cover bg-center opacity-[0.05] lazy-bg" data-bg="assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg"></div>
 
         <!-- Technical/Architectural Elements (Light Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 opacity-70">
@@ -2390,23 +2450,42 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     </script>
 
     <script>
-        lucide.createIcons();
+        if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            window.addEventListener('load', () => {
+                if (window.lucide) lucide.createIcons();
+            });
+        }
+
+        // Declare variables in outer scope so they can be accessed by GSAP animations
+        let uniforms, transitionRotationY, systemsGroup, particles, camera, renderer, scene;
+
+        // Wait for THREE.js to load before initializing canvas
+        function initThreeJS() {
+            if (!window.THREE) {
+                // Try again after a short delay
+                setTimeout(initThreeJS, 100);
+                return;
+            }
 
         const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
+        if (!container) return; // Exit if container doesn't exist
+        
+        scene = new THREE.Scene();
         // Fog to blend into paper background
         scene.fog = new THREE.FogExp2(0xCECECE, 0.035);
 
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 18);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
         // Group to hold the "Systems"
-        const systemsGroup = new THREE.Group();
+        systemsGroup = new THREE.Group();
         systemsGroup.position.x = 4.0; 
         scene.add(systemsGroup);
 
@@ -2414,7 +2493,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         // Dense geometry for ink effect
         const geometry = new THREE.IcosahedronGeometry(4.5, 30);
         
-        const uniforms = {
+        uniforms = {
             uTime: { value: 0 },
             uDistortion: { value: 0.6 },
             uSize: { value: 2.5 },
@@ -2434,7 +2513,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             blending: THREE.NormalBlending
         });
 
-        const particles = new THREE.Points(geometry, material);
+        particles = new THREE.Points(geometry, material);
         systemsGroup.add(particles);
 
         // --- RENAISSANCE LINES (Astrolabe effect) ---
@@ -2473,7 +2552,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         let time = 0;
         let speed = 0.1;
         let mouseX = 0, mouseY = 0;
-        const transitionRotationY = { value: 0 };
+        transitionRotationY = { value: 0 };
 
         // New Interaction State
         let isDragging = false;
@@ -2560,6 +2639,19 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             }
         }
         adjustLayout();
+        
+        // Ensure initial orb state is set correctly
+        if (systemsGroup) {
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                systemsGroup.position.set(0, -1.0, -5);
+                systemsGroup.scale.set(0.75, 0.75, 0.75);
+            } else {
+                systemsGroup.position.set(4.5, 0, 0);
+                systemsGroup.scale.set(1, 1, 1);
+            }
+            transitionRotationY.value = 0;
+        }
 
         function animate() {
             requestAnimationFrame(animate);
@@ -2608,6 +2700,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             renderer.render(scene, camera);
         }
         animate();
+        }
+
+        // Initialize Three.js when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThreeJS);
+        } else {
+            initThreeJS();
+        }
 
         // Mobile Menu Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -2615,11 +2715,28 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         let isMenuOpen = false;
         let menuTimeout = null;
 
+        // Declare animation variables in outer scope
+        let menuAnim = null;
+        let adaptiveLottieAnim = null;
+        let foundationalLottieAnim = null;
+        let appliedLottieAnim = null;
+        let compliantLottieAnim = null;
+        let protectedLottieAnim = null;
+        let auditableLottieAnim = null;
+        let fallingMoneyAnim = null;
+
+        // Initialize all Lottie animations when library is loaded
+        function initLottieAnimations() {
+            if (!window.lottie) {
+                window.addEventListener('load', initLottieAnimations);
+                return;
+            }
+
         // Load Lottie Animation
         // Note: Using the JSON data provided by user inline to avoid CORS/file path issues if running locally without a server
         const menuAnimationData = {"v":"5.4.4","fr":60,"ip":0,"op":140,"w":100,"h":100,"nm":"Menu","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Buttom","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,70,0],"e":[51,78,0],"to":[0,1.333,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,78,0],"e":[51,50,0],"to":[0,-3.333,0],"ti":[0,4.667,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,78,0],"to":[0,4.667,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,78,0],"e":[51,70,0],"to":[0,3.333,0],"ti":[0,1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Buttom","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Center","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[45],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[45],"e":[0]},{"t":105}],"ix":10},"p":{"a":0,"k":[51,50,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Center","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Upper","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,30,0],"e":[51,22,0],"to":[0,-1.333,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,22,0],"e":[51,50,0],"to":[0,3.333,0],"ti":[0,-4.667,0]},{"i":{"x":0.831,"y":0.831},"o":{"x":0.165,"y":0.165},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,22,0],"to":[0,-4.667,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,22,0],"e":[51,30,0],"to":[0,-3.333,0],"ti":[0,-1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Upper","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0}],"markers":[]};
 
-        const menuAnim = lottie.loadAnimation({
+        menuAnim = lottie.loadAnimation({
             container: mobileMenuBtn,
             renderer: 'svg',
             loop: false,
@@ -2633,7 +2750,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         // Adaptive Lottie Animation
         const adaptiveLottieData = {"v":"4.8.0","meta":{"g":"LottieFiles AE 1.0.0","a":"","k":"","d":"","tc":"#FFFFFF"},"fr":29.9700012207031,"ip":0,"op":31.0000012626559,"w":500,"h":500,"nm":"Loading ","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Rectangle_1","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":135,"ix":10},"p":{"a":0,"k":[250,156.235,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2627,0.102,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Rectangle_2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":585,"ix":10},"p":{"a":0,"k":[343,250,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,0.5437,0.26,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Rectangle_3","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":315,"ix":10},"p":{"a":0,"k":[250,342.86,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2627,0.102,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"Rectangle_4","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":45,"ix":10},"p":{"a":0,"k":[157.156,250,0],"ix":2},"a":{"a":0,"k":[-125,-107,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":0,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[57,-57],[57,57],[-57,57],[-57,-57]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":15,"s":[{"i":[[-31.437,0],[0,-31.437],[31.437,0],[0,31.437]],"o":[[31.437,0],[0,31.437],[-31.437,0],[0,-31.437]],"v":[[0.718,-187.388],[57.64,-130.466],[0.718,-73.544],[-56.204,-130.466]],"c":true}]},{"t":30.0000012219251,"s":[{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[188.6,-188.5],[188.6,-74.5],[74.6,-74.5],[74.6,-188.5]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,0.2353,0,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,0.5437,0.26,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-125,-107],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":90.0000036657751,"st":0,"bm":0}],"markers":[]};
         const adaptiveLottieContainer = document.getElementById('service-adaptive-visualization');
-        let adaptiveLottieAnim = null;
         if (adaptiveLottieContainer) {
             adaptiveLottieAnim = lottie.loadAnimation({
                 container: adaptiveLottieContainer,
@@ -2647,7 +2763,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         // Foundational Arrow Down Lottie Animation
         const foundationalLottieData = {"v":"4.8.0","meta":{"g":"LottieFiles AE 1.0.0","a":"","k":"","d":"","tc":"#FFFFFF"},"fr":30,"ip":0,"op":117,"w":1920,"h":1920,"nm":"Download","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Shape Layer 5","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":92,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":112,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":117,"s":[100]},{"t":127,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":92,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":112,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":117,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":127,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":92,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":112,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":117,"s":[100,100,100]},{"t":127,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":92,"op":242,"st":92,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Shape Layer 4","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":69,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":89,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":94,"s":[100]},{"t":104,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":69,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":89,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":94,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":104,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":69,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":89,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":94,"s":[100,100,100]},{"t":104,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":69,"op":219,"st":69,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Shape Layer 3","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":46,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":66,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":71,"s":[100]},{"t":81,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":46,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":66,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":71,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":81,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":46,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":66,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":71,"s":[100,100,100]},{"t":81,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":46,"op":196,"st":46,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"Shape Layer 2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":23,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":43,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":48,"s":[100]},{"t":58,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":23,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":43,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":48,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":58,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":23,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":43,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":48,"s":[100,100,100]},{"t":58,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":23,"op":173,"st":23,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"Shape Layer 1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0],"y":[0]},"t":0,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":20,"s":[100]},{"i":{"x":[1],"y":[1]},"o":{"x":[1],"y":[0]},"t":25,"s":[100]},{"t":35,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0,"y":1},"o":{"x":0,"y":0},"t":0,"s":[960,344,0],"to":[0,153.5,0],"ti":[0,-153.5,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.333,"y":0.333},"t":20,"s":[960,1265,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":1,"y":1},"o":{"x":1,"y":0},"t":25,"s":[960,1265,0],"to":[0,93.333,0],"ti":[0,-93.333,0]},{"t":35,"s":[960,1825,0]}],"ix":2},"a":{"a":0,"k":[0,305,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0,0,0.667],"y":[1,1,1]},"o":{"x":[0,0,0.333],"y":[0,0,0]},"t":0,"s":[60,60,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":20,"s":[100,100,100]},{"i":{"x":[1,1,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":25,"s":[100,100,100]},{"t":35,"s":[60,60,100]}],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[430,-105],[430,105],[0.5,305],[-430,105],[-430,-105],[0.5,95]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.149019607843,0.149019607843,0.149019607843,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false}],"ip":0,"op":150,"st":0,"bm":0}],"markers":[]};
         const foundationalLottieContainer = document.getElementById('service-foundational-visualization');
-        let foundationalLottieAnim = null;
         if (foundationalLottieContainer) {
             foundationalLottieAnim = lottie.loadAnimation({
                 container: foundationalLottieContainer,
@@ -2660,7 +2775,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         // Applied Lottie Animation
         const appliedLottieContainer = document.getElementById('service-applied-visualization');
-        let appliedLottieAnim = null;
         if (appliedLottieContainer) {
             appliedLottieAnim = lottie.loadAnimation({
                 container: appliedLottieContainer,
@@ -2673,7 +2787,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         // Compliant Lottie Animation
         const compliantLottieContainer = document.getElementById('service-compliant-visualization');
-        let compliantLottieAnim = null;
         if (compliantLottieContainer) {
             compliantLottieAnim = lottie.loadAnimation({
                 container: compliantLottieContainer,
@@ -2686,7 +2799,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
         // Protected Lottie Animation
         const protectedLottieContainer = document.getElementById('service-protected-visualization');
-        let protectedLottieAnim = null;
         if (protectedLottieContainer) {
             protectedLottieAnim = lottie.loadAnimation({
                 container: protectedLottieContainer,
@@ -2700,7 +2812,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         // Auditable Lottie Animation
         const auditableLottieData = {"v":"5.4.4","fr":60,"ip":0,"op":140,"w":100,"h":100,"nm":"Menu","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Buttom","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,70,0],"e":[51,78,0],"to":[0,1.333,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,78,0],"e":[51,50,0],"to":[0,-3.333,0],"ti":[0,4.667,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,78,0],"to":[0,4.667,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,78,0],"e":[51,70,0],"to":[0,3.333,0],"ti":[0,1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Buttom","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Center","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[45],"e":[45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[45],"e":[0]},{"t":105}],"ix":10},"p":{"a":0,"k":[51,50,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Center","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Upper","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":40,"s":[0],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":60,"s":[-45],"e":[-45]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":85,"s":[-45],"e":[0]},{"t":105}],"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":10,"s":[51,30,0],"e":[51,22,0],"to":[0,-1.333,0],"ti":[0,-3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":23,"s":[51,22,0],"e":[51,50,0],"to":[0,3.333,0],"ti":[0,-4.667,0]},{"i":{"x":0.831,"y":0.831},"o":{"x":0.165,"y":0.165},"t":36,"s":[51,50,0],"e":[51,50,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":110,"s":[51,50,0],"e":[51,22,0],"to":[0,-4.667,0],"ti":[0,3.333,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"t":123,"s":[51,22,0],"e":[51,30,0],"to":[0,-3.333,0],"ti":[0,-1.333,0]},{"t":136}],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[31,4],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":2,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0.20000000298,0.20000000298,0.20000000298,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[200,200],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Upper","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":331,"st":0,"bm":0}],"markers":[]};
         const auditableLottieContainer = document.getElementById('service-auditable-visualization');
-        let auditableLottieAnim = null;
         if (auditableLottieContainer) {
             auditableLottieAnim = lottie.loadAnimation({
                 container: auditableLottieContainer,
@@ -2710,11 +2821,18 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 path: 'data/Document OCR Scan.json'
             });
         }
+        }
+        
+        // Initialize Lottie animations when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLottieAnimations);
+        } else {
+            initLottieAnimations();
+        }
 
         // Falling Money Easter Egg Lottie Animation
-        let fallingMoneyAnim = null;
         const fallingMoneyContainer = document.getElementById('falling-money-container');
-        if (fallingMoneyContainer) {
+        if (fallingMoneyContainer && window.lottie) {
             fallingMoneyAnim = lottie.loadAnimation({
                 container: fallingMoneyContainer,
                 renderer: 'svg',
@@ -2942,7 +3060,13 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             
             const root = document.getElementById('tree-root');
             root.innerHTML = renderTreeItem(technicalTreeData);
+            if (window.lucide) {
             lucide.createIcons();
+        } else {
+            window.addEventListener('load', () => {
+                if (window.lucide) lucide.createIcons();
+            });
+        }
         }
 
         let currentServiceIndex = 0;
@@ -3166,7 +3290,13 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         const root = document.getElementById('tree-root');
                         if (root) {
                             root.innerHTML = renderTreeItem(technicalTreeData);
-                            if (window.lucide) lucide.createIcons();
+                            if (window.lucide) {
+                                lucide.createIcons();
+                            } else {
+                                window.addEventListener('load', () => {
+                                    if (window.lucide) lucide.createIcons();
+                                });
+                            }
                         }
                     } else {
                         technicalViz.classList.add('hidden');
@@ -3307,27 +3437,40 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             const rightContent = document.getElementById('service-right-content');
             
             if (isServiceChange && rightContent) {
-                gsap.to(rightContent, {
-                    opacity: 0,
-                    x: 20,
-                    duration: 0.3,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
-                        if (detailsEl) {
-                            detailsEl.innerHTML = `
-                                <div>
-                                    <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
-                                    <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
-                                </div>
-                            `;
+                if (window.gsap) {
+                    gsap.to(rightContent, {
+                        opacity: 0,
+                        x: 20,
+                        duration: 0.3,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+                            if (detailsEl) {
+                                detailsEl.innerHTML = `
+                                    <div>
+                                        <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+                                        <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+                                    </div>
+                                `;
+                            }
+                            gsap.fromTo(rightContent, 
+                                { opacity: 0, x: -20 },
+                                { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
+                            );
                         }
-                        gsap.fromTo(rightContent, 
-                            { opacity: 0, x: -20 },
-                            { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
-                        );
+                    });
+                } else {
+                    // Fallback if GSAP not loaded yet
+                    if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+                    if (detailsEl) {
+                        detailsEl.innerHTML = `
+                            <div>
+                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+                                <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+                            </div>
+                        `;
                     }
-                });
+                }
             } else {
                 if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
                 if (detailsEl) {
@@ -3796,10 +3939,30 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 tl.to(inquirePage, { opacity: 0, y: -20, duration: 1.0 }, 0);
             }
 
+            // Reset orb to home state (scale, position, rotation)
+            // Determine target values based on screen size - this will be used by adjustLayout too
+            const isMobile = window.innerWidth < 768;
+            const targetScale = isMobile ? { x: 0.75, y: 0.75, z: 0.75 } : { x: 1, y: 1, z: 1 };
+            const targetPosition = isMobile ? { x: 0, y: -1.0, z: -5 } : { x: 4.5, y: 0, z: 0 };
+            
+            // Reset orb scale and position with smooth animation
+            tl.to(systemsGroup.scale, targetScale, { duration: 1.5, ease: "power2.out" }, 0.2);
+            tl.to(systemsGroup.position, targetPosition, { duration: 1.5, ease: "power2.out" }, 0.2);
+            
+            // Reset rotation to base (0) - this is cumulative, so we need to subtract current value
+            const currentRotation = transitionRotationY.value;
+            tl.to(transitionRotationY, { 
+                value: 0, 
+                duration: 1.5,
+                ease: "power2.out"
+            }, 0.2);
+
             tl.add(() => {
                 showPage('home');
+                // adjustLayout will ensure correct values, but GSAP animation should have already set them
+                // Call it to sync any edge cases
                 adjustLayout();
-            }, 0.6);
+            }, 1.7); // After animation completes
             
             tl.to(uniforms.uOpacity, { value: 0.8, duration: 2.0 }, 0.6);
             tl.fromTo(heroBlock, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5 }, 0.8);
@@ -4054,7 +4217,13 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             if (inquiryModal) {
                 inquiryModal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                lucide.createIcons();
+                if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            window.addEventListener('load', () => {
+                if (window.lucide) lucide.createIcons();
+            });
+        }
             }
         };
 
@@ -4117,6 +4286,109 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             if (modalContent && !modalContent.contains(event.target) && event.target === inquiryOverlay) {
                 hideInquiryModal();
             }
+        });
+
+        // Check WebP support
+        function supportsWebP() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1;
+            canvas.height = 1;
+            return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+        }
+        
+        const webpSupported = supportsWebP();
+        
+        // Lazy loading for background images with WebP support
+        function loadLazyBackgrounds() {
+            const lazyBackgrounds = document.querySelectorAll('.lazy-bg:not([data-loaded])');
+            
+            lazyBackgrounds.forEach(bg => {
+                // Prefer WebP if supported, otherwise use fallback
+                let bgUrl = null;
+                if (webpSupported && bg.getAttribute('data-bg-webp')) {
+                    bgUrl = bg.getAttribute('data-bg-webp');
+                } else if (bg.getAttribute('data-bg-fallback')) {
+                    bgUrl = bg.getAttribute('data-bg-fallback');
+                } else if (bg.getAttribute('data-bg')) {
+                    bgUrl = bg.getAttribute('data-bg');
+                }
+                
+                if (bgUrl) {
+                    // Check if element is visible (not in hidden section)
+                    const section = bg.closest('section');
+                    const isVisible = !section || !section.classList.contains('hidden');
+                    
+                    if (isVisible || bg.closest('#about-page, #services-page, #works-page, #inquire-page')) {
+                        bg.style.backgroundImage = `url('${bgUrl}')`;
+                        bg.setAttribute('data-loaded', 'true');
+                        bg.classList.remove('lazy-bg');
+                    }
+                }
+            });
+        }
+        
+        // Load WebP logo if supported
+        function loadWebPLogo() {
+            const logoImg = document.getElementById('logo-img');
+            if (logoImg && webpSupported) {
+                logoImg.src = 'assets/images/No BG BLACK.webp';
+                logoImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'assets/images/No BG BLACK.png';
+                };
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load WebP logo immediately
+            loadWebPLogo();
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Prefer WebP if supported, otherwise use fallback
+                            let bgUrl = null;
+                            if (webpSupported && entry.target.getAttribute('data-bg-webp')) {
+                                bgUrl = entry.target.getAttribute('data-bg-webp');
+                            } else if (entry.target.getAttribute('data-bg-fallback')) {
+                                bgUrl = entry.target.getAttribute('data-bg-fallback');
+                            } else if (entry.target.getAttribute('data-bg')) {
+                                bgUrl = entry.target.getAttribute('data-bg');
+                            }
+                            
+                            if (bgUrl) {
+                                entry.target.style.backgroundImage = `url('${bgUrl}')`;
+                                entry.target.setAttribute('data-loaded', 'true');
+                                entry.target.classList.remove('lazy-bg');
+                            }
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px' // Start loading 50px before element is visible
+                });
+
+                document.querySelectorAll('.lazy-bg').forEach(bg => imageObserver.observe(bg));
+                
+                // Also load images in visible sections immediately
+                setTimeout(loadLazyBackgrounds, 100);
+            } else {
+                // Fallback for older browsers - load all immediately
+                loadLazyBackgrounds();
+            }
+            
+            // Re-check when pages become visible (when hidden class is removed)
+            const observer = new MutationObserver(() => {
+                loadLazyBackgrounds();
+            });
+            
+            document.querySelectorAll('section[id$="-page"]').forEach(section => {
+                observer.observe(section, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            });
         });
 
     </script>

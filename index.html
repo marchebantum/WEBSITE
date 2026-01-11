@@ -65,6 +65,13 @@
 <script src="https://unpkg.com/lucide@latest" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+<!-- Supabase Configuration -->
+<script>
+    // Configure Supabase URL and Anon Key
+    // Anon key is safe to use in frontend code (public by design)
+    window.SUPABASE_URL = window.SUPABASE_URL || 'https://ilpvybdqaepzbkgvaqxy.supabase.co';
+    window.SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlscHZ5YmRxYWVwemJrZ3ZhcXh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxMzMyMTksImV4cCI6MjA4MzcwOTIxOX0.MAlbgedEGZqe70xipJUNy3m2Jw72HMyFfGQ_ZdsTaiE';
+</script>
 <style>
 @font-face {
     font-family: 'Orange Avenue';
@@ -925,6 +932,15 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 }
 
 /* Inquiry Modal styling (light + rust primary) */
+.inquiry-form-error {
+    border-color: #DC2626 !important;
+}
+
+.inquiry-form-error:focus {
+    border-color: #DC2626 !important;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2) !important;
+}
+
 .inquiry-service-card {
     transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
@@ -2233,26 +2249,32 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                 </div>
                             </div>
 
-                            <form class="space-y-10">
+                            <form id="inquiry-form" class="space-y-10">
+                                <!-- Success/Error Messages -->
+                                <div id="inquiry-message" class="hidden rounded-2xl border px-4 py-3 text-sm font-open-sans"></div>
+                                
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                     <label class="flex flex-col gap-2">
-                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Name</span>
-                                        <input id="inquiry-name" name="name" type="text" placeholder="Your full name" class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Name <span class="text-rust">*</span></span>
+                                        <input id="inquiry-name" name="name" type="text" placeholder="Your full name" required class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                        <span id="inquiry-name-error" class="hidden text-xs text-red-600 mt-1"></span>
                                     </label>
                                     <label class="flex flex-col gap-2">
-                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Email</span>
-                                        <input id="inquiry-email" name="email" type="email" placeholder="you@example.com" class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                        <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Email <span class="text-rust">*</span></span>
+                                        <input id="inquiry-email" name="email" type="email" placeholder="you@example.com" required class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                                        <span id="inquiry-email-error" class="hidden text-xs text-red-600 mt-1"></span>
                                     </label>
                                 </div>
 
                                 <div class="space-y-4">
                                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                         <div>
-                                            <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Services Required</p>
+                                            <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Services Required <span class="text-rust">*</span></p>
                                             <p class="text-sm text-neutral-600 font-open-sans">Pick everything that applies.</p>
                                         </div>
                                         <div class="text-[11px] text-neutral-500 uppercase tracking-[0.18em] font-mono">Multi-select</div>
                                     </div>
+                                    <span id="inquiry-services-error" class="hidden text-xs text-red-600"></span>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                         <button type="button" data-service-option="Strategy" class="inquiry-service-card relative flex items-start gap-3 p-4 rounded-2xl border border-stone/70 bg-white/80 hover:border-rust/70 hover:shadow-lg transition-colors">
                                             <div class="flex items-center justify-center w-12 h-12 rounded-xl border border-stone/70 bg-white/90 text-rust">
@@ -2299,7 +2321,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                             </div>
                                             <div class="text-left space-y-1">
                                                 <span class="block text-sm font-semibold text-ink">Marketing</span>
-                                                <span class="block text-xs text-neutral-600 font-open-sans">Content & growth</span>
+                                                <span class="block text-xs text-neutral-600 font-open-sans">Content & Lead Generation</span>
                                             </div>
                                             <span class="check-icon absolute top-3 right-3 w-7 h-7 rounded-full border border-rust/25 bg-rust/10 text-rust flex items-center justify-center opacity-0">
                                                 <i data-lucide="check" class="w-4 h-4"></i>
@@ -2346,6 +2368,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                         <button type="button" data-goal-option="Automate Processes" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
                                             Automate Processes
                                         </button>
+                                        <button type="button" data-goal-option="Improve Efficiency" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
+                                            Lead generation
+                                        </button>
                                         <button type="button" data-goal-option="Develop Tools" class="inquiry-goal-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-stone/70 bg-white/70 text-sm text-neutral-700 hover:border-rust hover:text-ink">
                                             Develop Tools
                                         </button>
@@ -2366,7 +2391,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                         <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Additional Details</p>
                                         <span class="text-[11px] text-neutral-500 uppercase tracking-[0.14em] font-mono">Optional</span>
                                     </div>
-                                    <textarea id="inquiry-notes" name="notes" rows="5" placeholder="Project summary, timelines, budget expectations..." class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] resize-none"></textarea>
+                                    <textarea id="inquiry-notes" name="notes" rows="5" maxlength="2000" placeholder="Project summary, timelines, budget expectations..." class="w-full rounded-2xl border border-stone/70 bg-white/80 px-4 py-3 text-sm font-open-sans text-ink placeholder-neutral-400 focus:border-rust focus:ring-2 focus:ring-rust/20 focus:outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] resize-none"></textarea>
                                 </div>
 
                                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-stone/60">
@@ -2374,9 +2399,15 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                         <i data-lucide="clock-3" class="w-4 h-4 text-rust"></i>
                                         <span>Average response under 24 hours.</span>
                                     </div>
-                                    <button type="button" class="inline-flex items-center gap-2 rounded-full bg-rust text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg shadow-rust/20 hover:shadow-xl hover:-translate-y-0.5 transition-transform duration-200">
-                                        Submit inquiry
-                                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    <button type="submit" id="inquiry-submit-btn" class="inline-flex items-center gap-2 rounded-full bg-rust text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg shadow-rust/20 hover:shadow-xl hover:-translate-y-0.5 transition-transform duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                                        <span id="submit-text">Submit inquiry</span>
+                                        <span id="submit-loading" class="hidden">
+                                            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                        </span>
+                                        <i data-lucide="arrow-right" id="submit-arrow" class="w-4 h-4"></i>
                                     </button>
                                 </div>
                             </form>
@@ -4555,6 +4586,269 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 const isActive = button.classList.toggle('active');
                 button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
+        });
+
+        // Form Validation and Submission
+        const inquiryForm = document.getElementById('inquiry-form');
+        const inquiryNameInput = document.getElementById('inquiry-name');
+        const inquiryEmailInput = document.getElementById('inquiry-email');
+        const inquiryNotesInput = document.getElementById('inquiry-notes');
+        const inquirySubmitBtn = document.getElementById('inquiry-submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const submitLoading = document.getElementById('submit-loading');
+        const submitArrow = document.getElementById('submit-arrow');
+        const inquiryMessage = document.getElementById('inquiry-message');
+        const nameError = document.getElementById('inquiry-name-error');
+        const emailError = document.getElementById('inquiry-email-error');
+        const servicesError = document.getElementById('inquiry-services-error');
+
+        // Validation functions
+        function validateName(name) {
+            const trimmed = name.trim();
+            if (!trimmed) {
+                return { valid: false, message: 'Name is required' };
+            }
+            if (trimmed.length < 2) {
+                return { valid: false, message: 'Name must be at least 2 characters' };
+            }
+            if (trimmed.length > 100) {
+                return { valid: false, message: 'Name must be less than 100 characters' };
+            }
+            return { valid: true };
+        }
+
+        function validateEmail(email) {
+            const trimmed = email.trim();
+            if (!trimmed) {
+                return { valid: false, message: 'Email is required' };
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(trimmed)) {
+                return { valid: false, message: 'Please enter a valid email address' };
+            }
+            if (trimmed.length > 255) {
+                return { valid: false, message: 'Email must be less than 255 characters' };
+            }
+            return { valid: true };
+        }
+
+        function validateServices() {
+            const selectedServices = document.querySelectorAll('[data-service-option].selected');
+            if (selectedServices.length === 0) {
+                return { valid: false, message: 'Please select at least one service' };
+            }
+            return { valid: true };
+        }
+
+        function showError(element, errorElement, message) {
+            element.classList.add('border-red-500');
+            element.classList.remove('border-stone/70');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+        }
+
+        function clearError(element, errorElement) {
+            element.classList.remove('border-red-500');
+            element.classList.add('border-stone/70');
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+            }
+        }
+
+        function showMessage(message, isError = false) {
+            inquiryMessage.textContent = message;
+            inquiryMessage.classList.remove('hidden');
+            if (isError) {
+                inquiryMessage.classList.add('border-red-500', 'bg-red-50', 'text-red-800');
+                inquiryMessage.classList.remove('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+            } else {
+                inquiryMessage.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+                inquiryMessage.classList.remove('border-red-500', 'bg-red-50', 'text-red-800');
+            }
+            // Scroll to message
+            inquiryMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function hideMessage() {
+            inquiryMessage.classList.add('hidden');
+        }
+
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                inquirySubmitBtn.disabled = true;
+                submitText.classList.add('hidden');
+                submitLoading.classList.remove('hidden');
+                if (submitArrow) submitArrow.classList.add('hidden');
+            } else {
+                inquirySubmitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitLoading.classList.add('hidden');
+                if (submitArrow) submitArrow.classList.remove('hidden');
+            }
+        }
+
+        // Real-time validation
+        inquiryNameInput?.addEventListener('blur', () => {
+            const validation = validateName(inquiryNameInput.value);
+            if (validation.valid) {
+                clearError(inquiryNameInput, nameError);
+            } else {
+                showError(inquiryNameInput, nameError, validation.message);
+            }
+        });
+
+        inquiryEmailInput?.addEventListener('blur', () => {
+            const validation = validateEmail(inquiryEmailInput.value);
+            if (validation.valid) {
+                clearError(inquiryEmailInput, emailError);
+            } else {
+                showError(inquiryEmailInput, emailError, validation.message);
+            }
+        });
+
+        // Clear errors on input
+        inquiryNameInput?.addEventListener('input', () => {
+            if (inquiryNameInput.classList.contains('border-red-500')) {
+                clearError(inquiryNameInput, nameError);
+            }
+        });
+
+        inquiryEmailInput?.addEventListener('input', () => {
+            if (inquiryEmailInput.classList.contains('border-red-500')) {
+                clearError(inquiryEmailInput, emailError);
+            }
+        });
+
+        // Service selection validation
+        serviceOptions.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (servicesError && !servicesError.classList.contains('hidden')) {
+                    const validation = validateServices();
+                    if (validation.valid) {
+                        servicesError.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Form submission
+        inquiryForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessage();
+
+            // Clear previous errors
+            clearError(inquiryNameInput, nameError);
+            clearError(inquiryEmailInput, emailError);
+            servicesError?.classList.add('hidden');
+
+            // Validate all fields
+            const nameValidation = validateName(inquiryNameInput.value);
+            const emailValidation = validateEmail(inquiryEmailInput.value);
+            const servicesValidation = validateServices();
+
+            let hasErrors = false;
+
+            if (!nameValidation.valid) {
+                showError(inquiryNameInput, nameError, nameValidation.message);
+                hasErrors = true;
+            }
+
+            if (!emailValidation.valid) {
+                showError(inquiryEmailInput, emailError, emailValidation.message);
+                hasErrors = true;
+            }
+
+            if (!servicesValidation.valid) {
+                servicesError.textContent = servicesValidation.message;
+                servicesError.classList.remove('hidden');
+                hasErrors = true;
+            }
+
+            if (hasErrors) {
+                showMessage('Please fix the errors above', true);
+                return;
+            }
+
+            // Collect form data
+            const selectedServices = Array.from(document.querySelectorAll('[data-service-option].selected'))
+                .map(btn => btn.getAttribute('data-service-option'));
+            
+            const selectedGoals = Array.from(document.querySelectorAll('[data-goal-option].active'))
+                .map(btn => btn.getAttribute('data-goal-option'));
+
+            const formData = {
+                name: inquiryNameInput.value.trim(),
+                email: inquiryEmailInput.value.trim().toLowerCase(),
+                services: selectedServices,
+                goals: selectedGoals.length > 0 ? selectedGoals : undefined,
+                notes: inquiryNotesInput.value.trim() || undefined,
+            };
+
+            // Submit to Supabase Edge Function
+            setLoadingState(true);
+
+            try {
+                // Get Supabase configuration
+                const supabaseUrl = window.SUPABASE_URL || 'https://ilpvybdqaepzbkgvaqxy.supabase.co';
+                const supabaseAnonKey = window.SUPABASE_ANON_KEY || '';
+                
+                if (!supabaseAnonKey) {
+                    throw new Error('Supabase configuration missing. Please set window.SUPABASE_ANON_KEY.');
+                }
+
+                // Call Edge Function directly via fetch
+                const response = await fetch(`${supabaseUrl}/functions/v1/submit-inquiry`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${supabaseAnonKey}`,
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Server error: ${response.status}`);
+                }
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Success!
+                showMessage('Thank you! Your inquiry has been submitted successfully. We\'ll get back to you within 24 hours.', false);
+                
+                // Reset form
+                inquiryForm.reset();
+                document.querySelectorAll('[data-service-option]').forEach(btn => {
+                    btn.classList.remove('selected');
+                    btn.setAttribute('aria-pressed', 'false');
+                    const checkIcon = btn.querySelector('.check-icon');
+                    if (checkIcon) checkIcon.style.opacity = '0';
+                });
+                document.querySelectorAll('[data-goal-option]').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+
+                // Close modal after 2 seconds
+                setTimeout(() => {
+                    hideInquiryModal();
+                    hideMessage();
+                }, 2000);
+
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showMessage(
+                    error.message || 'Failed to submit inquiry. Please try again later or contact us directly.',
+                    true
+                );
+            } finally {
+                setLoadingState(false);
+            }
         });
 
         // Close on Escape key

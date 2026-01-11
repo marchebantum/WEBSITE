@@ -100,6 +100,12 @@ The refactored deployment version is on branch `deployment-refactor`.
 3. Run `npm run build` to compile changes
 4. Refresh the browser to see updates
 
+### Scroll navigation guardrails (do not refactor without intent)
+- Page-to-page scroll transitions live inline in `index.html` under the comment “Mouse Wheel / Scroll Navigation.”
+- Transitions fire only when at the relevant edge (`edgeEpsilonPx=4`) *and* the wheel delta exceeds `wheelDeltaThresholdPx=70` (ignores noise below `wheelMinDeltaPx=4`).
+- Home follows the same rule: a strong downward edge scroll moves to Services; other pages require top/bottom edges respectively.
+- Do not move this logic into other files or tweak these constants unless deliberately retuning scroll behavior. Keep this section in place so it always ships with the page.
+
 ### Custom Tailwind Configuration
 The project includes custom theme extensions:
 - Custom colors: `paper`, `ink`, `sepia`, `stone`, `rust`, `dark`, `gold`

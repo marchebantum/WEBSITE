@@ -956,6 +956,25 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     box-shadow: 0 12px 30px rgba(154, 52, 18, 0.25);
     transform: translateY(-1px);
 }
+
+/* About page: mobile-only hero component order */
+@media (max-width: 767px) {
+    #about-hero-grid {
+        gap: 0;
+    }
+
+    #about-hero-left,
+    #about-hero-right {
+        display: contents;
+    }
+
+    #about-zenias-title-block { order: 1; }
+    #about-zen-subtitle { order: 2; }
+    #founder-card { order: 3; }
+    #about-method-title { order: 4; }
+    #zen-tech-container { order: 5; }
+    #about-hero-subtext { order: 6; }
+}
 </style>
 <script>
   // Animate-on-scroll helper
@@ -1723,7 +1742,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                     Lotus is our AI-powered organic brand engine.
                                 </p>
                                 <div class="works-card-full text-neutral-300 text-sm leading-relaxed max-w-sm font-open-sans">
-                                    <p>Lotus automates creative ideation, photorealistic content rendering, and social media scheduling. AI agents learn your style and dynamically render visuals. Conversational chatbots deploy across Instagram, LinkedIn, and Messenger, engaging your audience, qualifying leads, and booking meetings directly through integrated calendar links. Secure, modular architecture integrates with your social platforms and CRM, turning brand presence into revenue without manual handoffs.</p>
+                                    <p>Lotus automates creative ideation, photorealistic content rendering, and social media scheduling. AI agents learn your style and dynamically render visuals. We automate lead generation through chatbots deployed across Instagram, LinkedIn, and Messenger, engaging your audience, qualifying leads, and booking meetings directly through integrated calendar links. Secure, modular architecture integrates with your social platforms and CRM, turning brand presence into revenue without manual handoffs.</p>
                                 </div>
                             </div>
                         </div>
@@ -1830,10 +1849,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         </div>
 
                         <!-- Compressed Desktop Layout: Text left, interactive graphic right -->
-		                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-8 md:mt-10">
+		                        <div id="about-hero-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-8 md:mt-10">
                             <!-- Left: Title + Subtext -->
-                            <div class="lg:col-span-7 text-center md:text-left">
-                                <div class="relative inline-block">
+                            <div id="about-hero-left" class="lg:col-span-7 text-center md:text-left">
+                                <div id="about-zenias-title-block" class="relative inline-block">
                                     <!-- Drafting / Architectural Tech Elements (higher visibility, no gold accents) -->
                                     <div class="absolute -inset-10 pointer-events-none opacity-75">
                                         <!-- Circular Drafting Element -->
@@ -1869,7 +1888,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                             </div>
 
                             <!-- Right: Tranquil build + Interactive graphic -->
-                            <div class="lg:col-span-5 relative">
+                            <div id="about-hero-right" class="lg:col-span-5 relative">
                                 <h2 id="about-method-title" 
                                     class="font-serif text-[clamp(2rem,3.5vw,4.2rem)] text-white/80 leading-tight opacity-0 text-center lg:text-left lg:absolute lg:-left-8 lg:top-0 lg:z-30 whitespace-nowrap lg:mix-blend-overlay">
                                     Where craft meets code.
@@ -2841,18 +2860,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 path: 'data/Document OCR Scan.json'
             });
         }
-        }
-        
-        // Initialize Lottie animations when ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initLottieAnimations);
-        } else {
-            initLottieAnimations();
-        }
 
         // Falling Money Easter Egg Lottie Animation
         const fallingMoneyContainer = document.getElementById('falling-money-container');
-        if (fallingMoneyContainer && window.lottie) {
+        if (fallingMoneyContainer) {
             fallingMoneyAnim = lottie.loadAnimation({
                 container: fallingMoneyContainer,
                 renderer: 'svg',
@@ -2860,6 +2871,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 autoplay: false,
                 path: 'data/Falling money.json'
             });
+        }
+        }
+        
+        // Initialize Lottie animations when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLottieAnimations);
+        } else {
+            initLottieAnimations();
         }
 
         function triggerFallingMoney() {
@@ -2971,7 +2990,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             {
                 id: '04',
                 name: 'Governance',
-                headline: "'Innovation from foundation.'",
+                headline: "'Structure precedes scale'",
                 posterTitle: 'M7.4<br>KINETIC<br>LABS',
                 posterNum: '+04',
                 category: 'Cybernetics',
@@ -3092,6 +3111,88 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
         let currentServiceIndex = 0;
         let currentSlideIndex = 0;
 
+        function animateCharsText(element, targetText, options = {}) {
+            if (!element) return;
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (element._scrambleInterval) {
+                clearInterval(element._scrambleInterval);
+                delete element._scrambleInterval;
+            }
+
+            const text = String(targetText ?? '');
+            element.setAttribute('role', 'text');
+            element.setAttribute('aria-label', text);
+
+            const fragment = document.createDocumentFragment();
+            const spans = [];
+
+            const wrapWords = !!options.wrapWords;
+            const containsNewlines = text.includes('\n');
+
+            if (wrapWords && !containsNewlines) {
+                const tokens = text.split(/(\s+)/);
+                for (const token of tokens) {
+                    if (!token) continue;
+                    if (/^\s+$/.test(token)) {
+                        fragment.appendChild(document.createTextNode(token));
+                        continue;
+                    }
+
+                    const word = document.createElement('span');
+                    word.setAttribute('aria-hidden', 'true');
+                    word.style.display = 'inline-block';
+
+                    for (const char of token) {
+                        const span = document.createElement('span');
+                        span.setAttribute('aria-hidden', 'true');
+                        span.textContent = char;
+                        span.style.display = 'inline-block';
+                        word.appendChild(span);
+                        spans.push(span);
+                    }
+
+                    fragment.appendChild(word);
+                }
+            } else {
+                for (const char of text) {
+                    if (char === '\n') {
+                        fragment.appendChild(document.createElement('br'));
+                        continue;
+                    }
+                    const span = document.createElement('span');
+                    span.setAttribute('aria-hidden', 'true');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.style.display = 'inline-block';
+                    fragment.appendChild(span);
+                    spans.push(span);
+                }
+            }
+
+            element.textContent = '';
+            element.appendChild(fragment);
+
+            if (prefersReducedMotion || typeof gsap === 'undefined') return;
+
+            const duration = options.duration ?? 1.0;
+            const y = options.y ?? 18;
+            const ease = options.ease ?? 'power3.out';
+            const len = Math.max(1, spans.length);
+            const staggerEach = options.staggerEach ?? Math.min(0.06, Math.max(0.02, 2.4 / len));
+
+            gsap.killTweensOf(spans);
+            gsap.set(spans, { opacity: 0, y, filter: 'blur(6px)' });
+            gsap.to(spans, {
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration,
+                stagger: { each: staggerEach },
+                ease
+            });
+        }
+
         function scrambleText(element, targetText, duration = 1.0) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
             // Use data-original if it exists to prevent capturing scrambled state
@@ -3192,23 +3293,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             if (!el) return;
             
             if (isHeadline && elementId === 'service-headline') {
-                // Reverted to scramble as per user preference
                 if (!el.classList.contains('melt-headline')) {
                     el.classList.add('melt-headline');
                 }
+
+                el.style.fontSize = '';
                 
-                // Store original text for height measurement
-                el.setAttribute('data-original', text);
-                
-                // Specific sizing for the Governance headline to prevent wrapping on mobile
-                // reducing by roughly 4-6pts for this specific long quote
-                if (text.includes('Innovation from foundation')) {
-                    el.style.fontSize = 'clamp(calc(1.8rem-6pt), calc(5vw-6pt), calc(4rem-6pt))';
-                } else {
-                    el.style.fontSize = ''; 
-                }
-                
-                scrambleText(el, text, 0.6);
+                const isMobile = window.innerWidth < 768;
+                animateCharsText(el, text, { duration: 1.1, wrapWords: isMobile });
             } else if (isHeadline) {
                 // Simple reveal for other headlines
                 el.innerText = text;
@@ -3615,7 +3707,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 if (i === index) {
                     tab.classList.add('active');
                     const label = tab.querySelector('.tab-label');
-                    if (label) scrambleText(label, label.innerText, 0.2);
+                    if (label) scrambleText(label, label.innerText, 0.55);
                 } else {
                     tab.classList.remove('active');
                 }
@@ -3648,7 +3740,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 tab.addEventListener('mouseenter', () => {
                     // Only scramble if it's not the active tab (since active already scrambles on click)
                     if (!tab.classList.contains('active')) {
-                        scrambleText(label, label.innerText, 0.2);
+                        scrambleText(label, label.innerText, 0.55);
                     }
                 });
             }
@@ -3882,8 +3974,8 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 // Content Scrambles
                 if (worksFourThings) scrambleText(worksFourThings, worksFourThings.innerText, 0.6);
                 if (worksSelectedLabel) scrambleText(worksSelectedLabel, worksSelectedLabel.innerText, 0.6);
-                if (worksTitleDigital) scrambleText(worksTitleDigital, worksTitleDigital.innerText, 0.6);
-                if (worksTitleRenaissance) scrambleText(worksTitleRenaissance, worksTitleRenaissance.innerText, 0.6);
+                if (worksTitleDigital) scrambleText(worksTitleDigital, worksTitleDigital.innerText, 1.1);
+                if (worksTitleRenaissance) scrambleText(worksTitleRenaissance, worksTitleRenaissance.innerText, 1.1);
 
                 // Entrance Fades & Movements
                 if (worksIntro) gsap.to(worksIntro, { opacity: 1, duration: 0.6 });
@@ -3907,7 +3999,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         each: 0.15,
                         onStart: function() {
                             const label = this.targets()[0].querySelector('span:nth-child(2)');
-                            if (label) scrambleText(label, label.innerText, 0.5);
+                            if (label) scrambleText(label, label.innerText, 2.2);
                         }
                     },
                     ease: "expo.out"
@@ -4131,85 +4223,128 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             tl.fromTo(heroBlock, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5 }, 0.8);
         }
 
-        // --- Mouse Wheel / Scroll Navigation ---
-        let lastScrollTime = 0;
-        const scrollCooldown = 800;
+	        // --- Mouse Wheel / Scroll Navigation ---
+	        // IMPORTANT: This scroll gating is intentionally tuned. Do not refactor or relocate
+	        // without updating documentation; only adjust the constants below when changing behavior.
+	        let lastScrollTime = 0;
+	        const scrollCooldown = 800;
+		        const edgeEpsilonPx = 4;
+		        const wheelDeltaThresholdPx = 70; // minimum deliberate scroll to change pages
+		        const wheelMinDeltaPx = 4; // ignore ultra-light wheel noise
+	
+	        const normalizeWheelDeltaPx = (event) => {
+	            const abs = Math.abs(event.deltaY);
+	            if (event.deltaMode === 1) return abs * 16; // lines → px (approx)
+	            if (event.deltaMode === 2) return abs * window.innerHeight; // pages → px (approx)
+	            return abs; // already px
+	        };
+	
+		        const isAtTop = (el) => !!el && el.scrollTop <= edgeEpsilonPx;
+		        const isAtBottom = (el) => !!el && (el.scrollHeight - el.scrollTop <= el.clientHeight + edgeEpsilonPx);
+	
+	        const getActiveScrollContainer = () => {
+	            if (currentPage === 'services') return servicesPage;
+	            if (currentPage === 'works') return worksPage;
+	            if (currentPage === 'about') return aboutPage;
+	            if (currentPage === 'inquire') return inquirePage;
+	            return null;
+	        };
 
-        const isInquiryModalOpen = () => {
-            const modal = document.getElementById('inquiry-modal');
-            return !!(modal && !modal.classList.contains('hidden'));
-        };
+	        const isInquiryModalOpen = () => {
+	            const modal = document.getElementById('inquiry-modal');
+	            return !!(modal && !modal.classList.contains('hidden'));
+	        };
+	
+	        const tryPageTransition = (dir) => {
+	            if (isAnimating) return false;
+	            if (dir === 1) {
+	                if (currentPage === 'home') { goToServices(); return true; }
+	                if (currentPage === 'services' && isAtBottom(servicesPage)) { goToWorks(); return true; }
+	                if (currentPage === 'works' && isAtBottom(worksPage)) { goToAbout(); return true; }
+	                if (currentPage === 'about' && isAtBottom(aboutPage)) { goToInquire(); return true; }
+	                return false;
+	            }
 
-        window.addEventListener('wheel', (e) => {
-            if (isInquiryModalOpen()) return;
-            const now = Date.now();
-            if (now - lastScrollTime < scrollCooldown) return;
+	            if (dir === -1) {
+	                if (currentPage === 'inquire' && isAtTop(inquirePage)) { goToAbout(); return true; }
+	                if (currentPage === 'about' && isAtTop(aboutPage)) { goToWorks(); return true; }
+	                if (currentPage === 'works' && isAtTop(worksPage)) { goToServices(); return true; }
+	                if (currentPage === 'services' && isAtTop(servicesPage)) { goToHome(); return true; }
+	                return false;
+	            }
 
-            if (e.deltaY > 50) {
-                if (currentPage === 'home') {
-                    goToServices();
-                    lastScrollTime = now;
-                } else if (currentPage === 'services') {
-                    // Check if scrolled to bottom of services page
-                    if (servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) {
-                        goToWorks();
-                        lastScrollTime = now;
-                    }
-                } else if (currentPage === 'works') {
-                    // Check if scrolled to bottom of works page
-                    if (worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) {
-                        goToAbout();
-                        lastScrollTime = now;
-                    }
-                } else if (currentPage === 'about') {
-                    if (aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) {
-                        goToInquire();
-                        lastScrollTime = now;
-                    }
-                }
-            } else if (e.deltaY < -50) {
-                if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) {
-                    goToAbout();
-                    lastScrollTime = now;
-                } else if (currentPage === 'about' && aboutPage.scrollTop <= 0) {
-                    goToWorks();
-                    lastScrollTime = now;
-                } else if (currentPage === 'works' && worksPage.scrollTop <= 0) {
-                    goToServices();
-                    lastScrollTime = now;
-                } else if (currentPage === 'services' && servicesPage.scrollTop <= 0) {
-                    goToHome();
-                    lastScrollTime = now;
-                }
-            }
-        }, { passive: true });
+	            return false;
+	        };
 
-        // --- Touch Navigation ---
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            if (isInquiryModalOpen()) return;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
+	        window.addEventListener('wheel', (e) => {
+	            if (isInquiryModalOpen()) return;
+	            const now = Date.now();
+	            if (now - lastScrollTime < scrollCooldown) return;
 
-        window.addEventListener('touchend', (e) => {
-            if (isInquiryModalOpen()) return;
-            const touchEndY = e.changedTouches[0].clientY;
-            const deltaY = touchStartY - touchEndY;
+	            const direction = e.deltaY > 0 ? 1 : e.deltaY < 0 ? -1 : 0;
+	            if (!direction) return;
 
-            if (Math.abs(deltaY) > 50) {
-                if (deltaY > 0) { // Swipe Up (Scrolling Down)
-                    if (currentPage === 'home') goToServices();
-                    else if (currentPage === 'services' && servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) goToWorks();
-                    else if (currentPage === 'works' && worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) goToAbout();
-                    else if (currentPage === 'about' && aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) goToInquire();
-                } else { // Swipe Down (Scrolling Up)
-                    if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) goToAbout();
-                    else if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToWorks();
-                    else if (currentPage === 'works' && worksPage.scrollTop <= 0) goToServices();
-                    else if (currentPage === 'services' && servicesPage.scrollTop <= 0) goToHome();
-                }
-            }
-        }, { passive: true });
+	            const deltaPx = normalizeWheelDeltaPx(e);
+	            if (deltaPx < wheelMinDeltaPx) return;
+
+	            const activeContainer = getActiveScrollContainer();
+	            const atTop = currentPage === 'home' ? true : isAtTop(activeContainer);
+	            const atBottom = currentPage === 'home' ? true : isAtBottom(activeContainer);
+
+	            // Require being at the relevant edge AND a deliberate scroll to transition.
+	            if (direction === 1 && atBottom && deltaPx >= wheelDeltaThresholdPx) {
+	                if (tryPageTransition(1)) lastScrollTime = now;
+	                return;
+	            }
+
+	            if (direction === -1 && atTop && deltaPx >= wheelDeltaThresholdPx) {
+	                if (tryPageTransition(-1)) lastScrollTime = now;
+	                return;
+	            }
+	        }, { passive: true });
+
+	        // --- Touch Navigation ---
+		        const touchSwipeThresholdPx = 60;
+	        let touchStartY = 0;
+	        let touchStartPageId = currentPage;
+	        let touchStartedAtTop = false;
+	        let touchStartedAtBottom = false;
+	
+	        window.addEventListener('touchstart', (e) => {
+	            if (isInquiryModalOpen()) return;
+	            touchStartY = e.touches[0].clientY;
+	            touchStartPageId = currentPage;
+	
+	            const activeContainer = getActiveScrollContainer();
+	            touchStartedAtTop = isAtTop(activeContainer);
+	            touchStartedAtBottom = isAtBottom(activeContainer);
+	        }, { passive: true });
+
+	        window.addEventListener('touchend', (e) => {
+	            if (isInquiryModalOpen()) return;
+	            if (touchStartPageId !== currentPage) return;
+	
+	            const touchEndY = e.changedTouches[0].clientY;
+	            const deltaY = touchStartY - touchEndY;
+	            if (Math.abs(deltaY) < touchSwipeThresholdPx) return;
+	
+	            if (deltaY > 0) { // Swipe Up (Scrolling Down)
+	                if (currentPage === 'home') {
+	                    goToServices();
+	                    return;
+	                }
+	                if (!touchStartedAtBottom) return;
+	                if (currentPage === 'services') goToWorks();
+	                else if (currentPage === 'works') goToAbout();
+	                else if (currentPage === 'about') goToInquire();
+	            } else { // Swipe Down (Scrolling Up)
+	                if (!touchStartedAtTop) return;
+	                if (currentPage === 'inquire') goToAbout();
+	                else if (currentPage === 'about') goToWorks();
+	                else if (currentPage === 'works') goToServices();
+	                else if (currentPage === 'services') goToHome();
+	            }
+	        }, { passive: true });
 
         const worksCards = document.querySelectorAll('.works-card');
         const worksFullTextBlocks = document.querySelectorAll('.works-card-full');

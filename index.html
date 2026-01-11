@@ -975,6 +975,20 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     #zen-tech-container { order: 5; }
     #about-hero-subtext { order: 6; }
 }
+
+/* Founder card reveal smoothing */
+@keyframes founderTextReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.founder-card.play-founder-card .founder-text-reveal {
+    animation: founderTextReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+}
+.founder-card {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
 </style>
 <script>
   // Animate-on-scroll helper
@@ -1896,7 +1910,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
                                 <!-- Founder Profile -->
                                 <div id="founder-card" class="mt-6 md:mt-20 lg:mt-32 mb-6 md:mb-8 opacity-0">
-                                    <div class="founder-card p-5 rounded-xl relative overflow-hidden group backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl transition-all duration-700 hover:border-amber-500/30">
+                                    <div class="founder-card p-5 rounded-xl relative overflow-hidden group backdrop-blur-md bg-white/[0.15] border border-white/10 shadow-xl transition-all duration-700 hover:border-amber-500/30 hover:shadow-2xl">
                                         <!-- Technical Frame Elements -->
                                         <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-amber-500/40"></div>
                                         <div class="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-emerald-500/40"></div>
@@ -1912,10 +1926,10 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                             
                                             <!-- Founder Details -->
                                             <div class="flex-1">
-                                                <div class="font-mono text-[9px] text-amber-500/60 tracking-[0.3em] mb-1">AUTH_REF: M.BANTUM</div>
-                                                <h3 class="font-serif text-2xl text-[#FDFCF8] tracking-tight leading-tight">Marche Bantum</h3>
-                                                <p class="font-open-sans text-[10px] text-white/40 uppercase tracking-[0.25em] mt-1 font-semibold">Founder & Principal</p>
-                                                <div class="mt-4 flex items-center gap-2">
+                                                <div class="font-mono text-[9px] text-amber-500/60 tracking-[0.3em] mb-1 founder-text-reveal" style="animation-delay: 0.1s;">AUTH_REF: M.BANTUM</div>
+                                                <h3 class="font-serif text-2xl text-[#FDFCF8] tracking-tight leading-tight founder-text-reveal" style="animation-delay: 0.2s;">Marche Bantum</h3>
+                                                <p class="font-open-sans text-[10px] text-white/40 uppercase tracking-[0.25em] mt-1 font-semibold founder-text-reveal" style="animation-delay: 0.3s;">Founder & Principal</p>
+                                                <div class="mt-4 flex items-center gap-2 founder-text-reveal" style="animation-delay: 0.4s;">
                                                     <div class="h-[1px] w-12 bg-gradient-to-r from-amber-500/40 to-transparent"></div>
                                                     <span class="font-mono text-[8px] text-white/20 uppercase tracking-widest">System Architect</span>
                                                 </div>
@@ -2860,18 +2874,6 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 path: 'data/Document OCR Scan.json'
             });
         }
-
-        // Falling Money Easter Egg Lottie Animation
-        const fallingMoneyContainer = document.getElementById('falling-money-container');
-        if (fallingMoneyContainer) {
-            fallingMoneyAnim = lottie.loadAnimation({
-                container: fallingMoneyContainer,
-                renderer: 'svg',
-                loop: false,
-                autoplay: false,
-                path: 'data/Falling money.json'
-            });
-        }
         }
         
         // Initialize Lottie animations when ready
@@ -2879,6 +2881,18 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             document.addEventListener('DOMContentLoaded', initLottieAnimations);
         } else {
             initLottieAnimations();
+        }
+
+        // Falling Money Easter Egg Lottie Animation
+        const fallingMoneyContainer = document.getElementById('falling-money-container');
+        if (fallingMoneyContainer && window.lottie) {
+            fallingMoneyAnim = lottie.loadAnimation({
+                container: fallingMoneyContainer,
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                path: 'data/Falling money.json'
+            });
         }
 
         function triggerFallingMoney() {
@@ -4088,10 +4102,25 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 }
 
                 const founderCard = document.getElementById('founder-card');
-                if (founderCard) {
+                const founderCardInner = founderCard ? founderCard.querySelector('.founder-card') : null;
+                if (founderCard && founderCardInner) {
+                    // Reset internal state
+                    founderCardInner.classList.remove('play-founder-card');
+                    
                     gsap.fromTo(founderCard, 
                         { opacity: 0, y: 30 }, 
-                        { opacity: 1, y: 0, duration: 1.2, delay: 1.0, ease: "power3.out" }
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 1.5, 
+                            delay: 1.2, 
+                            ease: "power3.out",
+                            onStart: () => {
+                                // Trigger text animations
+                                void founderCardInner.offsetWidth;
+                                founderCardInner.classList.add('play-founder-card');
+                            }
+                        }
                     );
                 }
             });
@@ -4223,128 +4252,85 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             tl.fromTo(heroBlock, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5 }, 0.8);
         }
 
-	        // --- Mouse Wheel / Scroll Navigation ---
-	        // IMPORTANT: This scroll gating is intentionally tuned. Do not refactor or relocate
-	        // without updating documentation; only adjust the constants below when changing behavior.
-	        let lastScrollTime = 0;
-	        const scrollCooldown = 800;
-		        const edgeEpsilonPx = 4;
-		        const wheelDeltaThresholdPx = 70; // minimum deliberate scroll to change pages
-		        const wheelMinDeltaPx = 4; // ignore ultra-light wheel noise
-	
-	        const normalizeWheelDeltaPx = (event) => {
-	            const abs = Math.abs(event.deltaY);
-	            if (event.deltaMode === 1) return abs * 16; // lines → px (approx)
-	            if (event.deltaMode === 2) return abs * window.innerHeight; // pages → px (approx)
-	            return abs; // already px
-	        };
-	
-		        const isAtTop = (el) => !!el && el.scrollTop <= edgeEpsilonPx;
-		        const isAtBottom = (el) => !!el && (el.scrollHeight - el.scrollTop <= el.clientHeight + edgeEpsilonPx);
-	
-	        const getActiveScrollContainer = () => {
-	            if (currentPage === 'services') return servicesPage;
-	            if (currentPage === 'works') return worksPage;
-	            if (currentPage === 'about') return aboutPage;
-	            if (currentPage === 'inquire') return inquirePage;
-	            return null;
-	        };
+        // --- Mouse Wheel / Scroll Navigation ---
+        let lastScrollTime = 0;
+        const scrollCooldown = 800;
 
-	        const isInquiryModalOpen = () => {
-	            const modal = document.getElementById('inquiry-modal');
-	            return !!(modal && !modal.classList.contains('hidden'));
-	        };
-	
-	        const tryPageTransition = (dir) => {
-	            if (isAnimating) return false;
-	            if (dir === 1) {
-	                if (currentPage === 'home') { goToServices(); return true; }
-	                if (currentPage === 'services' && isAtBottom(servicesPage)) { goToWorks(); return true; }
-	                if (currentPage === 'works' && isAtBottom(worksPage)) { goToAbout(); return true; }
-	                if (currentPage === 'about' && isAtBottom(aboutPage)) { goToInquire(); return true; }
-	                return false;
-	            }
+        const isInquiryModalOpen = () => {
+            const modal = document.getElementById('inquiry-modal');
+            return !!(modal && !modal.classList.contains('hidden'));
+        };
 
-	            if (dir === -1) {
-	                if (currentPage === 'inquire' && isAtTop(inquirePage)) { goToAbout(); return true; }
-	                if (currentPage === 'about' && isAtTop(aboutPage)) { goToWorks(); return true; }
-	                if (currentPage === 'works' && isAtTop(worksPage)) { goToServices(); return true; }
-	                if (currentPage === 'services' && isAtTop(servicesPage)) { goToHome(); return true; }
-	                return false;
-	            }
+        window.addEventListener('wheel', (e) => {
+            if (isInquiryModalOpen()) return;
+            const now = Date.now();
+            if (now - lastScrollTime < scrollCooldown) return;
 
-	            return false;
-	        };
+            if (e.deltaY > 50) {
+                if (currentPage === 'home') {
+                    goToServices();
+                    lastScrollTime = now;
+                } else if (currentPage === 'services') {
+                    // Check if scrolled to bottom of services page
+                    if (servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) {
+                        goToWorks();
+                        lastScrollTime = now;
+                    }
+                } else if (currentPage === 'works') {
+                    // Check if scrolled to bottom of works page
+                    if (worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) {
+                        goToAbout();
+                        lastScrollTime = now;
+                    }
+                } else if (currentPage === 'about') {
+                    if (aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) {
+                        goToInquire();
+                        lastScrollTime = now;
+                    }
+                }
+            } else if (e.deltaY < -50) {
+                if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) {
+                    goToAbout();
+                    lastScrollTime = now;
+                } else if (currentPage === 'about' && aboutPage.scrollTop <= 0) {
+                    goToWorks();
+                    lastScrollTime = now;
+                } else if (currentPage === 'works' && worksPage.scrollTop <= 0) {
+                    goToServices();
+                    lastScrollTime = now;
+                } else if (currentPage === 'services' && servicesPage.scrollTop <= 0) {
+                    goToHome();
+                    lastScrollTime = now;
+                }
+            }
+        }, { passive: true });
 
-	        window.addEventListener('wheel', (e) => {
-	            if (isInquiryModalOpen()) return;
-	            const now = Date.now();
-	            if (now - lastScrollTime < scrollCooldown) return;
+        // --- Touch Navigation ---
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            if (isInquiryModalOpen()) return;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
 
-	            const direction = e.deltaY > 0 ? 1 : e.deltaY < 0 ? -1 : 0;
-	            if (!direction) return;
+        window.addEventListener('touchend', (e) => {
+            if (isInquiryModalOpen()) return;
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchStartY - touchEndY;
 
-	            const deltaPx = normalizeWheelDeltaPx(e);
-	            if (deltaPx < wheelMinDeltaPx) return;
-
-	            const activeContainer = getActiveScrollContainer();
-	            const atTop = currentPage === 'home' ? true : isAtTop(activeContainer);
-	            const atBottom = currentPage === 'home' ? true : isAtBottom(activeContainer);
-
-	            // Require being at the relevant edge AND a deliberate scroll to transition.
-	            if (direction === 1 && atBottom && deltaPx >= wheelDeltaThresholdPx) {
-	                if (tryPageTransition(1)) lastScrollTime = now;
-	                return;
-	            }
-
-	            if (direction === -1 && atTop && deltaPx >= wheelDeltaThresholdPx) {
-	                if (tryPageTransition(-1)) lastScrollTime = now;
-	                return;
-	            }
-	        }, { passive: true });
-
-	        // --- Touch Navigation ---
-		        const touchSwipeThresholdPx = 60;
-	        let touchStartY = 0;
-	        let touchStartPageId = currentPage;
-	        let touchStartedAtTop = false;
-	        let touchStartedAtBottom = false;
-	
-	        window.addEventListener('touchstart', (e) => {
-	            if (isInquiryModalOpen()) return;
-	            touchStartY = e.touches[0].clientY;
-	            touchStartPageId = currentPage;
-	
-	            const activeContainer = getActiveScrollContainer();
-	            touchStartedAtTop = isAtTop(activeContainer);
-	            touchStartedAtBottom = isAtBottom(activeContainer);
-	        }, { passive: true });
-
-	        window.addEventListener('touchend', (e) => {
-	            if (isInquiryModalOpen()) return;
-	            if (touchStartPageId !== currentPage) return;
-	
-	            const touchEndY = e.changedTouches[0].clientY;
-	            const deltaY = touchStartY - touchEndY;
-	            if (Math.abs(deltaY) < touchSwipeThresholdPx) return;
-	
-	            if (deltaY > 0) { // Swipe Up (Scrolling Down)
-	                if (currentPage === 'home') {
-	                    goToServices();
-	                    return;
-	                }
-	                if (!touchStartedAtBottom) return;
-	                if (currentPage === 'services') goToWorks();
-	                else if (currentPage === 'works') goToAbout();
-	                else if (currentPage === 'about') goToInquire();
-	            } else { // Swipe Down (Scrolling Up)
-	                if (!touchStartedAtTop) return;
-	                if (currentPage === 'inquire') goToAbout();
-	                else if (currentPage === 'about') goToWorks();
-	                else if (currentPage === 'works') goToServices();
-	                else if (currentPage === 'services') goToHome();
-	            }
-	        }, { passive: true });
+            if (Math.abs(deltaY) > 50) {
+                if (deltaY > 0) { // Swipe Up (Scrolling Down)
+                    if (currentPage === 'home') goToServices();
+                    else if (currentPage === 'services' && servicesPage.scrollHeight - servicesPage.scrollTop <= servicesPage.clientHeight + 1) goToWorks();
+                    else if (currentPage === 'works' && worksPage.scrollHeight - worksPage.scrollTop <= worksPage.clientHeight + 1) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollHeight - aboutPage.scrollTop <= aboutPage.clientHeight + 1) goToInquire();
+                } else { // Swipe Down (Scrolling Up)
+                    if (currentPage === 'inquire' && inquirePage.scrollTop <= 0) goToAbout();
+                    else if (currentPage === 'about' && aboutPage.scrollTop <= 0) goToWorks();
+                    else if (currentPage === 'works' && worksPage.scrollTop <= 0) goToServices();
+                    else if (currentPage === 'services' && servicesPage.scrollTop <= 0) goToHome();
+                }
+            }
+        }, { passive: true });
 
         const worksCards = document.querySelectorAll('.works-card');
         const worksFullTextBlocks = document.querySelectorAll('.works-card-full');

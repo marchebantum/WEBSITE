@@ -3,14 +3,14 @@
 ## Step-by-Step Dashboard Deployment:
 
 ### 1. Create Edge Function
-1. Go to: https://app.supabase.com/project/hoirqrkdgbmvpwutwuwj/functions
+1. Go to: https://app.supabase.com/project/ilpvybdqaepzbkgvaqxy/functions
 2. Click **"Create a new function"**
 3. Function name: `submit-inquiry`
 4. Copy the ENTIRE contents of `supabase/functions/submit-inquiry/index.ts` into the code editor
 5. Click **"Deploy function"**
 
 ### 2. Set Secrets
-1. Go to: https://app.supabase.com/project/hoirqrkdgbmvpwutwuwj/settings/functions
+1. Go to: https://app.supabase.com/project/ilpvybdqaepzbkgvaqxy/settings/functions
 2. Scroll to **"Secrets"** section
 3. Click **"Add new secret"**
 4. Add these two secrets:

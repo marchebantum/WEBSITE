@@ -2,8 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const RESEND_FROM_EMAIL = Deno.env.get("RESEND_FROM_EMAIL") || "onboarding@resend.dev";
-const TO_EMAIL = "marchebantum@gmail.com"; // Temporarily using your Gmail for testing. Change to contact@zenias.io after domain verification
+const RESEND_FROM_EMAIL = Deno.env.get("RESEND_FROM_EMAIL") || "noreply@zenias.io";
+const TO_EMAIL = "contact@zenias.io";
 
 interface InquiryData {
   name: string;

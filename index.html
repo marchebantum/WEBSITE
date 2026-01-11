@@ -123,11 +123,11 @@ section {
     position: relative;
 }
 
-/* Prevent child elements from causing overflow */
-#services-page *,
-#works-page *,
-#about-page *,
-#inquire-page * {
+/* Prevent child elements from causing overflow, except where needed for animations */
+#services-page *:not(.overflow-visible),
+#works-page *:not(.overflow-visible),
+#about-page *:not(.overflow-visible),
+#inquire-page *:not(.overflow-visible) {
     max-width: 100% !important;
     box-sizing: border-box;
 }
@@ -2183,7 +2183,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             </div>
         </div>
 
-        <footer class="relative z-10 h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-12 pt-20 md:pt-32 pb-16">
+        <footer class="relative z-10 h-screen w-full flex items-center justify-center overflow-visible px-6 md:px-12 pt-20 md:pt-32 pb-16">
             <div class="relative z-10 w-full max-w-5xl">
                 <div class="flex items-center gap-3 mb-10">
                     <div class="flex items-center gap-2">
@@ -2197,8 +2197,8 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                     <div class="h-px flex-1 bg-gradient-to-r from-rust/80 via-gold/50 to-transparent"></div>
                 </div>
 
-                <div class="text-center">
-                    <div id="inquiry-badge" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-ink/10 bg-paper/60 backdrop-blur-sm mb-8">
+                <div class="text-center overflow-visible py-4">
+                    <div id="inquiry-badge" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-ink/10 bg-paper/60 backdrop-blur-sm mb-8 opacity-0">
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                         <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
                         <span class="text-[10px] uppercase tracking-widest text-neutral-600 font-mono font-semibold">Click below to Inquire</span>
@@ -2206,8 +2206,8 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                         <div class="w-1.5 h-1.5 rounded-full bg-rust animate-pulse"></div>
                     </div>
                     
-                    <button type="button" id="open-inquiry-form" class="block group w-full">
-                        <h2 id="inquiry-headline" class="font-serif text-[clamp(3.75rem,12vw,6.75rem)] md:text-[clamp(3rem,8vw,7rem)] leading-[0.85] font-semibold tracking-tight text-ink mix-blend-multiply group-hover:text-neutral-700 transition-colors duration-500">
+                    <button type="button" id="open-inquiry-form" class="block group w-full overflow-visible">
+                        <h2 id="inquiry-headline" class="font-serif text-[clamp(3.75rem,12vw,6.75rem)] md:text-[clamp(3rem,8vw,7rem)] leading-[0.85] font-semibold tracking-tight text-ink mix-blend-multiply group-hover:text-neutral-700 transition-colors duration-500 py-2 opacity-0">
                             LET'S BUILD
                         </h2>
                         <div class="h-[1px] w-0 group-hover:w-full bg-ink/30 mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4"></div>
@@ -4261,17 +4261,17 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 if (badge) {
                     gsap.fromTo(badge, 
                         { opacity: 0, y: 40, scale: 0.8 }, 
-                        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" }
+                        { opacity: 1, y: 0, scale: 1, duration: 2.4, ease: "expo.out" }
                     );
                 }
                 
                 if (headline) {
                     gsap.fromTo(headline, 
                         { opacity: 0, y: 60 }, 
-                        { opacity: 1, y: 0, duration: 1.6, ease: "expo.out" }
+                        { opacity: 1, y: 0, duration: 3.2, ease: "expo.out" }
                     );
                 }
-            }, 0.8);
+            }, 1.6);
         }
 
         function goToHome() {

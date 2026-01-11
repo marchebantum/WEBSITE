@@ -992,6 +992,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
     #about-hero-subtext { order: 6; }
 }
 
+/* About method title positioning */
+@media (min-width: 1024px) {
+    #about-method-title {
+        left: -120px;
+        top: 10px;
+    }
+}
+
 /* Founder card reveal smoothing */
 @keyframes founderTextReveal {
     from { opacity: 0; transform: translateY(8px); }
@@ -1920,7 +1928,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                             <!-- Right: Tranquil build + Interactive graphic -->
                             <div id="about-hero-right" class="lg:col-span-5 relative">
                                 <h2 id="about-method-title" 
-                                    class="font-serif text-[clamp(2rem,3.5vw,4.2rem)] text-white/80 leading-tight opacity-0 text-center lg:text-left lg:absolute lg:-left-8 lg:top-0 lg:z-30 whitespace-nowrap lg:mix-blend-overlay">
+                                    class="font-serif text-[clamp(2rem,3.5vw,4.2rem)] text-white/80 lg:text-white/80 leading-tight opacity-0 text-center lg:text-left lg:absolute lg:-left-[120px] lg:top-[10px] lg:z-auto whitespace-nowrap lg:mix-blend-overlay">
                                     Where craft meets code.
                                 </h2>
 

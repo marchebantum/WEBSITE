@@ -1,10 +1,5 @@
 # Quick Deploy Instructions
 
-## Your Resend API Key (already configured):
-```
-re_fLDEjNyt_EHayfsVBKbQgrtV77muHu2Wr
-```
-
 ## Step-by-Step Dashboard Deployment:
 
 ### 1. Create Edge Function
@@ -22,7 +17,7 @@ re_fLDEjNyt_EHayfsVBKbQgrtV77muHu2Wr
 
    **Secret 1:**
    - Name: `RESEND_API_KEY`
-   - Value: `re_fLDEjNyt_EHayfsVBKbQgrtV77muHu2Wr`
+   - Value: `YOUR_RESEND_API_KEY_HERE` (get this from your Resend dashboard)
    - Click "Add"
 
    **Secret 2:**
@@ -36,4 +31,4 @@ re_fLDEjNyt_EHayfsVBKbQgrtV77muHu2Wr
 - Test by submitting the form on your website
 
 ## Security Note
-Your Resend API key is now stored securely in Supabase secrets (not in code). The token you provided earlier is not saved anywhere in the codebase.
+⚠️ **IMPORTANT**: Never commit your Resend API key to version control. Always store it securely in Supabase secrets (not in code or documentation files).

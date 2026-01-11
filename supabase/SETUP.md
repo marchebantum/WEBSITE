@@ -66,7 +66,7 @@ This creates the `inquiries` table with proper indexes and Row Level Security po
 
 2. **Set the secrets:**
    - Go to Dashboard → Project Settings → Edge Functions → Secrets
-   - Add secret: `RESEND_API_KEY` = `re_fLDEjNyt_EHayfsVBKbQgrtV77muHu2Wr`
+   - Add secret: `RESEND_API_KEY` = `YOUR_RESEND_API_KEY_HERE` (get this from your Resend dashboard)
    - Add secret: `RESEND_FROM_EMAIL` = `onboarding@resend.dev` (or your verified domain email)
    - Click "Save"
 

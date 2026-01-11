@@ -2038,7 +2038,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                                         </div>
 	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Our Team</h3>
 	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
-	                                            Our team comprises of software developers, data security experts, designers and creatives. We coverd every core pillar of AI and agentic systems, from architecture and compliance to interface design and deployment. We focus on building experiences that feel effortless, secure, and entirely yours.
+	                                            Our team comprises of software developers, data security experts, designers and creatives. We cover every core pillar of AI and agentic systems, from architecture and compliance to interface design and deployment. We focus on building experiences that feel effortless, secure, and entirely yours.
 	                                        </p>
                                     </div>
 
@@ -4542,7 +4542,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             }
             
             // Auto rotate
-            let zenInterval = setInterval(rotateZenContent, 6000);
+            let zenInterval = setInterval(rotateZenContent, 10000);
             
             zenContainer.addEventListener('mouseenter', () => {
                 clearInterval(zenInterval);
@@ -4550,13 +4550,13 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             
             zenContainer.addEventListener('mouseleave', () => {
                 clearInterval(zenInterval);
-                zenInterval = setInterval(rotateZenContent, 6000);
+                zenInterval = setInterval(rotateZenContent, 10000);
             });
             
             zenContainer.addEventListener('click', () => {
                 rotateZenContent();
                 clearInterval(zenInterval);
-                zenInterval = setInterval(rotateZenContent, 6000);
+                zenInterval = setInterval(rotateZenContent, 10000);
             });
         }
 

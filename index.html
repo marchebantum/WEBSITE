@@ -545,14 +545,15 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 
 /* Service Tabs Custom Styles */
 .service-tab-item {
-    transition: all 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     border-radius: 0px;
-    background: linear-gradient(135deg, rgba(154, 52, 18, 0.08), rgba(109, 40, 217, 0.02));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(154, 52, 18, 0.15);
-    border-top: none;
-    border-bottom: none;
+    background:
+        radial-gradient(900px circle at 20% 0%, rgba(255, 255, 255, 0.22), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.22));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
 }
@@ -561,9 +562,9 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 .service-tab-item::after {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
-    border-color: #9A3412;
+    width: 10px;
+    height: 10px;
+    border-color: rgba(154, 52, 18, 0.55);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 5;
@@ -593,14 +594,12 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 .service-tab-item .tab-label {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.50rem;
-    color: #5a5a5a;
     transition: color 0.3s ease;
     position: relative;
     z-index: 2;
 }
 
 .service-tab-item .tab-num {
-    color: #8b5a3c;
     transition: color 0.3s ease;
     font-size: 0.75rem;
     letter-spacing: 0.1em;
@@ -614,33 +613,25 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 }
 
 .service-tab-item:hover {
-    background: linear-gradient(135deg, rgba(154, 52, 18, 0.15), rgba(109, 40, 217, 0.05));
+    background:
+        radial-gradient(900px circle at 20% 0%, rgba(255, 255, 255, 0.30), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.28));
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(154, 52, 18, 0.1);
-}
-
-.service-tab-item:hover .tab-label {
-    color: #1a1a1a;
+    border-color: rgba(154, 52, 18, 0.25);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.12);
 }
 
 .service-tab-item.active {
-    background: linear-gradient(135deg, rgba(154, 52, 18, 0.22), rgba(109, 40, 217, 0.08));
-    box-shadow: 0 8px 32px rgba(154, 52, 18, 0.15);
-    border-top: 2px solid #9A3412; /* Deep rust */
+    background:
+        repeating-linear-gradient(0deg, rgba(154, 52, 18, 0.045) 0px, rgba(154, 52, 18, 0.045) 1px, transparent 1px, transparent 4px),
+        radial-gradient(900px circle at 20% 0%, rgba(154, 52, 18, 0.14), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.30));
+    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.14);
+    border-color: rgba(154, 52, 18, 0.28);
+    border-top: 2px solid rgba(154, 52, 18, 0.65); /* Rust accent */
     transform: none; /* No scale on active */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-}
-
-/* Scanline effect for active tab */
-.service-tab-item.active::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(154, 52, 18, 0.04) 1px, transparent 1px);
-    background-size: 100% 3px;
-    pointer-events: none;
-    z-index: 1;
 }
 
 /* Pulsing dot for active tab */
@@ -671,6 +662,11 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 .service-tab-item.active .tab-label {
     color: #1a1a1a;
     font-weight: 700;
+}
+
+/* Ensure scrambled/animated spans inherit the active label weight */
+.service-tab-item.active .tab-label * {
+    font-weight: inherit;
 }
 
 /* Simple reveal animation for headlines */
@@ -1234,23 +1230,23 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
 
             <!-- Services / Tabs Navigation (Light Mode) -->
             <div class="space-y-12">
-                <div class="grid grid-cols-2 md:grid-cols-4 border border-rust/20 bg-white/40 backdrop-blur-sm">
-                    <div onclick="updateService(0)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group active border-r border-rust/10 last:border-r-0">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 border border-rust/15 bg-white/30 backdrop-blur-md shadow-lg">
+                    <div onclick="updateService(0)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group active">
                         <div class="service-tab-item-dot bg-rust"></div>
                         <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-400">// 01</span>
                         <span class="tab-label text-ink" data-original="Development">Development</span>
                     </div>
-                    <div onclick="updateService(1)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-rust/10 last:border-r-0">
+                    <div onclick="updateService(1)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
                         <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 02</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Training">Training</span>
                     </div>
-                    <div onclick="updateService(2)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-rust/10 last:border-r-0">
+                    <div onclick="updateService(2)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
                         <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 03</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Consulting">Consulting</span>
                     </div>
-                    <div onclick="updateService(3)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group border-r border-rust/10 last:border-r-0">
+                    <div onclick="updateService(3)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
                         <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 04</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Governance">Governance</span>
@@ -2913,6 +2909,18 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 path: 'data/Document OCR Scan.json'
             });
         }
+
+        // Falling Money Easter Egg Lottie Animation (init when lottie is available)
+        const fallingMoneyContainer = document.getElementById('falling-money-container');
+        if (fallingMoneyContainer && !fallingMoneyAnim) {
+            fallingMoneyAnim = lottie.loadAnimation({
+                container: fallingMoneyContainer,
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                path: 'data/Falling money.json'
+            });
+        }
         }
         
         // Initialize Lottie animations when ready
@@ -2922,11 +2930,12 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             initLottieAnimations();
         }
 
-        // Falling Money Easter Egg Lottie Animation
-        const fallingMoneyContainer = document.getElementById('falling-money-container');
-        if (fallingMoneyContainer && window.lottie) {
+        function ensureFallingMoneyAnimation() {
+            if (fallingMoneyAnim || !window.lottie) return;
+            const container = document.getElementById('falling-money-container');
+            if (!container) return;
             fallingMoneyAnim = lottie.loadAnimation({
-                container: fallingMoneyContainer,
+                container,
                 renderer: 'svg',
                 loop: false,
                 autoplay: false,
@@ -2947,6 +2956,7 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 popup.classList.add('scale-100', 'opacity-100');
             }, 50);
             
+            ensureFallingMoneyAnimation();
             if (fallingMoneyAnim) {
                 fallingMoneyAnim.goToAndPlay(0, true);
             }
@@ -3757,12 +3767,32 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
             
             const tabs = document.querySelectorAll('.service-tab');
             tabs.forEach((tab, i) => {
+                const label = tab.querySelector('.tab-label');
+                const num = tab.querySelector('.tab-num');
                 if (i === index) {
                     tab.classList.add('active');
-                    const label = tab.querySelector('.tab-label');
-                    if (label) scrambleText(label, label.innerText, 0.55);
+                    if (label) {
+                        // Ensure the active tab label stays visually "selected" even after scramble animation
+                        label.classList.add('text-ink', 'font-bold');
+                        label.classList.remove('text-neutral-400', 'font-normal', 'font-medium', 'font-semibold');
+                        scrambleText(label, label.innerText, 0.55);
+                    }
+                    if (num) {
+                        num.classList.add('text-neutral-500');
+                        num.classList.remove('text-neutral-300', 'text-neutral-400');
+                    }
                 } else {
                     tab.classList.remove('active');
+                    if (label) {
+                        label.classList.add('text-neutral-400');
+                        label.classList.remove('text-ink', 'font-bold');
+                        // keep hover utility (group-hover:text-ink) working; default to normal weight
+                        if (!label.classList.contains('font-normal')) label.classList.add('font-normal');
+                    }
+                    if (num) {
+                        num.classList.add('text-neutral-300');
+                        num.classList.remove('text-neutral-400', 'text-neutral-500');
+                    }
                 }
             });
 
@@ -4027,8 +4057,9 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 // Content Scrambles
                 if (worksFourThings) scrambleText(worksFourThings, worksFourThings.innerText, 0.6);
                 if (worksSelectedLabel) scrambleText(worksSelectedLabel, worksSelectedLabel.innerText, 0.6);
-                if (worksTitleDigital) scrambleText(worksTitleDigital, worksTitleDigital.innerText, 1.1);
-                if (worksTitleRenaissance) scrambleText(worksTitleRenaissance, worksTitleRenaissance.innerText, 1.1);
+                // Speed up headline scramble slightly (keeps the feel, reduces lag)
+                if (worksTitleDigital) scrambleText(worksTitleDigital, worksTitleDigital.innerText, 0.65);
+                if (worksTitleRenaissance) scrambleText(worksTitleRenaissance, worksTitleRenaissance.innerText, 0.65);
 
                 // Entrance Fades & Movements
                 if (worksIntro) gsap.to(worksIntro, { opacity: 1, duration: 0.6 });
@@ -4043,13 +4074,14 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                     ease: "power3.out"
                 });
 
+                // Slow down the pillar reveal (01–04 Offerings/Marketing/Sales/Operations)
                 gsap.to(pillars, { 
                     y: 0, 
                     x: 0,
                     opacity: 1, 
-                    duration: 1.0, 
+                    duration: 1.6, 
                     stagger: {
-                        each: 0.15,
+                        each: 0.24,
                         onStart: function() {
                             const label = this.targets()[0].querySelector('span:nth-child(2)');
                             if (label) scrambleText(label, label.innerText, 2.2);

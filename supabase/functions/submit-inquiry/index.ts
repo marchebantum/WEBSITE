@@ -194,6 +194,12 @@ serve(async (req) => {
     if (!RESEND_API_KEY) {
       console.warn("RESEND_API_KEY not configured, skipping email send");
     } else {
+      console.log("Attempting to send email:", {
+        from: RESEND_FROM_EMAIL,
+        to: TO_EMAIL,
+        hasApiKey: !!RESEND_API_KEY,
+      });
+      
       const resendResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -211,8 +217,15 @@ serve(async (req) => {
 
       if (!resendResponse.ok) {
         const errorData = await resendResponse.text();
-        console.error("Resend API error:", errorData);
+        console.error("Resend API error:", {
+          status: resendResponse.status,
+          statusText: resendResponse.statusText,
+          error: errorData,
+        });
         // Don't fail the request if email fails, but log it
+      } else {
+        const successData = await resendResponse.json();
+        console.log("Email sent successfully:", successData);
       }
     }
 

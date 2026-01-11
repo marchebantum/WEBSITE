@@ -10,6 +10,7 @@ Thumbs.db
 # Editor files
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
@@ -21,10 +22,11 @@ Thumbs.db
 *.temp
 *.log
 
-# Node modules (if any)
+# Node modules
 node_modules/
 npm-debug.log
 yarn-error.log
+# Note: package-lock.json should be committed
 
 # Build files
 dist/
@@ -41,3 +43,7 @@ build/
 
 # Development backups (already organized in dev-docs/)
 # Keep main backups in dev-docs/backups/
+
+# Server logs
+server.log
+/tmp/

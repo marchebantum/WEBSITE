@@ -4006,6 +4006,11 @@ header.header-dark.about-active #mobile-menu button#mobile-inquire:hover {
                 window.scrollTo(0, 0);
                 const headline = document.getElementById('service-headline');
                 if (headline) animateText('service-headline', serviceData[currentServiceIndex].headline, true);
+                
+                // Scramble service tab labels
+                document.querySelectorAll('#services-page .tab-label').forEach(label => {
+                    scrambleText(label, label.getAttribute('data-original') || label.innerText, 1.2);
+                });
             }, 0.8);
             tl.fromTo(servicesPage, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.8 }, 1.0);
             

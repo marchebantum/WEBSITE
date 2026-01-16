@@ -194,7 +194,7 @@
             </div>
 
             <!-- Mobile only: Bottom section with description and CTA -->
-            <div id="mobile-hero-cta" class="absolute bottom-8 left-6 right-6 z-20 md:hidden animate-fade-in opacity-0 pointer-events-auto" style="animation-delay: 0.5s;">
+            <div class="absolute bottom-8 left-6 right-6 z-20 md:hidden animate-fade-in opacity-0 pointer-events-auto" style="animation-delay: 0.5s;">
                 <p class="max-w-xs font-sans text-sm text-neutral-600 font-light leading-relaxed mb-6">
                     We design and build secure, AI-enabled systems for the forward-thinking.
                 </p>
@@ -210,7 +210,7 @@
             </div>
 
             <!-- Footer Coordinates - Perth Global visible on all, Lat/Lon desktop only -->
-            <div id="hero-coordinates" class="absolute bottom-40 md:bottom-32 left-6 md:left-0 flex flex-col gap-1 z-10">
+            <div class="absolute bottom-40 md:bottom-32 left-6 md:left-0 flex flex-col gap-1 z-10">
                 <span class="font-mono text-[12px] text-neutral-600 uppercase tracking-widest mb-1 opacity-70">Perth | Global</span>
                 <div class="hidden md:flex flex-col opacity-40">
                     <span class="font-mono text-[11px] text-neutral-400">LAT: 31.9514° S</span>
@@ -219,21 +219,6 @@
             </div>
         </div>
     </main>
-    
-    <!-- Transition Loader -->
-    <div id="transition-loader" class="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none opacity-0">
-        <div class="relative flex flex-col items-center">
-            <!-- Cool element: Orbiting circles that mimic the orb's logic -->
-            <div class="loader-visual relative w-32 h-32 mb-8">
-                <div class="absolute inset-0 border border-sepia/20 rounded-full"></div>
-                <div class="absolute inset-2 border border-sepia/40 rounded-full"></div>
-                <div class="absolute inset-4 border border-sepia/10 rounded-full"></div>
-                <!-- Central dot -->
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-sepia rounded-full shadow-[0_0_15px_rgba(120,53,15,0.5)]"></div>
-            </div>
-            <div class="loader-text font-serif italic text-3xl text-ink tracking-[0.2em] ml-2">Welcome...</div>
-        </div>
-    </div>
 
 <!-- Shaders -->
     <script type="x-shader/x-vertex" id="vertexShader">
@@ -654,85 +639,27 @@
       return;
     }
 
-    // Get all foreground elements to fade out
-    const header = document.querySelector('header');
-    const mobileHeroCta = document.getElementById('mobile-hero-cta');
-    const heroCoordinates = document.getElementById('hero-coordinates');
-
-    // Clear CSS animations so GSAP can take over
-    [heroBlock, header, mobileHeroCta, heroCoordinates].forEach(el => {
-      if (el) {
-        const currentOpacity = getComputedStyle(el).opacity; // Capture BEFORE removing animation
-        el.style.animation = 'none';
-        el.style.opacity = currentOpacity;
-      }
-    });
-
     const tl = gsap.timeline({
-      defaults: { ease: 'power2.inOut' },
-      onComplete: () => {
-        setTimeout(redirectToServices, 500);
-      },
+      defaults: { ease: 'power2.out' },
+      // IMPORTANT: keep orb animation speed unchanged by not navigating early.
+      onComplete: redirectToServices,
     });
 
-    // Fade out hero block with upward motion
     if (heroBlock) {
-      tl.to(heroBlock, { opacity: 0, y: -40, duration: 0.8 }, 0);
+      tl.to(heroBlock, { opacity: 0, y: -40, duration: 0.6 }, 0);
     }
 
-    // Fade out header
-    if (header) {
-      tl.to(header, { opacity: 0, duration: 0.6 }, 0);
-    }
+    // Fade body to Services background color (Visual Masking)
+    tl.to(document.body, { backgroundColor: '#FDFCF8', duration: 1.0 }, 0.5);
 
-    // Fade out mobile CTA section
-    if (mobileHeroCta) {
-      tl.to(mobileHeroCta, { opacity: 0, duration: 0.6 }, 0.1);
-    }
-
-    // Fade out coordinates
-    if (heroCoordinates) {
-      tl.to(heroCoordinates, { opacity: 0, duration: 0.6 }, 0.1);
-    }
-
-    // Fade body to Services background color
-    tl.to(document.body, { backgroundColor: '#FDFCF8', duration: 1.5 }, 0.5);
-
-    // Orb exit animation (Slower, more cinematic)
+    // Orb exit animation (leave timings unchanged)
     if (typeof uniforms !== 'undefined' && uniforms && systemsGroup && transitionRotationY) {
-      // Position loader based on layout
-      const loader = document.getElementById('transition-loader');
-      if (loader) {
-        const isMobile = window.innerWidth < 768;
-        const loaderContent = loader.querySelector('div');
-        if (loaderContent) {
-          if (isMobile) {
-            loaderContent.style.transform = 'translateY(10vh)';
-          } else {
-            loaderContent.style.marginLeft = '25%';
-          }
-        }
-      }
-
-      tl.to(uniforms.uOpacity, { value: 0, duration: 2.5 }, 0);
-      tl.to(transitionRotationY, { value: transitionRotationY.value + Math.PI * 3, duration: 3.5 }, 0);
-      tl.to(systemsGroup.scale, { x: 5.0, y: 5.0, z: 5.0, duration: 3.5 }, 0);
-      tl.to(systemsGroup.position, { z: 15, duration: 3.5 }, 0);
-      
-      // Fade in the loader as the orb finishes
-      tl.to('#transition-loader', { 
-        opacity: 1, 
-        duration: 1.5, 
-        pointerEvents: 'auto' 
-      }, 2.0);
-      
-      // Scale the loader up
-      tl.fromTo('#transition-loader .loader-visual', 
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.5, ease: 'back.out(1.7)' }, 
-        2.2
-      );
+      tl.to(uniforms.uOpacity, { value: 0, duration: 1.5 }, 0);
+      tl.to(transitionRotationY, { value: transitionRotationY.value + Math.PI * 2, duration: 1.8 }, 0);
+      tl.to(systemsGroup.scale, { x: 3.0, y: 3.0, z: 3.0, duration: 1.8 }, 0);
+      tl.to(systemsGroup.position, { z: 8, duration: 1.8 }, 0);
     } else {
+      // If Three.js hasn't initialized yet, fall back to direct navigation.
       tl.add(redirectToServices, 0.1);
     }
   }

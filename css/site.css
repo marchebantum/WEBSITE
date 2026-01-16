@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Orange Avenue';
-    src: url('documents/OrangeAvenueDEMO-Regular.otf') format('opentype');
+    src: url('../documents/OrangeAvenueDEMO-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -915,7 +915,11 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
 
 /* About method title positioning */
 @media (min-width: 1024px) {
+    #about-hero-right {
+        position: relative;
+    }
     #about-method-title {
+        position: absolute;
         left: -120px;
         top: 10px;
     }

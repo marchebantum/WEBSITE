@@ -35,6 +35,20 @@
 <!-- Canonical URL -->
 <link rel="canonical" href="https://zenias.io/">
 
+<meta name="view-transition" content="same-origin">
+
+<!-- Speculation Rules (Chromium): prefetch/prerender Services for instant nav -->
+<script type="speculationrules">
+{
+  "prefetch": [
+    { "source": "list", "urls": ["services.html"] }
+  ],
+  "prerender": [
+    { "source": "list", "urls": ["services.html"] }
+  ]
+}
+</script>
+
 <!-- DNS Prefetch for External Resources -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -581,30 +595,31 @@
   const heroBlock = document.getElementById('hero-block');
   const btnStartDesktop = document.getElementById('btn-start-desktop');
   const btnStartMobile = document.getElementById('btn-start-mobile');
+  const navServices = document.getElementById('nav-services');
+  const mobileServices = document.getElementById('mobile-services');
 
-  let isAnimating = false;
-  let hasNavigated = false;
-  let servicesPrefetchPromise = null;
-
-  function prefetchServicesPage() {
-    if (servicesPrefetchPromise) return servicesPrefetchPromise;
-
+  // Aggressive Prefetching
+  let hasPrefetchedServices = false;
+  const prefetchServices = () => {
+    if (hasPrefetchedServices) return;
+    hasPrefetchedServices = true;
     try {
       const link = document.createElement('link');
       link.rel = 'prefetch';
       link.href = 'services.html';
       link.as = 'document';
       document.head.appendChild(link);
-    } catch (_) {
-      // Non-fatal
-    }
+    } catch (_) {}
 
-    servicesPrefetchPromise = fetch('services.html', { cache: 'force-cache' })
-      .then(() => true)
-      .catch(() => false);
+    // Kick off the request and let it overlap with the orb animation.
+    // (This is the "overlap navigation" you want, without cutting the orb short.)
+    fetch('services.html', { cache: 'force-cache', credentials: 'same-origin' }).catch(() => {});
+  };
+  
+  window.addEventListener('load', prefetchServices);
 
-    return servicesPrefetchPromise;
-  }
+  let isAnimating = false;
+  let hasNavigated = false;
 
   function redirectToServices() {
     if (hasNavigated) return;
@@ -615,8 +630,9 @@
   function goToServices() {
     if (isAnimating) return;
     isAnimating = true;
-    // Warm the next page, but never block navigation on it.
-    prefetchServicesPage();
+
+    // Start fetching immediately so network work overlaps the orb timeline.
+    prefetchServices();
 
     if (typeof gsap === 'undefined') {
       redirectToServices();
@@ -625,37 +641,39 @@
 
     const tl = gsap.timeline({
       defaults: { ease: 'power2.out' },
-      onComplete: () => {
-        redirectToServices();
-      },
+      // IMPORTANT: keep orb animation speed unchanged by not navigating early.
+      onComplete: redirectToServices,
     });
 
     if (heroBlock) {
       tl.to(heroBlock, { opacity: 0, y: -40, duration: 0.6 }, 0);
     }
 
-    // Orb exit animation (Option B)
+    // Fade body to Services background color (Visual Masking)
+    tl.to(document.body, { backgroundColor: '#FDFCF8', duration: 1.0 }, 0.5);
+
+    // Orb exit animation (leave timings unchanged)
     if (typeof uniforms !== 'undefined' && uniforms && systemsGroup && transitionRotationY) {
-      tl.to(uniforms.uOpacity, { value: 0, duration: 2.5 }, 0);
-      tl.to(transitionRotationY, { value: transitionRotationY.value + Math.PI * 2, duration: 3.0 }, 0);
-      tl.to(systemsGroup.scale, { x: 3.0, y: 3.0, z: 3.0, duration: 3.0 }, 0);
-      tl.to(systemsGroup.position, { z: 8, duration: 3.0 }, 0);
+      tl.to(uniforms.uOpacity, { value: 0, duration: 1.5 }, 0);
+      tl.to(transitionRotationY, { value: transitionRotationY.value + Math.PI * 2, duration: 1.8 }, 0);
+      tl.to(systemsGroup.scale, { x: 3.0, y: 3.0, z: 3.0, duration: 1.8 }, 0);
+      tl.to(systemsGroup.position, { z: 8, duration: 1.8 }, 0);
     } else {
       // If Three.js hasn't initialized yet, fall back to direct navigation.
       tl.add(redirectToServices, 0.1);
     }
   }
 
-  // Warm the next page during idle time so the redirect feels instant.
-  const warmSoon = () => prefetchServicesPage();
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(warmSoon, { timeout: 2000 });
-  } else {
-    setTimeout(warmSoon, 800);
-  }
+  // Also prefetch on hover
+  btnStartDesktop?.addEventListener('mouseenter', prefetchServices);
+  btnStartMobile?.addEventListener('mouseenter', prefetchServices);
+  navServices?.addEventListener('mouseenter', prefetchServices);
+  mobileServices?.addEventListener('mouseenter', prefetchServices);
 
   btnStartDesktop?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
   btnStartMobile?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
+  navServices?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
+  mobileServices?.addEventListener('click', (e) => { e.preventDefault(); goToServices(); });
 })();
 </script>
 

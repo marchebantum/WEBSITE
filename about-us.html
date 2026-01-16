@@ -419,6 +419,45 @@
     }, 30);
   }
 
+  // Minimal character split + reveal (used only for the big "ZENIAS" title).
+  // Designed to not disturb layout (no 3D transforms / no font changes).
+  function splitToCharsPreserveLayout(el) {
+    if (!el) return [];
+    if (el.dataset.charsSplit === '1') {
+      return Array.from(el.querySelectorAll('span[data-char]'));
+    }
+
+    // Ensure the element itself isn't suppressing children (Tailwind opacity-0).
+    el.classList.remove('opacity-0');
+    el.style.opacity = '1';
+    el.style.whiteSpace = 'nowrap';
+
+    const text = (el.dataset.originalText || el.textContent || '').trim();
+    el.dataset.originalText = text;
+    el.dataset.charsSplit = '1';
+
+    const frag = document.createDocumentFragment();
+    const spans = [];
+
+    for (const ch of text) {
+      const s = document.createElement('span');
+      s.dataset.char = '1';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      s.style.display = 'inline-block';
+      s.style.willChange = 'transform, opacity, filter';
+      frag.appendChild(s);
+      spans.push(s);
+    }
+
+    el.textContent = '';
+    el.appendChild(frag);
+    el.setAttribute('aria-label', text);
+    el.setAttribute('role', 'text');
+
+    return spans;
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const aboutTitle = document.getElementById('about-zenias-title');
     const aboutSubtitle = document.getElementById('about-zen-subtitle');
@@ -429,30 +468,92 @@
     const founderCard = document.getElementById('founder-card');
     const founderCardInner = founderCard ? founderCard.querySelector('.founder-card') : null;
 
-    if (typeof gsap !== 'undefined') {
-      if (aboutTitle) gsap.fromTo(aboutTitle, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1.8, ease: 'expo.out' });
-      if (aboutSubtitle) gsap.fromTo(aboutSubtitle, { opacity: 0, y: 60 }, { opacity: 0.9, y: 0, duration: 1.8, delay: 0.15, ease: 'expo.out' });
-      if (aboutSubtext) gsap.fromTo(aboutSubtext, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
-      if (methodTitle) {
-        scrambleText(methodTitle, methodTitle.innerText, 0.5);
-        gsap.fromTo(methodTitle, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.4, ease: 'power3.out' });
+    const noGsapFallback = () => {
+      aboutTitle?.classList.remove('opacity-0');
+      aboutSubtitle?.classList.remove('opacity-0');
+      aboutSubtext?.classList.remove('opacity-0');
+      methodTitle?.classList.remove('opacity-0');
+      founderCard?.classList.remove('opacity-0');
+      verticalLabel?.classList.remove('opacity-0');
+    };
+
+    if (typeof gsap === 'undefined') {
+      noGsapFallback();
+      return;
+    }
+
+    try {
+      const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+      // ZENIAS: character-by-character reveal (simple + clean)
+      if (aboutTitle) {
+        aboutTitle.classList.remove('opacity-0');
+        const chars = splitToCharsPreserveLayout(aboutTitle);
+        gsap.set(chars, { opacity: 0, y: 46, filter: 'blur(10px)' });
+        tl.to(chars, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1.35,
+          stagger: { each: 0.045, from: 'start' },
+          ease: 'power3.out'
+        }, 0);
       }
+
+      // Zen Inspired Agentic Systems: slower reveal
+      if (aboutSubtitle) {
+        aboutSubtitle.classList.remove('opacity-0');
+        tl.fromTo(
+          aboutSubtitle,
+          { opacity: 0, y: 45 },
+          { opacity: 0.92, y: 0, duration: 2.8, ease: 'power3.out' },
+          0.25
+        );
+      }
+
+      if (aboutSubtext) {
+        aboutSubtext.classList.remove('opacity-0');
+        tl.fromTo(
+          aboutSubtext,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 1.6, ease: 'power2.out' },
+          0.7
+        );
+      }
+
+      // Where craft meets code.: elegant slide-in (no scramble)
+      if (methodTitle) {
+        methodTitle.classList.remove('opacity-0');
+        tl.fromTo(
+          methodTitle,
+          { opacity: 0, x: -36, y: 8 },
+          { opacity: 1, x: 0, y: 0, duration: 1.6, ease: 'expo.out' },
+          0.55
+        );
+      }
+
       if (processCards.length) {
         gsap.set(processCards, { opacity: 0, y: 20 });
-        gsap.to(processCards, { opacity: 1, y: 0, duration: 1.0, stagger: 0.15, ease: 'back.out(1.2)', delay: 0.9 });
+        tl.to(processCards, { opacity: 1, y: 0, duration: 1.0, stagger: 0.15, ease: 'back.out(1.2)' }, 1.1);
       }
-      if (verticalLabel) gsap.fromTo(verticalLabel, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 1.2, delay: 1.0 });
+
+      if (verticalLabel) {
+        tl.fromTo(verticalLabel, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 1.2 }, 1.2);
+      }
+
       if (founderCard && founderCardInner) {
         founderCardInner.classList.remove('play-founder-card');
-        gsap.fromTo(founderCard, { opacity: 0, y: 30 }, {
+        tl.fromTo(founderCard, { opacity: 0, y: 30 }, {
           opacity: 1,
           y: 0,
           duration: 1.5,
-          delay: 1.2,
           ease: 'power3.out',
           onStart: () => { void founderCardInner.offsetWidth; founderCardInner.classList.add('play-founder-card'); }
-        });
+        }, 1.0);
       }
+    } catch (_) {
+      // Never leave the hero invisible due to animation errors
+      noGsapFallback();
     }
   });
 

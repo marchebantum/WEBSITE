@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Primary Meta Tags -->
+<title>Zenias | About Us</title>
+<meta name="title" content="Zenias | About Us">
+<meta name="description" content="Learn about Zenias — our mission, values, and approach to building secure AI-enabled systems.">
+<meta name="keywords" content="digital agency, web design, creative technology, AI systems, automation, governance, training">
+<meta name="author" content="Zenias">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zenias.io/about-us.html">
+<meta property="og:title" content="Zenias | About Us">
+<meta property="og:description" content="Learn about Zenias — our mission, values, and approach to building secure AI-enabled systems.">
+<meta property="og:image" content="https://zenias.io/assets/images/No BG BLACK.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://zenias.io/about-us.html">
+<meta property="twitter:title" content="Zenias | About Us">
+<meta property="twitter:description" content="Learn about Zenias — our mission, values, and approach to building secure AI-enabled systems.">
+<meta property="twitter:image" content="https://zenias.io/assets/images/No BG BLACK.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/images/No BG BLACK.png">
+<link rel="apple-touch-icon" href="assets/images/No BG BLACK.png">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://zenias.io/about-us.html">
+
+<!-- DNS Prefetch for External Resources -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+
+<!-- Preload Critical Resources -->
+<link rel="preload" href="css/output.css" as="style">
+<link rel="preload" href="css/site.css" as="style">
+<link rel="preload" href="js/site.js" as="script">
+<link rel="preload" href="js/gsap/gsap.min.js" as="script">
+<link rel="preload" href="assets/images/No BG BLACK.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/images/No BG BLACK.png" as="image" type="image/png">
+
+<!-- Fonts with Optimized Loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""> 
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+
+<!-- Tailwind CSS (Production Build) -->
+<link rel="stylesheet" href="css/output.css">
+<link rel="stylesheet" href="css/site.css">
+
+<!-- External Libraries -->
+<script src="js/gsap/gsap.min.js"></script>
+<script src="js/gsap/ScrollTrigger.min.js"></script>
+<script src="js/gsap/Flip.min.js"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+<script src="js/site.js" defer></script>
+
+<script>
+  // Animate-on-scroll helper
+  (function () {
+    const style = document.createElement("style");
+    style.textContent = `
+      .animate-on-scroll { animation-play-state: paused !important; }
+      .animate-on-scroll.animate { animation-play-state: running !important; }
+    `;
+    document.head.appendChild(style);
+
+    const once = true;
+    if (!window.__inViewIO) {
+      window.__inViewIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            if (once) window.__inViewIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+    }
+
+    window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+      document.querySelectorAll(selector).forEach((el) => {
+        window.__inViewIO.observe(el);
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+  })();
+</script>
+</head>
+<body class="antialiased font-sans bg-paper min-h-screen">
+
+    <!-- Header - Fixed across pages -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-3 py-2 md:px-12 md:py-6 transition-all duration-300 header-dark about-active">
+        <!-- Background Gradient & Blur with Soft Masked Edge -->
+        <div class="absolute inset-x-0 top-0 h-32 md:h-48 bg-gradient-to-b from-paper via-paper/90 to-transparent backdrop-blur-md -z-10 pointer-events-none [mask-image:linear-gradient(to_bottom,black_20%,transparent_90%)]"></div>
+
+        <a href="index.html" class="flex items-center gap-2 md:gap-4 cursor-pointer" id="logo-home" aria-label="Zenias home">
+            <div class="w-8 h-8 md:w-10 md:h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
+                <img src="assets/images/No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="eager" fetchpriority="high" id="logo-img">
+            </div>
+            <span class="font-serif text-2xl md:text-4xl tracking-tight text-ink font-medium">Zenias</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="services.html" id="nav-services" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">Services</a>
+            <a href="works.html" id="nav-works" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">Works</a>
+            <a href="about-us.html" id="nav-about" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">About Us</a>
+            <a id="nav-inquire" href="inquire.html" class="font-serif italic text-lg px-8 py-2 border border-transparent bg-sepia hover:bg-ink transition-colors text-paper rounded-full shadow-sm">Inquire</a>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden w-8 h-8 flex items-center justify-center" aria-label="Toggle menu"></button>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="absolute top-14 right-3 md:top-24 md:right-6 flex flex-col items-end gap-3 md:gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible z-[60]">
+            <a href="services.html" id="mobile-services" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
+            <a href="works.html" id="mobile-works" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Works</a>
+            <a href="about-us.html" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
+            <a id="mobile-inquire" href="inquire.html" class="font-serif italic text-lg px-6 py-1 border border-transparent bg-sepia text-paper rounded-full">Inquire</a>
+        </div>
+    </header>
+
+
+<!-- About Us Page (initially hidden) -->
+	    <section id="about-page" class="relative overflow-x-hidden bg-dark text-stone">
+	        <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
+
+	        <div class="relative z-10">
+	            <!-- Hero -->
+	            <section class="relative min-h-[100svh] flex items-center justify-center px-6 md:px-12 pt-28 pb-16 overflow-hidden">
+	                <!-- Zen Grounding -->
+	                <div class="absolute inset-0 -z-10">
+	                    <picture>
+	                        <source srcset="assets/images/rainy-bamboo-garden-through-a-moon-gate-4k_opt.webp" type="image/webp">
+	                        <img src="assets/images/rainy-bamboo-garden-through-a-moon-gate-4k.jpeg" class="w-full h-full object-cover opacity-50 grayscale-[15%]" alt="Rainy bamboo garden through a moon gate" loading="lazy">
+	                    </picture>
+	                    <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/90"></div>
+	                    <div class="absolute inset-0 bg-[radial-gradient(900px_circle_at_25%_20%,rgba(212,175,55,0.16)_0%,transparent_60%)]"></div>
+	                </div>
+
+	                <div class="w-full max-w-6xl">
+                        <div class="flex items-center gap-3 mb-12 md:mb-20 relative px-4 md:px-0">
+                            <!-- Tech Brackets -->
+                            <div class="absolute -left-2 -top-2 w-4 h-4 border-t border-l border-emerald-950/40"></div>
+                            <div class="absolute -right-2 -top-2 w-4 h-4 border-t border-r border-emerald-950/40 md:hidden"></div>
+                            
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.4)]"></span>
+                                <span class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-emerald-900 bg-[#022c22] shadow-md">About Us</span>
+                            </div>
+
+                            <!-- Ref Marker -->
+                            <div class="flex flex-col border-l border-emerald-950/20 pl-4 ml-2 mt-1">
+                                <span class="font-mono text-[10px] text-emerald-700 font-bold tracking-[0.2em] leading-none">// 03</span>
+                                <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1 hidden sm:block">Ref. About_SYS.v1</span>
+                            </div>
+
+                            <div class="h-px flex-1 bg-gradient-to-r from-emerald-950/80 via-amber-400/70 to-transparent"></div>
+                            <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Status: Synchronized</span>
+                        </div>
+
+                        <!-- Compressed Desktop Layout: Text left, interactive graphic right -->
+		                        <div id="about-hero-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-8 md:mt-10">
+                            <!-- Left: Title + Subtext -->
+                            <div id="about-hero-left" class="lg:col-span-7 text-center md:text-left">
+                                <div id="about-zenias-title-block" class="relative inline-block">
+                                    <!-- Drafting / Architectural Tech Elements (higher visibility, no gold accents) -->
+                                    <div class="absolute -inset-10 pointer-events-none opacity-75">
+                                        <!-- Circular Drafting Element -->
+                                        <div class="absolute -left-44 -top-28 w-[28rem] h-[28rem] opacity-65 hidden md:block">
+                                            <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow" style="animation-duration: 90s; color: rgba(255,255,255,0.42);">
+                                                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.25" stroke-dasharray="2 4"></circle>
+                                                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="0.12"></circle>
+                                                <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" stroke-width="0.12" transform="rotate(45 50 50)"></rect>
+                                                <path d="M50 2 L50 98 M2 50 L98 50" stroke="currentColor" stroke-width="0.05" opacity="0.55"></path>
+                                            </svg>
+                                        </div>
+
+                                        <!-- Tech Lines -->
+                                        <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-white/25 to-transparent"></div>
+                                        <div class="absolute right-1/4 top-0 w-px h-48 bg-gradient-to-b from-white/25 to-transparent"></div>
+                                    </div>
+
+                                    <!-- ZENIAS title (original styling) -->
+                                    <h1 id="about-zenias-title"
+                                        class="relative z-10 font-orange-avenue text-[clamp(4.5rem,14vw,11rem)] leading-[0.85] text-[#FDFCF8] tracking-[0.08em] mix-blend-overlay opacity-0 select-none">
+                                        ZENIAS
+                                    </h1>
+                                </div>
+
+                                <p id="about-zen-subtitle" class="mt-4 md:mt-6 font-serif text-[clamp(1.22rem,2.45vw,2.02rem)] text-stone italic tracking-[0.28em] font-light opacity-0">
+                                    Zen Inspired Agentic Systems
+                                </p>
+                                <div id="about-hero-subtext" class="mt-7 max-w-xl mx-auto md:mx-0 font-open-sans text-base md:text-lg text-white/80 leading-relaxed opacity-0 space-y-6">
+                                    <p class="font-open-sans">Zenias was founded by Marche Bantum, an artist, lawyer and entrepreneur from Australia. After scaling a marketing company built on high-quality commercial production and software and culminating in a major vendor acquisition, the journey into software development became inevitable. As an extremely early adopter of AI, the gap became clear: businesses need automated systems, but they also need to look and feel amazing.</p>
+                                    <p class="font-open-sans">Observing the incredible democratisation of technology through AI, Marche assembled a team of passionate developers and designers to help people and organisations build their next chapter of digital success. As a passionate educator, his belief is simple: everyone has the right to learn these tools and build their Next.</p>
+                                    <p class="font-open-sans">Digital Renaissance is our central philosophy. It is where the craft of classical engineering is reborn in modern computation. We are living through the digital renaissance at this very moment. Zenias is your thought partner and collaborator throughout this time of incredible opportunity and change.</p>
+                                </div>
+                            </div>
+
+                            <!-- Right: Tranquil build + Interactive graphic -->
+                            <div id="about-hero-right" class="lg:col-span-5 relative">
+                                <h2 id="about-method-title" 
+                                    class="font-serif text-[clamp(2rem,3.5vw,4.2rem)] text-white/80 lg:text-white/80 leading-tight opacity-0 text-center lg:text-left lg:absolute lg:-left-[120px] lg:top-[10px] lg:z-auto whitespace-nowrap lg:mix-blend-overlay">
+                                    Where craft meets code.
+                                </h2>
+
+                                <!-- Founder Profile -->
+                                <div id="founder-card" class="mt-6 md:mt-20 lg:mt-32 mb-6 md:mb-8 opacity-0">
+                                    <div class="founder-card p-5 rounded-xl relative overflow-hidden group backdrop-blur-md bg-white/[0.15] border border-white/10 shadow-xl transition-all duration-700 hover:border-amber-500/30 hover:shadow-2xl">
+                                        <!-- Technical Frame Elements -->
+                                        <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-amber-500/40"></div>
+                                        <div class="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-emerald-500/40"></div>
+                                        
+                                        <div class="flex items-center gap-6">
+                                            <!-- Grayscale Photo with Neon Border -->
+                                            <div class="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0">
+                                                <div class="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-amber-500/30 to-emerald-500/30 blur opacity-40 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                                <div class="relative w-full h-full rounded-full border border-white/20 overflow-hidden shadow-inner">
+                                                    <img src="assets/images/1518138569095.jpeg" alt="Marche Bantum" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 scale-105 group-hover:scale-110" loading="lazy">
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Founder Details -->
+                                            <div class="flex-1">
+                                                <div class="font-mono text-[9px] text-amber-500/60 tracking-[0.3em] mb-1 founder-text-reveal" style="animation-delay: 0.1s;">AUTH_REF: M.BANTUM</div>
+                                                <h3 class="font-serif text-2xl text-[#FDFCF8] tracking-tight leading-tight founder-text-reveal" style="animation-delay: 0.2s;">Marche Bantum</h3>
+                                                <p class="font-open-sans text-[10px] text-white/40 uppercase tracking-[0.25em] mt-1 font-semibold founder-text-reveal" style="animation-delay: 0.3s;">Founder & Principal</p>
+                                                <div class="mt-4 flex items-center gap-2 founder-text-reveal" style="animation-delay: 0.4s;">
+                                                    <div class="h-[1px] w-12 bg-gradient-to-r from-amber-500/40 to-transparent"></div>
+                                                    <span class="font-mono text-[8px] text-white/20 uppercase tracking-widest">System Architect</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Subtle Scanline Overlay -->
+                                        <div class="absolute inset-0 bg-[linear-gradient(transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] bg-[size:100%_4px] pointer-events-none opacity-20"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 md:mt-12 lg:mt-10 relative w-full h-[450px] md:h-[520px] lg:h-[480px] rounded-2xl border border-white/10 bg-transparent backdrop-blur-none overflow-hidden group select-none cursor-pointer shadow-2xl transition-all duration-700 hover:border-white/20"
+                                     id="zen-tech-container"
+                                     style="--zen-theme: 157, 122, 35; --zen-glow: 157, 122, 35;">
+                                
+                                <!-- Background Tech/Zen Animation -->
+                                <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                                    <!-- Zen-garden photo blended as base background (keeps grid/rings/atmosphere on top) -->
+                                    <div aria-hidden="true"
+                                         class="absolute inset-0 opacity-40 mix-blend-soft-light lazy-bg" data-bg-webp="assets/images/night-zen-garden-with-rocks-and-raked-sand-4k_opt.webp" data-bg-fallback="assets/images/night-zen-garden-with-rocks-and-raked-sand-4k.png" style="background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.18);">
+                                    </div>
+                                    <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25"></div>
+
+                                    <!-- Abstract glowing core - much more visible -->
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[100px] animate-pulse-slow transition-all duration-1000 group-hover:scale-125" style="background-color: rgba(var(--zen-theme), 0.25);"></div>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full blur-[60px] animate-pulse-slow" style="animation-delay: 0.5s; background-color: rgba(var(--zen-theme), 0.15);"></div>
+                                    
+                                    <!-- Grid overlay - much more visible -->
+                                    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px] opacity-70"></div>
+                                    <div class="absolute inset-0 opacity-50" style="background-image: linear-gradient(rgba(var(--zen-theme), 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--zen-theme), 0.1) 1px, transparent 1px); background-size: 80px 80px;"></div>
+                                    
+                                    <!-- Outer Rotating Ring - much more visible -->
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] border-2 border-white/30 rounded-full opacity-90" style="animation: spin-60s 60s linear infinite;">
+                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.5); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.5);"></div>
+                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.5); box-shadow: 0 0 12px rgba(var(--zen-theme), 0.5);"></div>
+                                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white/60 rounded-full"></div>
+                                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white/60 rounded-full"></div>
+                                    </div>
+                                    
+                                    <!-- Inner Rotating Ring - counter-rotating -->
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] border rounded-full opacity-80" style="animation: spin-40s-reverse 40s linear infinite; border-color: rgba(var(--zen-theme), 0.25);">
+                                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.4);"></div>
+                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.4);"></div>
+                                    </div>
+                                    
+                                    <!-- Scanning line effect -->
+                                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" style="animation: scan 8s linear infinite;"></div>
+                                    
+                                    <!-- Corner tech indicators -->
+                                    <div class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 opacity-60 transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.4);"></div>
+                                    <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 opacity-60 transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.4);"></div>
+                                    <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 opacity-60 transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.4);"></div>
+                                    <div class="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 opacity-60 transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.4);"></div>
+                                </div>
+
+                                <!-- Content Container -->
+                                <div class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-8 md:p-16 transition-all duration-500" id="zen-content-wrapper">
+                                    <!-- Slides remain the same but their icons can be colored by the theme -->
+                                    <!-- Slide 1: Discovery -->
+                                    <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-100 pointer-events-none transition-all duration-700 transform scale-100" data-index="0">
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="search" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        </div>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">The Problem</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Mass adoption has stripped software of personality. Systems are rigid, impersonal, and built for the average user – not your personalised workflow. Software should fit you, not force you to adapt. Zenias rejects the template. We build systems that move with you, shaped around how you think and work.
+	                                        </p>
+                                    </div>
+                                    <!-- ... other slides will be handled by the same logic if I can target them ... -->
+
+                                    <!-- Slide 2: Design -->
+                                    <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="1">
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="pencil-ruler" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        </div>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Our Mission</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Our mission is to architect AI-powered systems that respect human judgment, creative intuition, and operational sovereignty. We believe automation should enhance, but never replace, the craft. Digital Renaissance is our philosophy: timeless principles of design, precision, and beauty, applied to intelligent systems that evolve with you.
+	                                        </p>
+                                    </div>
+
+                                    <!-- Slide 3: Deploy -->
+                                    <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="2">
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="rocket" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        </div>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Our Team</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            Our team comprises of software developers, data security experts, designers and creatives. We cover every core pillar of AI and agentic systems, from architecture and compliance to interface design and deployment. We focus on building experiences that feel effortless, secure, and entirely yours.
+	                                        </p>
+                                    </div>
+
+                                    <!-- Slide 4: Teach -->
+                                    <div class="zen-slide absolute inset-0 flex flex-col items-center justify-center p-8 opacity-0 pointer-events-none transition-all duration-700 transform scale-95" data-index="3">
+                                        <div class="w-12 h-12 rounded-full border flex items-center justify-center mb-6 backdrop-blur-sm transition-all duration-700" style="border-color: rgba(var(--zen-theme), 0.2); background-color: rgba(var(--zen-theme), 0.08); box-shadow: 0 0 18px rgba(var(--zen-theme), 0.12);">
+                                            <i data-lucide="graduation-cap" class="w-6 h-6 transition-colors duration-700" style="color: rgba(255,255,255,0.96); filter: drop-shadow(0 0 16px rgba(var(--zen-theme), 0.45)) drop-shadow(0 0 4px rgba(255,255,255,0.35));"></i>
+                                        </div>
+	                                        <h3 class="font-serif text-3xl md:text-4xl text-white mb-4 tracking-tight">Who We Serve</h3>
+	                                        <p class="font-open-sans text-sm md:text-base text-white/70 max-w-lg leading-relaxed">
+	                                            We serve anyone willing to learn and embrace the future. Commercial teams. Sole traders. Creative studios. Founders. Educators. If you believe software should work for you, then Zenias is for you.
+	                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Tech UI Overlay -->
+                                <div class="absolute top-6 left-6 font-mono text-[11px] text-white/70 tracking-widest uppercase flex items-center gap-2 pointer-events-none">
+                                    <span class="w-1.5 h-1.5 rounded-full animate-pulse transition-all duration-700" style="background-color: rgba(var(--zen-theme), 0.9); box-shadow: 0 0 8px rgba(var(--zen-theme), 0.6);"></span>
+                                    SYS.ZEN.01
+                                </div>
+	                                <div class="absolute top-6 right-6 font-mono text-[11px] text-white/70 tracking-widest uppercase pointer-events-none" id="zen-phase-indicator">PHASE: 01 // THE PROBLEM</div>
+                                
+                                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 pointer-events-none">
+                                    <div class="flex gap-2" id="zen-dots">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-white/80 transition-all duration-300"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300"></div>
+                                    </div>
+                                    <div class="text-[10px] text-white/40 font-mono uppercase tracking-[0.2em] animate-pulse">
+                                        [ Tap to Cycle ]
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scroll Indicator -->
+                        <a href="inquire.html" class="mt-10 flex justify-center hover:opacity-80 transition-opacity scroll-indicator" aria-label="Go to Inquire">
+                            <div class="flex items-center gap-3">
+                                <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">//</span>
+                                <i data-lucide="arrow-down" class="w-3 h-3 text-white/50 animate-bounce"></i>
+                                <div class="h-px w-12 bg-gradient-to-r from-emerald-400/40 via-amber-200/30 to-transparent"></div>
+                                <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Inquire</span>
+                            </div>
+                        </a>
+
+
+                        <!-- Vertical ABOUT US label -->
+                        <div class="about-vertical-label absolute right-3 md:right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-4 pointer-events-none select-none opacity-0">
+                            <div class="w-px h-16 bg-gradient-to-b from-transparent via-white/10 to-transparent"></div>
+                            <div class="font-mono font-light tracking-[0.5em] text-white/20"
+                                 style="writing-mode: vertical-rl; text-orientation: mixed; font-size: clamp(0.8rem, 1.5vw, 1.2rem);">
+                                ABOUT_US
+                            </div>
+                            <div class="flex flex-col items-center gap-2 opacity-50">
+                                <div class="w-1 h-1 rounded-full bg-white/20"></div>
+                                <div class="w-8 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                            </div>
+                        </div>
+ 	                </div>
+ 	            </section>
+
+	        </div>
+	    </section>
+
+    
+
+
+<script>
+(function () {
+  function scrambleText(element, targetText, duration = 1.0) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+    const originalText = targetText;
+    if (element._scrambleInterval) clearInterval(element._scrambleInterval);
+    let iteration = 0;
+    element._scrambleInterval = setInterval(() => {
+      element.innerText = originalText
+        .split('')
+        .map((char, index) => index < iteration ? originalText[index] : (originalText[index] === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]))
+        .join('');
+      if (iteration >= originalText.length) {
+        clearInterval(element._scrambleInterval);
+        element.innerText = originalText;
+        delete element._scrambleInterval;
+      }
+      iteration += originalText.length / (duration * 33);
+    }, 30);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const aboutTitle = document.getElementById('about-zenias-title');
+    const aboutSubtitle = document.getElementById('about-zen-subtitle');
+    const aboutSubtext = document.getElementById('about-hero-subtext');
+    const methodTitle = document.getElementById('about-method-title');
+    const processCards = document.querySelectorAll('.process-card');
+    const verticalLabel = document.querySelector('.about-vertical-label');
+    const founderCard = document.getElementById('founder-card');
+    const founderCardInner = founderCard ? founderCard.querySelector('.founder-card') : null;
+
+    if (typeof gsap !== 'undefined') {
+      if (aboutTitle) gsap.fromTo(aboutTitle, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1.8, ease: 'expo.out' });
+      if (aboutSubtitle) gsap.fromTo(aboutSubtitle, { opacity: 0, y: 60 }, { opacity: 0.9, y: 0, duration: 1.8, delay: 0.15, ease: 'expo.out' });
+      if (aboutSubtext) gsap.fromTo(aboutSubtext, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
+      if (methodTitle) {
+        scrambleText(methodTitle, methodTitle.innerText, 0.5);
+        gsap.fromTo(methodTitle, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.4, ease: 'power3.out' });
+      }
+      if (processCards.length) {
+        gsap.set(processCards, { opacity: 0, y: 20 });
+        gsap.to(processCards, { opacity: 1, y: 0, duration: 1.0, stagger: 0.15, ease: 'back.out(1.2)', delay: 0.9 });
+      }
+      if (verticalLabel) gsap.fromTo(verticalLabel, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 1.2, delay: 1.0 });
+      if (founderCard && founderCardInner) {
+        founderCardInner.classList.remove('play-founder-card');
+        gsap.fromTo(founderCard, { opacity: 0, y: 30 }, {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          delay: 1.2,
+          ease: 'power3.out',
+          onStart: () => { void founderCardInner.offsetWidth; founderCardInner.classList.add('play-founder-card'); }
+        });
+      }
+    }
+  });
+
+  // Provide scrambleText for Zen tech code block
+  window.scrambleText = scrambleText;
+})();
+
+// --- Zen Tech Component Logic ---
+        const zenContainer = document.getElementById('zen-tech-container');
+        if (zenContainer) {
+            let currentZenIndex = 0;
+            const zenSlides = document.querySelectorAll('.zen-slide');
+            const zenDots = document.querySelectorAll('#zen-dots div');
+	            const zenPhaseIndicator = document.getElementById('zen-phase-indicator');
+	            const phases = [
+	                "PHASE: 01 // THE PROBLEM",
+	                "PHASE: 02 // OUR MISSION",
+	                "PHASE: 03 // OUR TEAM",
+	                "PHASE: 04 // WHO WE SERVE"
+	            ];
+
+            // Atmosphere palette (loop):
+            // - Muted Gold (slightly more vibrant)
+            // - Muted Sage (slightly more vibrant)
+            // - Muted Copper (slightly more vibrant)
+            // - Muted Slate (slightly more vibrant)
+            const themeColors = [
+                "157, 122, 35",   // Muted Gold
+                "38, 142, 107",   // Muted Sage
+                "151, 70, 36",    // Muted Copper
+                "73, 70, 156"     // Muted Slate
+            ];
+            let themeIndex = 0;
+            // Apply initial theme immediately (matches the initial CSS variable on the element)
+            zenContainer.style.setProperty('--zen-theme', themeColors[themeIndex]);
+            
+            function rotateZenContent() {
+                // Hide current
+                if (zenSlides.length > currentZenIndex) {
+                    const currentSlide = zenSlides[currentZenIndex];
+                    currentSlide.style.opacity = '0';
+                    currentSlide.style.transform = 'scale(0.95)';
+                    currentSlide.style.pointerEvents = 'none';
+                    
+                    if (zenDots[currentZenIndex]) {
+                        zenDots[currentZenIndex].classList.remove('bg-white/80');
+                        zenDots[currentZenIndex].classList.add('bg-white/20');
+                    }
+                }
+
+                // Increment index
+                currentZenIndex = (currentZenIndex + 1) % zenSlides.length;
+                
+                // Cycle atmosphere color deterministically
+                themeIndex = (themeIndex + 1) % themeColors.length;
+                zenContainer.style.setProperty('--zen-theme', themeColors[themeIndex]);
+                
+                // Show new
+                if (zenSlides.length > currentZenIndex) {
+                    const nextSlide = zenSlides[currentZenIndex];
+                    setTimeout(() => {
+                        nextSlide.style.opacity = '1';
+                        nextSlide.style.transform = 'scale(1)';
+                        nextSlide.style.pointerEvents = 'auto';
+                    }, 300);
+
+                    if (zenDots[currentZenIndex]) {
+                        zenDots[currentZenIndex].classList.remove('bg-white/20');
+                        zenDots[currentZenIndex].classList.add('bg-white/80');
+                    }
+                }
+                
+                // Update Phase Text
+                if (zenPhaseIndicator) {
+                    // Check if scrambleText is defined, otherwise just textContent
+                    if (typeof scrambleText === 'function') {
+                        scrambleText(zenPhaseIndicator, phases[currentZenIndex], 0.5);
+                    } else {
+                        zenPhaseIndicator.textContent = phases[currentZenIndex];
+                    }
+                }
+            }
+            
+            // Auto rotate
+            let zenInterval = setInterval(rotateZenContent, 10000);
+            
+            zenContainer.addEventListener('mouseenter', () => {
+                clearInterval(zenInterval);
+            });
+            
+            zenContainer.addEventListener('mouseleave', () => {
+                clearInterval(zenInterval);
+                zenInterval = setInterval(rotateZenContent, 10000);
+            });
+            
+            zenContainer.addEventListener('click', () => {
+                rotateZenContent();
+                clearInterval(zenInterval);
+                zenInterval = setInterval(rotateZenContent, 10000);
+            });
+        }
+
+        
+</script>
+
+
+</body>
+</html>

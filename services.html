@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Primary Meta Tags -->
+<title>Zenias | Services</title>
+<meta name="title" content="Zenias | Services">
+<meta name="description" content="Explore Zenias services: development, training, consulting, and governance for secure AI-enabled systems.">
+<meta name="keywords" content="digital agency, web design, creative technology, AI systems, automation, governance, training">
+<meta name="author" content="Zenias">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zenias.io/services.html">
+<meta property="og:title" content="Zenias | Services">
+<meta property="og:description" content="Explore Zenias services: development, training, consulting, and governance for secure AI-enabled systems.">
+<meta property="og:image" content="https://zenias.io/assets/images/No BG BLACK.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://zenias.io/services.html">
+<meta property="twitter:title" content="Zenias | Services">
+<meta property="twitter:description" content="Explore Zenias services: development, training, consulting, and governance for secure AI-enabled systems.">
+<meta property="twitter:image" content="https://zenias.io/assets/images/No BG BLACK.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/images/No BG BLACK.png">
+<link rel="apple-touch-icon" href="assets/images/No BG BLACK.png">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://zenias.io/services.html">
+
+<!-- DNS Prefetch for External Resources -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+
+<!-- Preload Critical Resources -->
+<link rel="preload" href="css/output.css" as="style">
+<link rel="preload" href="css/site.css" as="style">
+<link rel="preload" href="js/site.js" as="script">
+<link rel="preload" href="js/gsap/gsap.min.js" as="script">
+<link rel="preload" href="assets/images/No BG BLACK.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/images/No BG BLACK.png" as="image" type="image/png">
+
+<!-- Fonts with Optimized Loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""> 
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+
+<!-- Tailwind CSS (Production Build) -->
+<link rel="stylesheet" href="css/output.css">
+<link rel="stylesheet" href="css/site.css">
+
+<!-- External Libraries -->
+<script src="js/gsap/gsap.min.js"></script>
+<script src="js/gsap/ScrollTrigger.min.js"></script>
+<script src="js/gsap/Flip.min.js"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+<script src="js/site.js" defer></script>
+
+<script>
+  // Animate-on-scroll helper
+  (function () {
+    const style = document.createElement("style");
+    style.textContent = `
+      .animate-on-scroll { animation-play-state: paused !important; }
+      .animate-on-scroll.animate { animation-play-state: running !important; }
+    `;
+    document.head.appendChild(style);
+
+    const once = true;
+    if (!window.__inViewIO) {
+      window.__inViewIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            if (once) window.__inViewIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+    }
+
+    window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+      document.querySelectorAll(selector).forEach((el) => {
+        window.__inViewIO.observe(el);
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+  })();
+</script>
+</head>
+<body class="antialiased font-sans bg-paper min-h-screen">
+
+    <!-- Header - Fixed across pages -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-3 py-2 md:px-12 md:py-6 transition-all duration-300">
+        <!-- Background Gradient & Blur with Soft Masked Edge -->
+        <div class="absolute inset-x-0 top-0 h-32 md:h-48 bg-gradient-to-b from-paper via-paper/90 to-transparent backdrop-blur-md -z-10 pointer-events-none [mask-image:linear-gradient(to_bottom,black_20%,transparent_90%)]"></div>
+
+        <a href="index.html" class="flex items-center gap-2 md:gap-4 cursor-pointer" id="logo-home" aria-label="Zenias home">
+            <div class="w-8 h-8 md:w-10 md:h-10 border border-neutral-800 flex items-center justify-center rounded-sm bg-paper relative overflow-hidden">
+                <img src="assets/images/No BG BLACK.png" alt="Z Logo" class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="eager" fetchpriority="high" id="logo-img">
+            </div>
+            <span class="font-serif text-2xl md:text-4xl tracking-tight text-ink font-medium">Zenias</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="services.html" id="nav-services" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">Services</a>
+            <a href="works.html" id="nav-works" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">Works</a>
+            <a href="about-us.html" id="nav-about" class="font-mono text-xs text-neutral-500 hover:text-ink transition-colors tracking-widest uppercase">About Us</a>
+            <a id="nav-inquire" href="inquire.html" class="font-serif italic text-lg px-8 py-2 border border-transparent bg-sepia hover:bg-ink transition-colors text-paper rounded-full shadow-sm">Inquire</a>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden w-8 h-8 flex items-center justify-center" aria-label="Toggle menu"></button>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="absolute top-14 right-3 md:top-24 md:right-6 flex flex-col items-end gap-3 md:gap-4 md:hidden pointer-events-auto transition-all duration-300 opacity-0 translate-y-[-10px] invisible z-[60]">
+            <a href="services.html" id="mobile-services" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Services</a>
+            <a href="works.html" id="mobile-works" class="font-serif text-xl text-ink hover:text-sepia transition-colors">Works</a>
+            <a href="about-us.html" id="mobile-about" class="font-serif text-xl text-ink hover:text-sepia transition-colors">About Us</a>
+            <a id="mobile-inquire" href="inquire.html" class="font-serif italic text-lg px-6 py-1 border border-transparent bg-sepia text-paper rounded-full">Inquire</a>
+        </div>
+    </header>
+
+
+<!-- Services Page (initially hidden) -->
+    <section id="services-page" class="relative overflow-x-hidden bg-paper">
+        <!-- Seamless Atmospheric Background (Light Mode) - Stretches to cover all scrollable content -->
+        <div id="services-bg-container" class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+            <div class="absolute inset-0 grid-overlay opacity-40"></div>
+            <!-- Rust on the left -->
+            <div class="absolute inset-0 bg-[radial-gradient(1200px_circle_at_0%_30%,rgba(154,52,18,0.25)_0%,transparent_75%)]"></div>
+            <!-- Purple on the bottom right -->
+            <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.20)_0%,transparent_75%)]"></div>
+        </div>
+        
+        <!-- Circular Drafting Element - Services (Positioned at section level) -->
+        <div class="absolute right-4 md:right-12 top-8 md:top-16 w-[20rem] md:w-[32rem] h-[20rem] md:h-[32rem] opacity-50 pointer-events-none z-[5]">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
+                <defs>
+                    <linearGradient id="drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#9A3412" />
+                        <stop offset="100%" stop-color="#D4AF37" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="48" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.3" stroke-dasharray="2 4"></circle>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15"></circle>
+                <rect x="25" y="25" width="50" height="50" fill="none" stroke="url(#drafting-gradient)" stroke-width="0.15" transform="rotate(45 50 50)"></rect>
+                <path d="M50 2 L50 98 M2 50 L98 50" stroke="url(#drafting-gradient)" stroke-width="0.05" opacity="0.4"></path>
+            </svg>
+        </div>
+        
+        <div id="services-content-wrapper" class="relative px-6 md:px-12 pt-20 md:pt-36 pb-6 md:pb-8 z-10 overflow-x-hidden">
+            <!-- Integrated Header (No Box) -->
+            <div class="relative mb-6 md:mb-8 group">
+                <!-- Subtly Integrated Tech Sketch Photo -->
+                <div class="absolute inset-0 -mx-6 md:-mx-12 bg-cover bg-center opacity-[0.12] mix-blend-multiply pointer-events-none lazy-bg" data-bg-webp="assets/images/isometric-sketch-of-cloud-data-infrastructure-4k_opt.webp" data-bg-fallback="assets/images/isometric-sketch-of-cloud-data-infrastructure-4k.jpeg"></div>
+                
+                <!-- Technical/Architectural Elements (Light Mode) -->
+                <div class="absolute inset-0 pointer-events-none opacity-50">
+                    <!-- Blueprint Corner Markers -->
+                    <div class="absolute -top-4 -left-4 w-16 h-16 border-l-2 border-t-2" style="border-image: linear-gradient(to bottom right, #9A3412, #D4AF37) 1;"></div>
+                    <div class="absolute -top-4 -right-4 w-16 h-16 border-r-2 border-t-2" style="border-image: linear-gradient(to bottom left, #9A3412, #D4AF37) 1;"></div>
+
+                    <!-- Tech Lines -->
+                    <div class="absolute left-1/4 top-0 w-px h-48 bg-gradient-to-b from-rust/10 to-transparent"></div>
+                    <div class="absolute right-1/4 top-0 w-px h-48 bg-gradient-to-b from-rust/10 to-transparent"></div>
+                </div>
+
+                <div class="flex flex-col relative z-10">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-rust rounded-full animate-pulse shadow-[0_0_8px_rgba(154,52,18,0.2)]"></span>
+                                <span id="service-protocol-label" class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-rust bg-rust shadow-md">Services</span>
+                            </div>
+
+                            <!-- Relocated Archival Marker -->
+                            <div class="flex flex-col border-l border-rust/20 pl-4 ml-2 mt-1">
+                                <span id="service-archival-num" class="font-mono text-[10px] text-rust font-bold tracking-[0.2em] leading-none">// 02</span>
+                                <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1">Ref. Archive_SYS.v2</span>
+                            </div>
+
+                            <div class="h-px flex-1 bg-gradient-to-r from-rust/80 via-rust/40 to-transparent"></div>
+                            <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Status: Synchronized</span>
+                        </div>
+                        
+                        <div class="relative inline-block pt-2 overflow-visible">
+                            <div aria-hidden="true" class="absolute -inset-x-6 -inset-y-4 bg-[radial-gradient(520px_circle_at_28%_40%,rgba(249,115,22,0.05)_0%,transparent_72%)] blur-2xl opacity-60"></div>
+                            <h2 id="service-headline" class="font-orange-avenue text-[clamp(calc(2.6rem-6pt),calc(6vw-6pt),calc(4.35rem-6pt))] leading-[1.2] md:leading-[1.08] tracking-tight max-w-4xl pr-2 break-words mt-2 melt-headline">
+                                'Form follows function.'
+                            </h2>
+                        </div>
+                        
+                        <div class="mt-8 flex items-center gap-4 opacity-90">
+                            <div class="h-[1px] w-12 bg-rust/70"></div>
+                            <span class="font-mono text-[8px] text-neutral-700 tracking-[0.3em] uppercase font-medium">Humanism // Structure // Future</span>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-rust/60 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services / Tabs Navigation (Light Mode) -->
+            <div class="space-y-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 border border-rust/15 bg-white/30 backdrop-blur-md shadow-lg">
+                    <div onclick="updateService(0)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group active">
+                        <div class="service-tab-item-dot bg-rust"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-400">// 01</span>
+                        <span class="tab-label text-ink" data-original="Development">Development</span>
+                    </div>
+                    <div onclick="updateService(1)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 02</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Training">Training</span>
+                    </div>
+                    <div onclick="updateService(2)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 03</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Consulting">Consulting</span>
+                    </div>
+                    <div onclick="updateService(3)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
+                        <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
+                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 04</span>
+                        <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Governance">Governance</span>
+                    </div>
+                </div>
+
+                <!-- Active Content Card (Light Mode) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 border border-rust/10 bg-white/40 backdrop-blur-md shadow-lg rounded-2xl overflow-hidden">
+                    <!-- Left: Visual -->
+                    <div class="relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
+                        <div id="service-bg" data-image="https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 z-0" style="background-image: url('https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-0"></div>
+                        
+                        <!-- Poster Content -->
+                        <div class="relative z-10 border border-white/20 pt-8 px-8 pb-3 w-full max-w-md h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
+                            <!-- Discount Code Secret Animation Overlay -->
+                            <div id="falling-money-container" class="absolute inset-0 pointer-events-none z-30 hidden overflow-hidden"></div>
+                            <div id="discount-popup" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper/95 backdrop-blur-sm border border-sepia p-4 rounded-sm shadow-2xl z-40 hidden text-center scale-90 opacity-0 transition-all duration-500">
+                                <p class="font-mono text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Easter Egg Discovered</p>
+                                <p class="font-serif text-xl text-ink">Use Code: JSONDerulo</p>
+                            </div>
+
+                            <div class="relative z-20 flex flex-col justify-between h-full">
+                                <div class="flex justify-between items-start">
+                                    <h4 id="service-poster-title" class="text-4xl md:text-5xl font-bold leading-none tracking-tighter text-ink transition-opacity duration-300">
+                                        M7.9<br>DIGITAL<br>LABS
+                                    </h4>
+                                </div>
+                            
+                            <!-- Central Content Area (Visualization, Subtext) -->
+                            <div id="service-card-central-content" class="relative flex-1 flex flex-col justify-center min-h-0 py-4">
+                            
+                            <!-- Node Visualization (shown for specific slides) -->
+                            <div id="service-node-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
+                                <!-- Nodes 3D Visualization -->
+                                <div class="relative w-28 h-28 z-20" style="transform-style: preserve-3d;">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow absolute inset-0 z-10" style="animation-duration: 20s;">
+                                        <!-- Central Node -->
+                                        <circle cx="50" cy="50" r="8" fill="#171717" stroke="#8b5cf6" stroke-width="2"></circle>
+                                        
+                                        <!-- Orbiting Nodes -->
+                                        <g class="animate-pulse" style="animation-duration: 3s;">
+                                            <circle cx="50" cy="15" r="4" fill="#06b6d4"></circle>
+                                            <line x1="50" y1="20" x2="50" y2="42" stroke="#333" stroke-dasharray="2 2"></line>
+                                        </g>
+                                        <g style="transform-origin: 50px 50px; transform: rotate(120deg);">
+                                            <circle cx="50" cy="15" r="4" fill="#a78bfa"></circle>
+                                            <line x1="50" y1="20" x2="50" y2="42" stroke="#333" stroke-dasharray="2 2"></line>
+                                        </g>
+                                        <g style="transform-origin: 50px 50px; transform: rotate(240deg);">
+                                            <circle cx="50" cy="15" r="4" fill="#22d3ee"></circle>
+                                            <line x1="50" y1="20" x2="50" y2="42" stroke="#333" stroke-dasharray="2 2"></line>
+                                        </g>
+                                    </svg>
+                                    <!-- Counter-rotating ring for depth -->
+                                    <div class="absolute inset-0 border border-dashed border-neutral-700/50 rounded-full animate-spin-reverse z-0 scale-125 bg-[radial-gradient(circle_at_center,#a78bfa_0%,#f3f4f6_70%,white_100%)]"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center font-mono text-[10px] text-violet-300 z-30 bg-neutral-900 rounded-full w-7 h-7 m-auto shadow-lg shadow-violet-500/20">RLS</div>
+                                </div>
+                            </div>
+
+                            <!-- Clipped Star Decoration (shown for BEAUTIFUL slide) -->
+                            <div id="service-star-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
+                                <div class="clipped-star-container" onclick="toggleStarExpansion(this)">
+                                    <img src="https://images.unsplash.com/photo-1681238093193-1b3a8fcdf225?q=80&w=1962&auto=format&fit=crop" alt="Natural design element" class="clipped-star-image" loading="lazy" />
+                                </div>
+                            </div>
+
+                            <!-- Node/Connection Preview (shown for INTELLIGENT slide) -->
+                            <div id="service-intelligent-visualization" class="hidden flex justify-center items-center mt-8 mb-2 transition-opacity duration-300">
+                                <div class="relative w-full max-w-sm h-48 scale-[0.8] origin-top">
+                                    <!-- Connections and nodes -->
+                                    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 200">
+                                        <!-- Connection lines with dots at ends -->
+                                        <g stroke="#f97316" stroke-width="1.5" fill="none">
+                                            <!-- User to Orders -->
+                                            <path class="connector" d="M120,60 L200,60"></path>
+                                            <circle cx="120" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            <circle cx="200" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Orders to Products -->
+                                            <path class="connector" d="M200,60 L280,60"></path>
+                                            <circle cx="280" cy="60" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- User to Address -->
+                                            <path class="connector" d="M120,60 L120,140 L160,140"></path>
+                                            <circle cx="160" cy="140" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Orders to Payments -->
+                                            <path class="connector" d="M200,60 L200,140 L240,140"></path>
+                                            <circle cx="240" cy="140" r="3" fill="#f97316" class="animate-pulse-dot"></circle>
+                                            
+                                            <!-- Address to Payments -->
+                                            <path class="connector" d="M160,140 L240,140"></path>
+                                        </g>
+                                    </svg>
+                                    
+                                    <!-- Entity Cards -->
+                                    <div class="absolute inset-0 w-full h-full">
+                                        <!-- Top row -->
+                                        <div class="absolute flex justify-center space-x-10" style="left: 0; right: 0; top: 35px">
+                                            <!-- Users card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Users</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-2/3 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-5/6 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Orders card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Orders</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/4 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-1/2 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Products card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Products</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-4/5 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/5 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Bottom row -->
+                                        <div class="absolute flex justify-center space-x-16" style="left: 0; right: 0; top: 125px">
+                                            <!-- Addresses card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Addresses</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-2/3 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-5/6 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Payments card -->
+                                            <div class="w-24 h-16 bg-gray-800 rounded-md border border-orange-600/70 shadow-lg overflow-hidden flex flex-col">
+                                                <div class="bg-orange-900/30 text-orange-300 text-[8px] px-1.5 py-0.5 font-medium">Payments</div>
+                                                <div class="px-1.5 py-1">
+                                                    <div class="h-0.5 w-full bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-1/2 bg-gray-700 mb-1 rounded-full"></div>
+                                                    <div class="h-0.5 w-3/4 bg-gray-700 rounded-full"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Strategic Circular Graph (shown for STRATEGIC slide) -->
+                            <div id="service-strategic-visualization" class="hidden flex justify-center items-center my-4 transition-opacity duration-300">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative w-36 h-36 bg-[#030712] rounded-full p-1.5 flex items-center justify-center">
+                                        <svg class="circle-chart w-full h-full block" viewBox="0 0 200 200" aria-hidden="true">
+                                            <defs>
+                                                <filter id="ring-glow" x="-50%" y="-50%" width="200%" height="200%">
+                                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"></feGaussianBlur>
+                                                    <feMerge>
+                                                        <feMergeNode in="coloredBlur"></feMergeNode>
+                                                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                                                    </feMerge>
+                                                </filter>
+                                            </defs>
+                                            <!-- Background grid circles -->
+                                            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+                                            <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(147,197,253,0.28)" stroke-width="1"></circle>
+
+                                            <!-- Grid lines -->
+                                            <line x1="100" y1="10" x2="100" y2="190" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="10" y1="100" x2="190" y2="100" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="29.3" y1="29.3" x2="170.7" y2="170.7" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+                                            <line x1="29.3" y1="170.7" x2="170.7" y2="29.3" stroke="rgba(147,197,253,0.22)" stroke-width="1"></line>
+
+                                            <!-- Base circle -->
+                                            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(28,25,23,0.18)" stroke-width="6" filter="url(#ring-glow)"></circle>
+
+                                            <!-- Progress circles -->
+                                            <circle class="progress-circle" style="--circumference: 565.49; --dash-offset: 140;" cx="100" cy="100" r="90" fill="none" stroke="#60A5FA" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+                                            <circle class="progress-circle" style="--circumference: 439.82; --dash-offset: 210;" cx="100" cy="100" r="70" fill="none" stroke="#A78BFA" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+                                            <circle class="progress-circle" style="--circumference: 314.16; --dash-offset: 100;" cx="100" cy="100" r="50" fill="none" stroke="#F472B6" stroke-width="6" stroke-linecap="round" filter="url(#ring-glow)"></circle>
+
+                                            <!-- Center point -->
+                                            <circle cx="100" cy="100" r="3" fill="#1C1917"></circle>
+
+                                            <!-- Data points -->
+                                            <circle cx="100" cy="10" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="170.7" cy="29.3" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="190" cy="100" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="170.7" cy="170.7" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="100" cy="190" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="29.3" cy="170.7" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="10" cy="100" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                            <circle cx="29.3" cy="29.3" r="3" fill="#1C1917" opacity="0.7"></circle>
+                                        </svg>
+                                    </div>
+                                    <div class="bg-[#030712] rounded-lg px-2.5 py-2 border border-white/10 shadow-[0_4px_12px_rgba(0,0,0,0.28)]">
+                                        <div class="flex flex-col gap-1.5 text-[10px] text-slate-200">
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#60A5FA]"></span>
+                                                <span>Engagement</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#A78BFA]"></span>
+                                                <span>Conversion</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#F472B6]"></span>
+                                                <span>Retention</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pragmatic Timeline (shown for PRAGMATIC slide) -->
+                            <div id="service-pragmatic-visualization" class="hidden flex justify-center items-center mt-6 mb-2 transition-opacity duration-300">
+                                <div class="pragmatic-timeline relative w-full max-w-sm h-20">
+                                    <div class="absolute left-0 right-0 top-1/2 -mt-1 h-2 rounded-full bg-emerald-200/70"></div>
+                                    <div class="pragmatic-line-active absolute left-0 top-1/2 -mt-1 h-2 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]"></div>
+                                    <div class="relative grid grid-cols-4 h-full">
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-1">Design</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 1</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-2">Dev</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 2</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-3">Test</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 3</span>
+                                             </div>
+                                         </div>
+                                         <div class="relative flex items-center justify-center">
+                                             <span class="pragmatic-phase absolute left-1/2 top-3 text-ink text-[10px] font-semibold opacity-80 uppercase tracking-[0.2em]">
+                                                 <span class="pragmatic-phase-text pragmatic-phase-4">Launch</span>
+                                             </span>
+                                             <span class="pragmatic-dot pragmatic-dot-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-200/80 shadow-[0_0_10px_rgba(16,185,129,0.4)] transition-all duration-300"></span>
+                                             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-7">
+                                                 <span class="pragmatic-label text-ink text-[11px] font-semibold">Week 4</span>
+                                             </div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Adaptive Lottie (shown for ADAPTIVE slide) -->
+                            <div id="service-adaptive-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Foundational Arrow Down Lottie (shown for FOUNDATIONAL slide) -->
+                            <div id="service-foundational-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Applied Lottie (shown for APPLIED slide) -->
+                            <div id="service-applied-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-36 h-36 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Technical Tree (shown for TECHNICAL slide) -->
+                            <div id="service-technical-visualization" class="hidden absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-xs transition-opacity duration-300 pointer-events-auto">
+                                <div id="tree-root" class="max-h-[160px] overflow-y-auto px-4 py-2"></div>
+                            </div>
+
+                            <!-- Compliant Success Lottie (shown for COMPLIANT slide) -->
+                            <div id="service-compliant-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300"></div>
+
+                            <!-- Protected Lock Lottie (shown for PROTECTED slide) -->
+                            <div id="service-protected-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 pointer-events-none transition-opacity duration-300" style="filter: grayscale(1) brightness(0.8) contrast(1.4);"></div>
+
+                            <!-- Auditable Scan Lottie (shown for AUDITABLE slide) -->
+                            <div id="service-auditable-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-56 h-56 pointer-events-none transition-opacity duration-300" style="filter: grayscale(1) brightness(0.8) contrast(1.4);"></div>
+
+                            <!-- Subtext for carousel (shown on left card) -->
+                            <div id="service-left-subtext-container" class="hidden mt-2 transition-opacity duration-300">
+                                <p id="service-left-subtext" class="text-ink text-sm leading-relaxed opacity-70 relative"></p>
+                            </div>
+                            </div>
+
+                                <div class="flex justify-between items-center gap-4">
+                                    <!-- Carousel Controls (Moved to Left Card) -->
+                                    <div id="service-carousel-controls" class="flex-shrink-0 flex items-center gap-3">
+                                        <button onclick="prevSlide()" class="w-10 h-10 flex items-center justify-center rounded-full border border-neutral-200 bg-white shadow-md text-ink hover:bg-sepia hover:text-white hover:border-sepia transition-all duration-300 group" aria-label="Previous slide">
+                                            <i data-lucide="chevron-left" class="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"></i>
+                                        </button>
+                                        <span id="slide-indicator" class="font-mono text-sm text-ink tracking-widest min-w-[3rem] text-center font-bold">1/3</span>
+                                        <button onclick="nextSlide()" class="w-10 h-10 flex items-center justify-center rounded-full border border-neutral-200 bg-white shadow-md text-ink hover:bg-sepia hover:text-white hover:border-sepia transition-all duration-300 group" aria-label="Next slide">
+                                            <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-0.5 transition-transform"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="min-w-0 flex-1 flex flex-col items-end">
+                                         <div class="text-[10px] text-neutral-500 mb-1.5 uppercase tracking-wide">Category</div>
+                                         <div class="relative px-3 py-1 w-fit">
+                                             <!-- Tech Accents -->
+                                             <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-rust"></div>
+                                             <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-rust"></div>
+                                             
+                                             <div id="service-category" class="text-ink font-bold text-[11px] leading-tight uppercase break-words text-right">Cybernetics</div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Details -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent relative opacity-95">
+                        <div id="service-right-content">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+                                    <span class="text-neutral-400">V7.</span>DEVELOPMENT
+                                </h3>
+                                <span id="service-poster-num" class="text-neutral-700 font-mono text-lg font-bold" style="padding-left: 20px; padding-right: 20px;">+01</span>
+                            </div>
+                            <div class="w-12 h-0.5 bg-neutral-300 mb-6"></div>
+                            
+                            <div id="service-right-details" class="space-y-6 text-neutral-700">
+                                <!-- This content will be swapped between static and dynamic -->
+                                <div id="service-right-carousel-content">
+                                    <p id="slide-title" class="text-2xl md:text-3xl font-semibold text-ink tracking-tight mb-2 uppercase"></p>
+                                    <p id="slide-subtext" class="text-ink text-lg"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <a href="works.html" class="mt-12 flex justify-center hover:opacity-80 transition-opacity scroll-indicator" aria-label="Go to Works">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-[10px] text-rust/50 tracking-[0.2em]">//</span>
+                        <i data-lucide="arrow-down" class="w-3 h-3 text-rust/70 animate-bounce"></i>
+                        <div class="h-px w-12 bg-gradient-to-r from-rust/60 via-rust/20 to-transparent"></div>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink font-semibold">Works</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    
+
+
+<script>
+
+// Services-only: Lottie animations (paths)
+let adaptiveLottieAnim = null;
+let foundationalLottieAnim = null;
+let appliedLottieAnim = null;
+let compliantLottieAnim = null;
+let protectedLottieAnim = null;
+let auditableLottieAnim = null;
+let fallingMoneyAnim = null;
+
+function initLottieAnimations() {
+  if (!window.lottie) {
+    window.addEventListener('load', initLottieAnimations, { once: true });
+    return;
+  }
+
+  const safeLoad = (containerId, options) => {
+    const container = document.getElementById(containerId);
+    if (!container) return null;
+    return lottie.loadAnimation({
+      container,
+      renderer: 'svg',
+      loop: options.loop ?? true,
+      autoplay: options.autoplay ?? false,
+      path: options.path,
+    });
+  };
+
+  adaptiveLottieAnim = safeLoad('service-adaptive-visualization', { path: 'data/Loading Lottie animation.json' });
+  foundationalLottieAnim = safeLoad('service-foundational-visualization', { path: 'data/Arrow Down.json' });
+  appliedLottieAnim = safeLoad('service-applied-visualization', { path: 'data/LZD TEch.json' });
+  compliantLottieAnim = safeLoad('service-compliant-visualization', { path: 'data/Success (2).json' });
+  protectedLottieAnim = safeLoad('service-protected-visualization', { path: 'data/Authentication Lock Login.json' });
+  auditableLottieAnim = safeLoad('service-auditable-visualization', { path: 'data/Document OCR Scan.json' });
+
+  // Falling Money Easter Egg
+  fallingMoneyAnim = safeLoad('falling-money-container', { path: 'data/Falling money.json', loop: false });
+}
+
+function ensureFallingMoneyAnimation() {
+  if (fallingMoneyAnim || !window.lottie) return;
+  const container = document.getElementById('falling-money-container');
+  if (!container) return;
+  fallingMoneyAnim = lottie.loadAnimation({
+    container,
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: 'data/Falling money.json',
+  });
+}
+
+function triggerFallingMoney() {
+  const container = document.getElementById('falling-money-container');
+  const popup = document.getElementById('discount-popup');
+  if (!container || !popup) return;
+
+  container.classList.remove('hidden');
+  popup.classList.remove('hidden');
+  setTimeout(() => {
+    popup.classList.remove('scale-90', 'opacity-0');
+    popup.classList.add('scale-100', 'opacity-100');
+  }, 50);
+
+  ensureFallingMoneyAnimation();
+  if (fallingMoneyAnim) {
+    fallingMoneyAnim.goToAndPlay(0, true);
+  }
+
+  setTimeout(() => {
+    popup.classList.add('scale-90', 'opacity-0');
+    popup.classList.remove('scale-100', 'opacity-100');
+    setTimeout(() => {
+      popup.classList.add('hidden');
+      container.classList.add('hidden');
+    }, 500);
+  }, 6000);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLottieAnimations);
+} else {
+  initLottieAnimations();
+}
+
+
+// --- About Page Data & Tabs ---
+        const serviceData = [
+            {
+                id: '01',
+                name: 'Development',
+                headline: "'Form follows function.'",
+                posterTitle: 'M7.9<br>DIGITAL<br>LABS',
+                posterNum: '+01',
+                category: 'Engineering',
+                suffix: 'DEVELOPMENT',
+                image: 'https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70',
+                staticDescription: 'We build bespoke full-stack applications completely tailored to your needs. We bake in automation from inception, guaranteeing time savings and margin maximisation.',
+                slides: [
+                    { title: 'SECURE', subtext: 'Safeguard your data with sovereign infrastructure and world-class security', category: 'PRIVACY & SECURITY' },
+                    { title: 'BEAUTIFUL', subtext: 'Elegent interfaces built around your personal workflow.', category: 'DESIGN & EXPERIENCE' },
+                    { title: 'INTELLIGENT', subtext: 'AI-native systems that learn, streamline, and automate your processes.', category: 'AUTOMATION & AI' }
+                ]
+            },
+            {
+                id: '02',
+                name: 'Training',
+                headline: "'Teach a man to fish.'",
+                posterTitle: 'M7.8<br>VISUAL<br>LABS',
+                posterNum: '+02',
+                category: 'Simulation',
+                suffix: 'TRAINING',
+                image: 'https://images.unsplash.com/photo-1629946832022-c327f74956e0?auto=format&fit=crop&w=1400&q=70',
+                staticDescription: 'We teach teams to fish in digital waters. Whether you need to master ChatGPT for daily workflows or build production-grade marketing agents from scratch, our training installs lasting competence - not over-hyped tricks.',
+                slides: [
+                    { title: 'FOUNDATIONAL', subtext: 'AI fundamentals, enterprise tool mastery (ChatGPT, Copilot, Gemini).', category: 'AI ESSENTIALS' },
+                    { title: 'APPLIED', subtext: 'Workflow automation and no-code/low-code system building.', category: 'PRACTICAL AUTOMATION' },
+                    { title: 'TECHNICAL', subtext: 'Full-stack training with templates, frameworks, and on-going support.', category: 'FULL-STACK DEVELOPMENT' }
+                ]
+            },
+            {
+                id: '03',
+                name: 'Consulting',
+                headline: "'Measure twice, cut once.'",
+                posterTitle: 'M7.1<br>STRATEGY<br>LABS',
+                posterNum: '+03',
+                category: 'Consulting',
+                suffix: 'CONSULTING',
+                image: 'https://images.unsplash.com/photo-1640906152676-dace6710d24b?auto=format&fit=crop&w=1400&q=70',
+                staticDescription: 'We guide organisations through AI transformation with strategic competitor analysis, readiness assessments, and goal-setting frameworks - ensuring you adopt intelligently, not recklessly.',
+                slides: [
+                    { title: 'STRATEGIC', subtext: 'Market positioning and competitive analysis for the AI era.', category: 'STRATEGY & POSITIONING' },
+                    { title: 'PRAGMATIC', subtext: 'AI readiness assessments and phased implementation roadmaps.', category: 'IMPLEMENTATION & PLANNING' },
+                    { title: 'ADAPTIVE', subtext: 'Ongoing advisory as your capabilities and the landscape evolve.', category: 'CONTINUOUS ADVISORY' }
+                ]
+            },
+            {
+                id: '04',
+                name: 'Governance',
+                headline: "'Structure precedes scale'",
+                posterTitle: 'M7.4<br>KINETIC<br>LABS',
+                posterNum: '+04',
+                category: 'Cybernetics',
+                suffix: 'GOVERNANCE',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1400&q=70',
+                staticDescription: 'We architect the policy and operational frameworks that make AI adoption safe - covering compliance, intellectual property, data sovereignty and auditability.',
+                slides: [
+                    { title: 'COMPLIANT', subtext: 'Internal AI policies, data privacy frameworks, and risk mitigation.', category: 'POLICY & COMPLIANCE' },
+                    { title: 'PROTECTED', subtext: 'IP strategy for AI-generated work and proprietary model protection.', category: 'INTELLECTUAL PROPERTY' },
+                    { title: 'AUDITABLE', subtext: 'Smart contract design and transparent decision-making systems.', category: 'TRANSPARENCY & TRUST' }
+                ]
+            }
+        ];
+
+        // Tree Data and Logic
+        const technicalTreeData = {
+            id: 'company',
+            name: 'Company',
+            children: [
+                {
+                    id: 'engineering',
+                    name: 'App Development',
+                    children: [
+                        {
+                            id: 'frontend',
+                            name: 'Frontend',
+                            children: [
+                                { id: 'design-system', name: 'Design System', children: [{ id: 'components', name: 'Components' }, { id: 'tokens', name: 'Tokens' }, { id: 'guidelines', name: 'Guidelines' }] },
+                                { id: 'web-platform', name: 'Web Platform' }
+                            ]
+                        },
+                        { id: 'backend', name: 'Backend', children: [{ id: 'apis', name: 'APIs' }, { id: 'infrastructure', name: 'Infrastructure' }] },
+                        { id: 'platform-team', name: 'Platform Team' }
+                    ]
+                },
+                {
+                    id: 'marketing',
+                    name: 'Marketing',
+                    children: [
+                        { id: 'content', name: 'Content' },
+                        { id: 'seo', name: 'SEO' }
+                    ]
+                },
+                {
+                    id: 'operations',
+                    name: 'Operations',
+                    children: [
+                        { id: 'hr', name: 'Agreement' },
+                        { 
+                            id: 'finance', 
+                            name: 'Earnings',
+                            children: [
+                                { id: 'discount-code', name: 'Discount Code' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let treeExpandedItems = { 'company': true };
+        let treeSelectedItems = { 'company': true };
+
+        function renderTreeItem(item, level = 0) {
+            const hasChildren = item.children && item.children.length > 0;
+            const isExpanded = treeExpandedItems[item.id];
+            const isSelected = treeSelectedItems[item.id];
+            const indent = level * 16;
+
+            let html = `
+                <div class="tree-item ${isSelected ? 'selected' : ''}" style="padding-left: ${indent + 8}px" onclick="toggleTreeItem('${item.id}', ${level === 1})">
+                    ${hasChildren ? `<i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="tree-folder-icon"></i>` : '<span class="w-3.5"></span>'}
+                    <i data-lucide="${hasChildren ? (isExpanded ? 'folder-open' : 'folder') : 'file-text'}" class="w-3.5 h-3.5 ${hasChildren ? 'text-neutral-500' : 'text-neutral-400'}"></i>
+                    <span>${item.name}</span>
+                </div>
+            `;
+
+            if (hasChildren) {
+                html += `<div class="tree-children ${isExpanded ? 'expanded' : ''}">`;
+                item.children.forEach(child => {
+                    html += renderTreeItem(child, level + 1);
+                });
+                html += `</div>`;
+            }
+
+            return html;
+        }
+
+        function toggleTreeItem(id, isTopLevel) {
+            // Trigger Easter Egg if discount code clicked
+            if (id === 'discount-code') {
+                triggerFallingMoney();
+                return;
+            }
+
+            // Accordion behavior for top-level items
+            if (isTopLevel && !treeExpandedItems[id]) {
+                // Collapse all other top-level items
+                technicalTreeData.children.forEach(child => {
+                    if (child.id !== id) treeExpandedItems[child.id] = false;
+                });
+            }
+
+            treeExpandedItems[id] = !treeExpandedItems[id];
+            treeSelectedItems = { [id]: true };
+            
+            const root = document.getElementById('tree-root');
+            root.innerHTML = renderTreeItem(technicalTreeData);
+            if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            window.addEventListener('load', () => {
+                if (window.lucide) lucide.createIcons();
+            });
+        }
+        }
+
+        let currentServiceIndex = 0;
+        let currentSlideIndex = 0;
+
+        function animateCharsText(element, targetText, options = {}) {
+            if (!element) return;
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (element._scrambleInterval) {
+                clearInterval(element._scrambleInterval);
+                delete element._scrambleInterval;
+            }
+
+            const text = String(targetText ?? '');
+            element.setAttribute('role', 'text');
+            element.setAttribute('aria-label', text);
+
+            const fragment = document.createDocumentFragment();
+            const spans = [];
+
+            const wrapWords = !!options.wrapWords;
+            const containsNewlines = text.includes('\n');
+
+            if (wrapWords && !containsNewlines) {
+                const tokens = text.split(/(\s+)/);
+                for (const token of tokens) {
+                    if (!token) continue;
+                    if (/^\s+$/.test(token)) {
+                        fragment.appendChild(document.createTextNode(token));
+                        continue;
+                    }
+
+                    const word = document.createElement('span');
+                    word.setAttribute('aria-hidden', 'true');
+                    word.style.display = 'inline-block';
+
+                    for (const char of token) {
+                        const span = document.createElement('span');
+                        span.setAttribute('aria-hidden', 'true');
+                        span.textContent = char;
+                        span.style.display = 'inline-block';
+                        word.appendChild(span);
+                        spans.push(span);
+                    }
+
+                    fragment.appendChild(word);
+                }
+            } else {
+                for (const char of text) {
+                    if (char === '\n') {
+                        fragment.appendChild(document.createElement('br'));
+                        continue;
+                    }
+                    const span = document.createElement('span');
+                    span.setAttribute('aria-hidden', 'true');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.style.display = 'inline-block';
+                    fragment.appendChild(span);
+                    spans.push(span);
+                }
+            }
+
+            element.textContent = '';
+            element.appendChild(fragment);
+
+            if (prefersReducedMotion || typeof gsap === 'undefined') return;
+
+            const duration = options.duration ?? 1.0;
+            const y = options.y ?? 18;
+            const ease = options.ease ?? 'power3.out';
+            const len = Math.max(1, spans.length);
+            const staggerEach = options.staggerEach ?? Math.min(0.06, Math.max(0.02, 2.4 / len));
+
+            gsap.killTweensOf(spans);
+            gsap.set(spans, { opacity: 0, y, filter: 'blur(6px)' });
+            gsap.to(spans, {
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration,
+                stagger: { each: staggerEach },
+                ease
+            });
+        }
+
+        function scrambleText(element, targetText, duration = 1.0) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+            // Use data-original if it exists to prevent capturing scrambled state
+            const originalText = element.getAttribute('data-original') || targetText;
+            
+            // Clear any existing scramble interval on this element
+            if (element._scrambleInterval) {
+                clearInterval(element._scrambleInterval);
+            }
+            
+            // For service-headline specifically: lock height before animation to prevent clipping on mobile
+            if (element.id === 'service-headline') {
+                // Clean up any previous lock first
+                if (element._lockedMinHeight !== undefined) {
+                    element.style.minHeight = element._lockedMinHeight || '';
+                    element.style.height = element._lockedHeight || '';
+                }
+                
+                // Store current inline styles to restore later
+                const tempStyle = {
+                    minHeight: element.style.minHeight || '',
+                    height: element.style.height || ''
+                };
+                
+                // Temporarily reset inline styles to get natural height measurement
+                element.style.minHeight = '';
+                element.style.height = 'auto';
+                
+                // Set the target text to measure its actual rendered height
+                element.innerText = originalText;
+                
+                // Force a reflow to ensure accurate height calculation
+                void element.offsetHeight;
+                
+                // Measure the actual height needed
+                const measuredHeight = element.offsetHeight;
+                const computedStyles = window.getComputedStyle(element);
+                let lineHeight = parseFloat(computedStyles.lineHeight);
+                
+                // Fallback if line-height is invalid
+                if (!lineHeight || isNaN(lineHeight)) {
+                    const fontSize = parseFloat(computedStyles.fontSize) || 24;
+                    lineHeight = fontSize * 1.2; // Default to 1.2x font size
+                }
+                
+                // Add buffer for wide characters during scramble (more on mobile)
+                const isMobile = window.innerWidth < 768;
+                const bufferMultiplier = isMobile ? 0.5 : 0.25; // 50% buffer on mobile, 25% on desktop
+                const bufferHeight = lineHeight * bufferMultiplier;
+                const lockedHeight = Math.ceil(measuredHeight + Math.max(bufferHeight, 8)); // Minimum 8px buffer
+                
+                // Store original styles for later reset
+                element._lockedMinHeight = tempStyle.minHeight;
+                element._lockedHeight = tempStyle.height;
+                
+                // Lock the minimum height to prevent clipping during scramble animation
+                element.style.minHeight = lockedHeight + 'px';
+                element.style.height = 'auto'; // Allow growth if absolutely necessary
+                
+                // Initialize with fully scrambled text to avoid flash and ensure height is respected
+                element.innerText = originalText
+                    .split('')
+                    .map((char) => char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)])
+                    .join('');
+            }
+            
+            let iteration = 0;
+            element._scrambleInterval = setInterval(() => {
+                element.innerText = originalText
+                    .split('')
+                    .map((char, index) => index < iteration ? originalText[index] : (originalText[index] === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]))
+                    .join('');
+
+                if (iteration >= originalText.length) {
+                    clearInterval(element._scrambleInterval);
+                    element.innerText = originalText;
+                    
+                    // Reset height lock after animation completes with a delay for stability
+                    if (element.id === 'service-headline') {
+                        setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                element.style.minHeight = element._lockedMinHeight || '';
+                                element.style.height = element._lockedHeight || '';
+                                delete element._lockedMinHeight;
+                                delete element._lockedHeight;
+                            });
+                        }, 100);
+                    }
+                    
+                    delete element._scrambleInterval;
+                }
+                iteration += originalText.length / (duration * 33);
+            }, 30);
+        }
+
+        function animateText(elementId, text, isHeadline = false) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            
+            if (isHeadline && elementId === 'service-headline') {
+                if (!el.classList.contains('melt-headline')) {
+                    el.classList.add('melt-headline');
+                }
+
+                el.style.fontSize = '';
+                
+                const isMobile = window.innerWidth < 768;
+                animateCharsText(el, text, { duration: 1.1, wrapWords: isMobile });
+            } else if (isHeadline) {
+                // Simple reveal for other headlines
+                el.innerText = text;
+                el.classList.remove('reveal-text');
+                void el.offsetWidth; // trigger reflow
+                el.classList.add('reveal-text');
+            } else {
+                // Keep slide titles simple but matching aesthetic
+                el.innerHTML = `<span class="text-3xl md:text-4xl reveal-text">${text}</span>`;
+            }
+        }
+
+        function updateSlideContent(isServiceChange = false) {
+            const data = serviceData[currentServiceIndex];
+            const slide = data.slides[currentSlideIndex];
+            const indicatorEl = document.getElementById('slide-indicator');
+            
+            if (indicatorEl) indicatorEl.innerText = `${currentSlideIndex + 1}/${data.slides.length}`;
+            
+            // Elements to fade
+            const titleEl = document.getElementById('service-poster-title');
+            const nodeViz = document.getElementById('service-node-visualization');
+            const starViz = document.getElementById('service-star-visualization');
+            const intelligentViz = document.getElementById('service-intelligent-visualization');
+            const strategicViz = document.getElementById('service-strategic-visualization');
+            const pragmaticViz = document.getElementById('service-pragmatic-visualization');
+            const adaptiveViz = document.getElementById('service-adaptive-visualization');
+            const foundationalViz = document.getElementById('service-foundational-visualization');
+            const appliedViz = document.getElementById('service-applied-visualization');
+            const technicalViz = document.getElementById('service-technical-visualization');
+            const compliantViz = document.getElementById('service-compliant-visualization');
+            const protectedViz = document.getElementById('service-protected-visualization');
+            const auditableViz = document.getElementById('service-auditable-visualization');
+            const subtextContainer = document.getElementById('service-left-subtext-container');
+            const subtextEl = document.getElementById('service-left-subtext');
+            const categoryEl = document.getElementById('service-category');
+            const mainTitleEl = document.getElementById('service-main-title');
+            const detailsEl = document.getElementById('service-right-details');
+            const centralContentEl = document.getElementById('service-card-central-content');
+            
+            // Fade out
+            if (titleEl) titleEl.style.opacity = '0';
+            if (nodeViz) nodeViz.style.opacity = '0';
+            if (starViz) starViz.style.opacity = '0';
+            if (intelligentViz) intelligentViz.style.opacity = '0';
+            if (strategicViz) strategicViz.style.opacity = '0';
+            if (pragmaticViz) pragmaticViz.style.opacity = '0';
+            if (adaptiveViz) adaptiveViz.style.opacity = '0';
+            if (foundationalViz) foundationalViz.style.opacity = '0';
+            if (appliedViz) appliedViz.style.opacity = '0';
+            if (technicalViz) technicalViz.style.opacity = '0';
+            if (compliantViz) compliantViz.style.opacity = '0';
+            if (protectedViz) protectedViz.style.opacity = '0';
+            if (auditableViz) auditableViz.style.opacity = '0';
+            if (subtextContainer) subtextContainer.style.opacity = '0';
+            
+            // Update content after fade out
+            setTimeout(() => {
+                // Update title
+                animateText('service-poster-title', slide.title);
+                if (categoryEl) categoryEl.innerText = slide.category;
+                
+                // Show/hide node visualization for SECURE slide
+                if (nodeViz) {
+                    const nodeInner = nodeViz.querySelector('div');
+                    if (slide.title === 'SECURE') {
+                        nodeViz.classList.remove('hidden');
+                        if (nodeInner) {
+                            nodeInner.classList.remove('w-28', 'h-28');
+                            nodeInner.classList.add('w-36', 'h-36');
+                        }
+                    } else {
+                        nodeViz.classList.add('hidden');
+                        if (nodeInner) {
+                            nodeInner.classList.add('w-28', 'h-28');
+                            nodeInner.classList.remove('w-36', 'h-36', 'w-44', 'h-44');
+                        }
+                    }
+                }
+                
+                // Show/hide star visualization for BEAUTIFUL slide
+                if (starViz) {
+                    const starContainer = starViz.querySelector('.clipped-star-container');
+                    if (slide.title === 'BEAUTIFUL' && data.name === 'Development') {
+                        starViz.classList.remove('hidden');
+                        if (starContainer) starContainer.classList.remove('expanded');
+                    } else {
+                        starViz.classList.add('hidden');
+                        if (starContainer) starContainer.classList.remove('expanded');
+                    }
+                }
+
+                // Show/hide node visualization for INTELLIGENT slide
+                if (intelligentViz) {
+                    if (slide.title === 'INTELLIGENT' && data.name === 'Development') {
+                        intelligentViz.classList.remove('hidden');
+                    } else {
+                        intelligentViz.classList.add('hidden');
+                    }
+                }
+
+                // Show/hide strategic graph for STRATEGIC slide (Consulting)
+                if (strategicViz) {
+                    if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
+                        strategicViz.classList.remove('hidden');
+                        const progressCircles = strategicViz.querySelectorAll('.progress-circle');
+                        progressCircles.forEach((circle) => {
+                            circle.style.animation = 'none';
+                            circle.getBoundingClientRect();
+                            circle.style.animation = '';
+                        });
+                    } else {
+                        strategicViz.classList.add('hidden');
+                    }
+                }
+
+                // Show/hide pragmatic timeline for PRAGMATIC slide (Consulting)
+                if (pragmaticViz) {
+                    if (slide.title === 'PRAGMATIC' && data.name === 'Consulting') {
+                        pragmaticViz.classList.remove('hidden');
+                        const timeline = pragmaticViz.querySelector('.pragmatic-timeline');
+                        if (timeline) {
+                            timeline.classList.remove('is-animating');
+                            timeline.getBoundingClientRect();
+                            timeline.classList.add('is-animating');
+                        }
+                    } else {
+                        pragmaticViz.classList.add('hidden');
+                    }
+                }
+
+                // Show/hide adaptive Lottie for ADAPTIVE slide (Consulting)
+                if (adaptiveViz) {
+                    if (slide.title === 'ADAPTIVE' && data.name === 'Consulting') {
+                        adaptiveViz.classList.remove('hidden');
+                        if (adaptiveLottieAnim) adaptiveLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        adaptiveViz.classList.add('hidden');
+                        if (adaptiveLottieAnim) adaptiveLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide foundational Lottie for FOUNDATIONAL slide (Training)
+                if (foundationalViz) {
+                    if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                        foundationalViz.classList.remove('hidden');
+                        if (foundationalLottieAnim) foundationalLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        foundationalViz.classList.add('hidden');
+                        if (foundationalLottieAnim) foundationalLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide applied Lottie for APPLIED slide (Training)
+                if (appliedViz) {
+                    if (slide.title === 'APPLIED' && data.name === 'Training') {
+                        appliedViz.classList.remove('hidden');
+                        if (appliedLottieAnim) appliedLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        appliedViz.classList.add('hidden');
+                        if (appliedLottieAnim) appliedLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide technical Tree for TECHNICAL slide (Training)
+                if (technicalViz) {
+                    if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                        technicalViz.classList.remove('hidden');
+                        treeExpandedItems = { 'company': true };
+                        treeSelectedItems = { 'company': true };
+                        const root = document.getElementById('tree-root');
+                        if (root) {
+                            root.innerHTML = renderTreeItem(technicalTreeData);
+                            if (window.lucide) {
+                                lucide.createIcons();
+                            } else {
+                                window.addEventListener('load', () => {
+                                    if (window.lucide) lucide.createIcons();
+                                });
+                            }
+                        }
+                    } else {
+                        technicalViz.classList.add('hidden');
+                    }
+                }
+
+                // Show/hide compliant Lottie for COMPLIANT slide (Governance)
+                if (compliantViz) {
+                    if (slide.title === 'COMPLIANT' && data.name === 'Governance') {
+                        compliantViz.classList.remove('hidden');
+                        if (compliantLottieAnim) compliantLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        compliantViz.classList.add('hidden');
+                        if (compliantLottieAnim) compliantLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide protected Lottie for PROTECTED slide (Governance)
+                if (protectedViz) {
+                    if (slide.title === 'PROTECTED' && data.name === 'Governance') {
+                        protectedViz.classList.remove('hidden');
+                        if (protectedLottieAnim) protectedLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        protectedViz.classList.add('hidden');
+                        if (protectedLottieAnim) protectedLottieAnim.stop();
+                    }
+                }
+
+                // Show/hide auditable Lottie for AUDITABLE slide (Governance)
+                if (auditableViz) {
+                    if (slide.title === 'AUDITABLE' && data.name === 'Governance') {
+                        auditableViz.classList.remove('hidden');
+                        if (auditableLottieAnim) auditableLottieAnim.goToAndPlay(0, true);
+                    } else {
+                        auditableViz.classList.add('hidden');
+                        if (auditableLottieAnim) auditableLottieAnim.stop();
+                    }
+                }
+
+                // Update subtext
+                if (subtextContainer && subtextEl) {
+                    subtextContainer.classList.remove('hidden');
+                    subtextContainer.classList.remove('mb-8');
+                    subtextEl.innerText = slide.subtext;
+                    subtextContainer.classList.remove('mt-2', 'mt-4', 'mt-6', 'mt-7', 'mt-8');
+                    subtextContainer.classList.add('mt-2');
+                    subtextEl.classList.remove('translate-y-2', 'translate-y-4', 'translate-y-6', 'translate-y-8');
+                    
+                    if (centralContentEl) centralContentEl.classList.remove('-translate-y-4');
+
+                    if (slide.title === 'SECURE') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-4');
+                    } else if (slide.title === 'STRATEGIC' && data.name === 'Consulting') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-4');
+                        subtextEl.classList.add('translate-y-4');
+                    } else if (slide.title === 'PRAGMATIC' && data.name === 'Consulting') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-4');
+                        subtextEl.classList.add('translate-y-4');
+                    } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-8');
+                        subtextEl.classList.add('translate-y-8');
+                    } else if (slide.title === 'APPLIED' && data.name === 'Training') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-6');
+                        subtextEl.classList.add('translate-y-6');
+                    } else if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-7', 'mb-8');
+                        subtextEl.classList.add('translate-y-8');
+                    } else if (slide.title === 'COMPLIANT' && data.name === 'Governance') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-8');
+                        subtextEl.classList.add('translate-y-8');
+                        if (centralContentEl) centralContentEl.classList.add('-translate-y-4');
+                    } else if (slide.title === 'PROTECTED' && data.name === 'Governance') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-8');
+                        subtextEl.classList.add('translate-y-4');
+                    } else if (slide.title === 'AUDITABLE' && data.name === 'Governance') {
+                        subtextContainer.classList.remove('mt-2');
+                        subtextContainer.classList.add('mt-8');
+                        subtextEl.classList.add('translate-y-4');
+                    }
+                    
+                    // Adjust subtext position per slide
+                    subtextEl.classList.remove('-top-6', '-top-10', 'top-0', '-top-2', 'top-[4.5rem]', 'top-2', 'top-8', 'top-20', 'top-10', 'top-12', 'top-14', 'top-18', 'top-24', 'top-[4.75rem]');
+                    if (slide.title === 'SECURE') {
+                        subtextEl.classList.add('-top-2');
+                    } else if (slide.title === 'BEAUTIFUL') {
+                        subtextEl.classList.add('-top-2');
+                    } else if (slide.title === 'FOUNDATIONAL' && data.name === 'Training') {
+                        subtextEl.classList.add('top-8');
+                    } else if (slide.title === 'APPLIED' && data.name === 'Training') {
+                        subtextEl.classList.add('top-12');
+                    } else if (slide.title === 'TECHNICAL' && data.name === 'Training') {
+                        subtextEl.classList.add('top-14');
+                    } else if (slide.title === 'COMPLIANT' && data.name === 'Governance') {
+                        subtextEl.classList.add('top-14');
+                    } else if (slide.title === 'PROTECTED' && data.name === 'Governance') {
+                        subtextEl.classList.add('top-14');
+                    } else if (slide.title === 'AUDITABLE' && data.name === 'Governance') {
+                        subtextEl.classList.add('top-14');
+                    } else if (slide.title === 'PRAGMATIC' && data.name === 'Consulting') {
+                        subtextEl.classList.add('top-2');
+                    } else if (slide.title === 'ADAPTIVE' && data.name === 'Consulting') {
+                        subtextEl.classList.add('top-[4.5rem]');
+                    } else if (slide.title === 'INTELLIGENT') {
+                        subtextEl.classList.add('-top-10');
+                    } else {
+                        subtextEl.classList.add('-top-6');
+                    }
+                }
+                
+                // Fade in
+                setTimeout(() => {
+                    if (titleEl) titleEl.style.opacity = '1';
+                    if (nodeViz && !nodeViz.classList.contains('hidden')) nodeViz.style.opacity = '1';
+                    if (starViz && !starViz.classList.contains('hidden')) starViz.style.opacity = '1';
+                    if (intelligentViz && !intelligentViz.classList.contains('hidden')) intelligentViz.style.opacity = '1';
+                    if (strategicViz && !strategicViz.classList.contains('hidden')) strategicViz.style.opacity = '1';
+                    if (pragmaticViz && !pragmaticViz.classList.contains('hidden')) pragmaticViz.style.opacity = '1';
+                    if (adaptiveViz && !adaptiveViz.classList.contains('hidden')) adaptiveViz.style.opacity = '1';
+                    if (foundationalViz && !foundationalViz.classList.contains('hidden')) foundationalViz.style.opacity = '1';
+                    if (appliedViz && !appliedViz.classList.contains('hidden')) appliedViz.style.opacity = '1';
+                    if (technicalViz && !technicalViz.classList.contains('hidden')) technicalViz.style.opacity = '1';
+                    if (compliantViz && !compliantViz.classList.contains('hidden')) compliantViz.style.opacity = '1';
+                    if (protectedViz && !protectedViz.classList.contains('hidden')) protectedViz.style.opacity = '1';
+                    if (auditableViz && !auditableViz.classList.contains('hidden')) auditableViz.style.opacity = '1';
+                    if (subtextContainer) subtextContainer.style.opacity = '1';
+                }, 10);
+            }, 200);
+            
+            // Update Right Side (Static - doesn't change with carousel)
+            const rightContent = document.getElementById('service-right-content');
+            
+            if (isServiceChange && rightContent) {
+                if (window.gsap) {
+                    gsap.to(rightContent, {
+                        opacity: 0,
+                        x: 20,
+                        duration: 0.3,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+                            if (detailsEl) {
+                                detailsEl.innerHTML = `
+                                    <div>
+                                        <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+                                        <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+                                    </div>
+                                `;
+                            }
+                            gsap.fromTo(rightContent, 
+                                { opacity: 0, x: -20 },
+                                { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
+                            );
+                        }
+                    });
+                } else {
+                    // Fallback if GSAP not loaded yet
+                    if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+                    if (detailsEl) {
+                        detailsEl.innerHTML = `
+                            <div>
+                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+                                <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+                            </div>
+                        `;
+                    }
+                }
+            } else {
+                if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+                if (detailsEl) {
+                    detailsEl.innerHTML = `
+                        <div>
+                            <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+                            <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function updateService(index) {
+            currentServiceIndex = index;
+            currentSlideIndex = 0; // Reset slide index when changing service
+            const data = serviceData[index];
+            const bg = document.getElementById('service-bg');
+            const headline = document.getElementById('service-headline');
+
+            // Swap background without flashing blank while the next image downloads.
+            if (bg && data?.image) {
+                const currentUrl = bg.dataset.image
+                  || (bg.style.backgroundImage.match(/url\\(['"]?(.*?)['"]?\\)/) || [])[1]
+                  || '';
+
+                if (currentUrl !== data.image) {
+                    const img = new Image();
+                    img.decoding = 'async';
+                    img.onload = () => {
+                        bg.classList.add('opacity-0');
+                        bg.classList.remove('opacity-70');
+                        setTimeout(() => {
+                            bg.style.backgroundImage = `url('${data.image}')`;
+                            bg.dataset.image = data.image;
+                            requestAnimationFrame(() => {
+                                bg.classList.remove('opacity-0');
+                                bg.classList.add('opacity-70');
+                            });
+                        }, 80);
+                    };
+                    img.onerror = () => {
+                        bg.style.backgroundImage = `url('${data.image}')`;
+                        bg.dataset.image = data.image;
+                        bg.classList.add('opacity-70');
+                        bg.classList.remove('opacity-0');
+                    };
+                    img.src = data.image;
+                }
+            }
+
+            // Animate headline change with character-by-character animation
+            animateText('service-headline', data.headline, true);
+            
+            // Update archival number and protocol label
+            const archivalNum = document.getElementById('service-archival-num');
+            if (archivalNum) {
+                archivalNum.innerText = `// ${(index + 1).toString().padStart(2, '0')}`;
+            }
+            
+            const protocolLabel = document.getElementById('service-protocol-label');
+            if (protocolLabel) {
+                protocolLabel.innerText = 'Services';
+            }
+
+            document.getElementById('service-poster-num').innerText = data.posterNum;
+            
+            updateSlideContent(true);
+            
+            const tabs = document.querySelectorAll('.service-tab');
+            tabs.forEach((tab, i) => {
+                const label = tab.querySelector('.tab-label');
+                const num = tab.querySelector('.tab-num');
+                if (i === index) {
+                    tab.classList.add('active');
+                    if (label) {
+                        // Ensure the active tab label stays visually "selected" even after scramble animation
+                        label.classList.add('text-ink', 'font-bold');
+                        label.classList.remove('text-neutral-400', 'font-normal', 'font-medium', 'font-semibold');
+                        scrambleText(label, label.innerText, 0.55);
+                    }
+                    if (num) {
+                        num.classList.add('text-neutral-500');
+                        num.classList.remove('text-neutral-300', 'text-neutral-400');
+                    }
+                } else {
+                    tab.classList.remove('active');
+                    if (label) {
+                        label.classList.add('text-neutral-400');
+                        label.classList.remove('text-ink', 'font-bold');
+                        // keep hover utility (group-hover:text-ink) working; default to normal weight
+                        if (!label.classList.contains('font-normal')) label.classList.add('font-normal');
+                    }
+                    if (num) {
+                        num.classList.add('text-neutral-300');
+                        num.classList.remove('text-neutral-400', 'text-neutral-500');
+                    }
+                }
+            });
+
+            // Sync background height after content updates
+            setTimeout(syncServicesBackgroundHeight, 300);
+        }
+
+        function nextSlide() {
+            const data = serviceData[currentServiceIndex];
+            currentSlideIndex = (currentSlideIndex + 1) % data.slides.length;
+            updateSlideContent();
+        }
+
+        function prevSlide() {
+            const data = serviceData[currentServiceIndex];
+            currentSlideIndex = (currentSlideIndex - 1 + data.slides.length) % data.slides.length;
+            updateSlideContent();
+        }
+
+        function toggleStarExpansion(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // Add scramble effect to service tabs on hover
+        document.querySelectorAll('.service-tab-item').forEach(tab => {
+            const label = tab.querySelector('.tab-label');
+            if (label) {
+                tab.addEventListener('mouseenter', () => {
+                    // Only scramble if it's not the active tab (since active already scrambles on click)
+                    if (!tab.classList.contains('active')) {
+                        scrambleText(label, label.innerText, 0.55);
+                    }
+                });
+            }
+        });
+
+        updateService(0);
+
+        // Sync services background height function
+        function syncServicesBackgroundHeight() {
+            const servicesPage = document.getElementById('services-page');
+            const contentWrapper = document.getElementById('services-content-wrapper');
+            const bgContainer = document.getElementById('services-bg-container');
+            if (servicesPage && contentWrapper && bgContainer && servicesPage.style.display !== 'none') {
+                bgContainer.style.height = Math.max(servicesPage.clientHeight, contentWrapper.offsetHeight) + 'px';
+            }
+        }
+
+        // Resize observer for services page content wrapper to handle dynamic content changes
+        const contentWrapperEl = document.getElementById('services-content-wrapper');
+        if (contentWrapperEl && window.ResizeObserver) {
+            const resizeObserver = new ResizeObserver(() => {
+                syncServicesBackgroundHeight();
+            });
+            resizeObserver.observe(contentWrapperEl);
+        }
+
+        
+
+// Multi-page: remove wheel/touch section switching; ensure initial headline is set
+document.addEventListener('DOMContentLoaded', () => {
+  const headline = document.getElementById('service-headline');
+  if (headline && typeof serviceData !== 'undefined' && serviceData[0]) {
+    try {
+      animateText('service-headline', serviceData[0].headline, true);
+    } catch (_) {
+      // no-op
+    }
+  }
+});
+</script>
+
+
+</body>
+</html>

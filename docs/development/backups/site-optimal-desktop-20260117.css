@@ -681,21 +681,11 @@ stroke-dasharray: 4, 4; opacity: 0.4;
 }
 
 /* Mobile-specific adjustments for scramble animation to prevent clipping */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     #service-headline.melt-headline {
-        font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
         line-height: 1.25 !important;
         min-height: auto;
         overflow: visible;
-    }
-    
-    #service-category {
-        max-width: 100px;
-        word-break: normal;
-    }
-    
-    #service-poster-title {
-        font-size: 1.5rem !important;
     }
 }
 

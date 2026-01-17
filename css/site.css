@@ -680,22 +680,258 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     overflow-wrap: break-word;
 }
 
-/* Mobile-specific adjustments for scramble animation to prevent clipping */
-@media (max-width: 767px) {
+/* Mobile/touch-only adjustments for Services page (avoid affecting desktop previews). */
+@media (max-width: 767px) and (hover: none) and (pointer: coarse) {
     #service-headline.melt-headline {
         font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
         line-height: 1.25 !important;
         min-height: auto;
         overflow: visible;
     }
-    
+
     #service-category {
         max-width: 100px;
         word-break: normal;
     }
-    
+
     #service-poster-title {
         font-size: 1.5rem !important;
+    }
+
+    .service-tab-item .tab-label {
+        font-size: 1.125rem; /* Reduced from 1.50rem (24px) to 1.125rem (18px) on mobile */
+    }
+
+    /* Services: tighten card layout for small screens */
+    #services-page .service-visual-pane {
+        padding: 1.25rem;
+        min-height: 0;
+    }
+
+    #services-page .service-poster-card {
+        padding: 1.25rem;
+        padding-bottom: 0.75rem;
+    }
+
+    #services-page .service-poster-footer {
+        flex-wrap: nowrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    #services-page .service-category-wrap {
+        flex: 0 1 auto;
+        width: auto;
+        align-items: flex-end;
+    }
+
+    #services-page #service-carousel-controls button {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    #services-page #service-carousel-controls i {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+
+    #services-page #slide-indicator {
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+    }
+
+    #services-page #service-left-subtext {
+        font-size: 0.875rem;
+        line-height: 1.45;
+    }
+
+    #services-page #service-card-central-content {
+        padding-bottom: 3rem;
+    }
+
+    #services-page #service-left-subtext-container {
+        margin-bottom: 0.75rem;
+    }
+
+    #services-page .service-details-pane {
+        padding: 1.25rem;
+    }
+
+    #services-page #service-main-title {
+        font-size: 1.75rem;
+        line-height: 1.1;
+    }
+
+    #services-page #service-poster-num {
+        font-size: 1rem;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    #services-page #slide-title {
+        font-size: 1.25rem;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+    }
+
+    #services-page #slide-subtext {
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+
+    #services-page #service-strategic-visualization > div {
+        gap: 0.5rem;
+    }
+
+    #services-page #service-strategic-visualization > div > div:first-child {
+        width: 7.5rem;
+        height: 7.5rem;
+    }
+
+    #services-page #service-strategic-visualization > div > div:last-child {
+        padding: 0.5rem 0.6rem;
+    }
+
+    #services-page #service-intelligent-visualization > div {
+        transform: scale(0.7);
+        transform-origin: top center;
+    }
+
+    #services-page #service-node-visualization > div {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    #services-page #service-node-visualization .scale-125 {
+        --tw-scale-x: 1.12;
+        --tw-scale-y: 1.12;
+    }
+
+    #services-page #service-adaptive-visualization,
+    #services-page #service-foundational-visualization,
+    #services-page #service-compliant-visualization,
+    #services-page #service-protected-visualization {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    #services-page #service-applied-visualization {
+        width: 7.5rem;
+        height: 7.5rem;
+    }
+
+    #services-page #service-auditable-visualization {
+        width: 10.5rem;
+        height: 10.5rem;
+    }
+
+    #services-page #tree-root {
+        max-height: 140px;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    /* Services: per-slide mobile tweaks */
+    #services-page[data-active-service="Development"][data-active-slide="SECURE"] #service-node-visualization > div {
+        width: 6.75rem;
+        height: 6.75rem;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="SECURE"] #service-node-visualization {
+        position: relative;
+        margin-top: 1.75rem;
+        top: 0.75rem;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="SECURE"] #service-left-subtext-container {
+        margin-top: 1.5rem;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="SECURE"] #service-left-subtext {
+        top: 0;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="BEAUTIFUL"] #service-star-visualization .clipped-star-container {
+        position: relative;
+        top: 0.5rem;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="INTELLIGENT"] #service-left-subtext-container {
+        width: calc(100% + 1rem);
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        max-width: none !important;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="INTELLIGENT"] #service-intelligent-visualization {
+        position: relative;
+        margin-top: 3.5rem;
+        top: 1rem;
+    }
+
+    #services-page[data-active-service="Development"][data-active-slide="INTELLIGENT"] #service-left-subtext {
+        text-wrap: balance;
+    }
+
+    #services-page[data-active-service="Consulting"][data-active-slide="STRATEGIC"] #service-strategic-visualization {
+        position: relative;
+        margin-top: 2.5rem;
+        top: 1rem;
+    }
+
+    #services-page[data-active-service="Consulting"][data-active-slide="STRATEGIC"] #service-left-subtext-container {
+        margin-top: 1.25rem;
+    }
+}
+
+/* Mobile-only adjustments for Home hero */
+@media (max-width: 767px) {
+    /* Home hero kicker: allow wrapping instead of clipping */
+    #hero-block .hero-kicker-row {
+        min-width: 0;
+    }
+
+    /* Home hero title: slight downscale for mobile */
+    #hero-block .hero-title {
+        font-size: 4.25rem;
+    }
+
+    #hero-block .hero-kicker {
+        display: block;
+        max-width: 100%;
+        flex: 1 1 auto;
+        min-width: 0;
+        white-space: normal;
+        overflow: visible;
+        overflow-wrap: break-word;
+        line-height: 1.45;
+        letter-spacing: 0.11em;
+        text-wrap: balance;
+    }
+}
+
+/* Desktop-only: lift Services carousel subtext back up (do not affect mobile). */
+@media (min-width: 768px) {
+    #services-page #service-left-subtext-container {
+        transform: translateY(-1rem);
+    }
+
+    /* Desktop: SECURE needs slightly more breathing room below the graphic. */
+    #services-page[data-active-service="Development"][data-active-slide="SECURE"] #service-left-subtext-container {
+        transform: translateY(-0.75rem);
+    }
+
+    /* Desktop: INTELLIGENT graphic slightly smaller. */
+    #services-page[data-active-service="Development"][data-active-slide="INTELLIGENT"] #service-intelligent-visualization > div {
+        transform: scale(0.72);
+        transform-origin: top center;
+    }
+
+    /* Desktop: STRATEGIC graphic slightly smaller. */
+    #services-page[data-active-service="Consulting"][data-active-slide="STRATEGIC"] #service-strategic-visualization > div {
+        transform: scale(0.92);
+        transform-origin: top center;
     }
 }
 

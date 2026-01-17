@@ -242,12 +242,12 @@
                 <!-- Active Content Card (Light Mode) -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 border border-rust/10 bg-white/40 backdrop-blur-md shadow-lg rounded-2xl overflow-hidden">
                     <!-- Left: Visual -->
-                    <div class="relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
+                    <div class="service-visual-pane relative p-8 flex items-center justify-center overflow-hidden group min-h-[420px]">
                         <div id="service-bg" data-image="https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 z-0" style="background-image: url('https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70');"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-0"></div>
                         
                         <!-- Poster Content -->
-                        <div class="relative z-10 border border-white/20 pt-8 px-8 pb-3 w-full max-w-md h-[320px] md:h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
+                        <div class="service-poster-card relative z-10 border border-white/20 pt-8 px-8 pb-3 w-full max-w-md h-[320px] md:h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
                             <!-- Discount Code Secret Animation Overlay -->
                             <div id="falling-money-container" class="absolute inset-0 pointer-events-none z-30 hidden overflow-hidden"></div>
                             <div id="discount-popup" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper/95 backdrop-blur-sm border border-sepia p-4 rounded-sm shadow-2xl z-40 hidden text-center scale-90 opacity-0 transition-all duration-500">
@@ -532,7 +532,7 @@
                             </div>
                             </div>
 
-                                <div class="flex justify-between items-center gap-4">
+                                <div class="service-poster-footer flex justify-between items-center gap-4">
                                     <!-- Carousel Controls (Moved to Left Card) -->
                                     <div id="service-carousel-controls" class="flex-shrink-0 flex items-center gap-3">
                                         <button onclick="prevSlide()" class="w-10 h-10 flex items-center justify-center rounded-full border border-neutral-200 bg-white shadow-md text-ink hover:bg-sepia hover:text-white hover:border-sepia transition-all duration-300 group" aria-label="Previous slide">
@@ -544,7 +544,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="min-w-0 flex-1 flex flex-col items-end max-w-[120px] md:max-w-none">
+                                    <div class="service-category-wrap min-w-0 flex-1 flex flex-col items-end max-w-[120px] md:max-w-none">
                                          <div class="text-[10px] text-neutral-500 mb-1.5 uppercase tracking-wide">Category</div>
                                          <div class="relative px-3 py-1 w-fit">
                                              <!-- Tech Accents -->
@@ -560,7 +560,7 @@
                     </div>
 
                     <!-- Right: Details -->
-                    <div class="p-8 md:p-12 flex flex-col justify-center bg-transparent relative opacity-95">
+                    <div class="service-details-pane p-8 md:p-12 flex flex-col justify-center bg-transparent relative opacity-95">
                         <div id="service-right-content">
                             <div class="flex justify-between items-start mb-6">
                                 <h3 id="service-main-title" class="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
@@ -1060,17 +1060,31 @@ if (document.readyState === 'loading') {
             }
         }
 
-        function updateSlideContent(isServiceChange = false) {
-            const data = serviceData[currentServiceIndex];
-            const slide = data.slides[currentSlideIndex];
-            const indicatorEl = document.getElementById('slide-indicator');
-            
-            if (indicatorEl) indicatorEl.innerText = `${currentSlideIndex + 1}/${data.slides.length}`;
-            
-            // Elements to fade
-            const titleEl = document.getElementById('service-poster-title');
-            const nodeViz = document.getElementById('service-node-visualization');
-            const starViz = document.getElementById('service-star-visualization');
+		        let slideTransitionToken = 0;
+		        function updateSlideContent(isServiceChange = false) {
+		            const data = serviceData[currentServiceIndex];
+		            const slide = data.slides[currentSlideIndex];
+		            const servicesPageEl = document.getElementById('services-page');
+		            const indicatorEl = document.getElementById('slide-indicator');
+		            const carouselControlsEl = document.getElementById('service-carousel-controls');
+		            const transitionToken = ++slideTransitionToken;
+			            const fadeOutMs = 320; // matches Tailwind duration-300 with a small buffer
+			            const fadeInMs = 300;
+		            
+		            if (indicatorEl) indicatorEl.innerText = `${currentSlideIndex + 1}/${data.slides.length}`;
+
+		            if (carouselControlsEl) {
+		                const buttons = carouselControlsEl.querySelectorAll('button');
+		                buttons.forEach((button) => {
+		                    button.disabled = true;
+		                    button.setAttribute('aria-disabled', 'true');
+		                });
+		            }
+		            
+		            // Elements to fade
+	            const titleEl = document.getElementById('service-poster-title');
+	            const nodeViz = document.getElementById('service-node-visualization');
+	            const starViz = document.getElementById('service-star-visualization');
             const intelligentViz = document.getElementById('service-intelligent-visualization');
             const strategicViz = document.getElementById('service-strategic-visualization');
             const pragmaticViz = document.getElementById('service-pragmatic-visualization');
@@ -1104,11 +1118,18 @@ if (document.readyState === 'loading') {
             if (auditableViz) auditableViz.style.opacity = '0';
             if (subtextContainer) subtextContainer.style.opacity = '0';
             
-            // Update content after fade out
-            setTimeout(() => {
-                // Update title
-                animateText('service-poster-title', slide.title);
-                if (categoryEl) categoryEl.innerText = slide.category;
+	            // Update content after fade out (avoid layout shifts mid-fade)
+	            setTimeout(() => {
+	                if (transitionToken !== slideTransitionToken) return;
+	                
+	                if (servicesPageEl) {
+	                    servicesPageEl.dataset.activeService = data.name;
+	                    servicesPageEl.dataset.activeSlide = slide.title;
+	                }
+	                
+	                // Update title
+	                animateText('service-poster-title', slide.title);
+	                if (categoryEl) categoryEl.innerText = slide.category;
                 
                 // Show/hide node visualization for SECURE slide
                 if (nodeViz) {
@@ -1345,24 +1366,36 @@ if (document.readyState === 'loading') {
                     }
                 }
                 
-                // Fade in
-                setTimeout(() => {
-                    if (titleEl) titleEl.style.opacity = '1';
-                    if (nodeViz && !nodeViz.classList.contains('hidden')) nodeViz.style.opacity = '1';
-                    if (starViz && !starViz.classList.contains('hidden')) starViz.style.opacity = '1';
-                    if (intelligentViz && !intelligentViz.classList.contains('hidden')) intelligentViz.style.opacity = '1';
-                    if (strategicViz && !strategicViz.classList.contains('hidden')) strategicViz.style.opacity = '1';
+	                // Fade in
+	                requestAnimationFrame(() => {
+	                    if (transitionToken !== slideTransitionToken) return;
+	                    if (titleEl) titleEl.style.opacity = '1';
+	                    if (nodeViz && !nodeViz.classList.contains('hidden')) nodeViz.style.opacity = '1';
+	                    if (starViz && !starViz.classList.contains('hidden')) starViz.style.opacity = '1';
+	                    if (intelligentViz && !intelligentViz.classList.contains('hidden')) intelligentViz.style.opacity = '1';
+	                    if (strategicViz && !strategicViz.classList.contains('hidden')) strategicViz.style.opacity = '1';
                     if (pragmaticViz && !pragmaticViz.classList.contains('hidden')) pragmaticViz.style.opacity = '1';
                     if (adaptiveViz && !adaptiveViz.classList.contains('hidden')) adaptiveViz.style.opacity = '1';
                     if (foundationalViz && !foundationalViz.classList.contains('hidden')) foundationalViz.style.opacity = '1';
                     if (appliedViz && !appliedViz.classList.contains('hidden')) appliedViz.style.opacity = '1';
                     if (technicalViz && !technicalViz.classList.contains('hidden')) technicalViz.style.opacity = '1';
-                    if (compliantViz && !compliantViz.classList.contains('hidden')) compliantViz.style.opacity = '1';
-                    if (protectedViz && !protectedViz.classList.contains('hidden')) protectedViz.style.opacity = '1';
-                    if (auditableViz && !auditableViz.classList.contains('hidden')) auditableViz.style.opacity = '1';
-                    if (subtextContainer) subtextContainer.style.opacity = '1';
-                }, 10);
-            }, 200);
+	                    if (compliantViz && !compliantViz.classList.contains('hidden')) compliantViz.style.opacity = '1';
+	                    if (protectedViz && !protectedViz.classList.contains('hidden')) protectedViz.style.opacity = '1';
+	                    if (auditableViz && !auditableViz.classList.contains('hidden')) auditableViz.style.opacity = '1';
+	                    if (subtextContainer) subtextContainer.style.opacity = '1';
+	                    
+		                    if (carouselControlsEl) {
+		                        const buttons = carouselControlsEl.querySelectorAll('button');
+		                        setTimeout(() => {
+		                            if (transitionToken !== slideTransitionToken) return;
+		                            buttons.forEach((button) => {
+		                                button.disabled = false;
+		                                button.removeAttribute('aria-disabled');
+		                            });
+		                        }, fadeInMs);
+		                    }
+		                });
+	            }, fadeOutMs);
             
             // Update Right Side (Static - doesn't change with carousel)
             const rightContent = document.getElementById('service-right-content');

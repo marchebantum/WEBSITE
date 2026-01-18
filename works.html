@@ -145,13 +145,15 @@
         <!-- Grid Overlay with Gradient Mask (Dark Mode) -->
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
         
-        <!-- Subtly Integrated Tech Sketch Photo - Cropped from bottom -->
-        <div class="absolute left-0 right-0 h-[280px] opacity-[0.015] pointer-events-none overflow-hidden" style="top: 100px;">
-            <picture>
-                <source srcset="assets/images/abstract-portrait-with-geometric-glitch-layers-4k_opt.webp" type="image/webp">
-                <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" alt="Decorative abstract portrait background" class="w-[48%] mx-auto object-cover object-top" loading="lazy" style="mask-image: radial-gradient(circle at 65% 15%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 8%, transparent 25%); -webkit-mask-image: radial-gradient(circle at 65% 15%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 8%, transparent 25%);" />
-            </picture>
-        </div>
+        <!-- Subtly Integrated Tech Sketch Photo - Restored Header Image -->
+        <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" 
+             alt=""
+             class="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] h-[120vh] object-cover opacity-20 mix-blend-lighten pointer-events-none z-0" 
+             style="object-position: center top;
+                    mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%); 
+                    -webkit-mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%);
+                    -webkit-mask-composite: source-in;
+                    mask-composite: intersect;">
         
         <!-- Circular Drafting Element - Works (Positioned at section level) -->
         <div class="absolute right-4 md:right-12 top-6 md:top-12 w-72 md:w-96 h-72 md:h-96 opacity-30 pointer-events-none z-[5]">

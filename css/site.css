@@ -218,6 +218,50 @@ html[data-works-scramble] .scramble-reveal--ready .scramble-reveal__anim {
 #works-page .works-card-full {
     font-size: 15px;
 }
+
+/* Works: make "Every business needs / four things" pop (no font changes) */
+#works-page .works-eyecatch-intro {
+    color: rgba(255, 255, 255, 0.68);
+    text-shadow: 0 0 18px rgba(139, 92, 246, 0.14), 0 0 26px rgba(154, 52, 18, 0.10);
+}
+
+#works-page .works-eyecatch-four {
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 0 22px rgba(139, 92, 246, 0.18), 0 0 28px rgba(154, 52, 18, 0.12);
+}
+
+#works-page .works-eyecatch-four::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 18%;
+    bottom: -0.25rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.65), rgba(154, 52, 18, 0.55), rgba(255, 255, 255, 0));
+    opacity: 0.9;
+}
+
+/* Works: make "Every business needs / four things" + list ~2pt bigger */
+#works-page #works-intro { font-size: 20px; }          /* was ~18px */
+#works-page #works-four-things { font-size: 25px; }    /* was ~24px */
+
+#works-page .works-pillar > span:first-child { font-size: 16px; } /* was ~14px */
+#works-page .works-pillar > span:last-child { font-size: 14px; }  /* was ~12px */
+
+@media (min-width: 1024px) {
+    #works-page #works-intro { font-size: 22px; }          /* was ~20px */
+    #works-page #works-four-things { font-size: 31px; }    /* was ~30px */
+}
+
+/* Works: make "Portfolio" label slightly transparent */
+#works-page #works-selected-label { opacity: 0.65; }
+
+/* Works: "Portfolio" label color tweak */
+#works-page #works-selected-label {
+    color: rgba(139, 92, 246, 0.9); /* violet */
+    text-shadow: 0 0 14px rgba(139, 92, 246, 0.22);
+}
 /* Works card expanded copy */
 .works-card-full {
     max-height: 0;

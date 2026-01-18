@@ -110,6 +110,53 @@ box-shadow:
     will-change: transform, opacity, filter;
 }
 
+/* Scramble-reveal: preserve layout via hidden ghost + absolute overlay */
+html[data-works-scramble] #works-title-digital,
+html[data-works-scramble] #works-title-renaissance {
+    visibility: hidden; /* prevent flashing the static text before JS runs */
+}
+html[data-works-scramble] #works-title-digital.scramble-reveal--ready,
+html[data-works-scramble] #works-title-renaissance.scramble-reveal--ready {
+    visibility: visible;
+}
+.scramble-reveal {
+    position: relative;
+    display: inline-block;
+}
+.scramble-reveal__ghost {
+    visibility: hidden;
+}
+.scramble-reveal__anim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    white-space: pre;
+    opacity: 0;
+    filter: blur(2px);
+    transition: opacity 420ms cubic-bezier(0.2, 0.9, 0.2, 1), filter 520ms ease;
+    will-change: opacity, filter;
+}
+html[data-works-scramble] .scramble-reveal--ready .scramble-reveal__anim {
+    opacity: 1;
+    filter: blur(0px);
+}
+
+/* Mobile: prevent Safari glyph clipping during rapid text updates (scramble animation) */
+@media (max-width: 767px) {
+    #works-main-headline {
+        line-height: 1.1;
+        padding-bottom: 0.08em;
+        overflow: visible;
+    }
+
+    #works-title-digital,
+    #works-title-renaissance {
+        display: inline-block;
+        padding-bottom: 0.08em;
+        will-change: auto;
+    }
+}
+
 /* Works grid sizing: keep large, consistent tiles on desktop */
 .works-projects-grid {
     align-items: stretch;
@@ -241,6 +288,14 @@ mask-image: radial-gradient(circle at center, black 50%, transparent 90%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block; /* Changed from block to inline-block */
+}
+
+/* When scramble-reveal is active, the visible text is the overlay span */
+#works-title-renaissance .scramble-reveal__anim {
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 22%, #C084FC 38%, #6366F1 68%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 /* SVG Line Animation */
 .sketch-line {

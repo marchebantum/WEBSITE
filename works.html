@@ -68,14 +68,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 <script src="js/site.js" defer></script>
 
-<script>
-  // Animate-on-scroll helper
-  (function () {
-    const style = document.createElement("style");
-    style.textContent = `
-      .animate-on-scroll { animation-play-state: paused !important; }
-      .animate-on-scroll.animate { animation-play-state: running !important; }
-    `;
+	<script>
+	  // Animate-on-scroll helper
+	  (function () {
+	    document.documentElement.dataset.worksScramble = "pending";
+	    window.setTimeout(() => {
+	      if (document.documentElement.dataset.worksScramble === "pending") {
+	        delete document.documentElement.dataset.worksScramble;
+	      }
+	    }, 2500);
+	    const style = document.createElement("style");
+	    style.textContent = `
+	      .animate-on-scroll { animation-play-state: paused !important; }
+	      .animate-on-scroll.animate { animation-play-state: running !important; }
+	    `;
     document.head.appendChild(style);
 
     const once = true;
@@ -212,11 +218,11 @@
                 
                 <!-- Sidebar Info (Dark Mode) -->
                 <div class="lg:col-span-3 lg:p-10 flex flex-col z-10 lg:pl-12 border-neutral-800 border-r pt-0 pr-8 pb-8 pl-8 relative justify-start">
-                    <div class="-mt-6">
-                        <div class="flex items-center gap-3 mb-10">
-                            <span class="w-2.5 h-2.5 bg-rust rounded-full animate-pulse shadow-[0_0_12px_rgba(154,52,18,0.4)]"></span>
-                            <span id="works-selected-label" class="hidden md:inline-block text-sm font-bold text-rust tracking-widest uppercase font-mono">Selected Works</span>
-                        </div>
+	                    <div class="lg:-mt-6">
+	                        <div class="flex items-center gap-3 mb-10">
+	                            <span class="w-2.5 h-2.5 bg-rust rounded-full animate-pulse shadow-[0_0_12px_rgba(154,52,18,0.4)]"></span>
+	                            <span id="works-selected-label" class="hidden md:inline-block text-sm font-bold text-rust tracking-widest uppercase font-mono">Selected Works</span>
+	                        </div>
                         
                         <div class="text-neutral-400 text-base leading-relaxed mb-10 font-sans font-light max-w-xs">
                             <span id="works-intro" class="opacity-0 block">Every venture needs</span>
@@ -379,68 +385,237 @@
 	    
 
 
-<script>
-(function () {
-  function scrambleText(element, targetText, duration = 1.0) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
-    const originalText = targetText;
-    if (element._scrambleInterval) clearInterval(element._scrambleInterval);
-    let iteration = 0;
-    element._scrambleInterval = setInterval(() => {
-      element.innerText = originalText
-        .split('')
-        .map((char, index) => index < iteration ? originalText[index] : (originalText[index] === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]))
-        .join('');
-      if (iteration >= originalText.length) {
-        clearInterval(element._scrambleInterval);
-        element.innerText = originalText;
-        delete element._scrambleInterval;
-      }
-      iteration += originalText.length / (duration * 33);
-    }, 30);
-  }
+	<script>
+	(function () {
+	  const root = document.documentElement;
+	  if (root && root.dataset) {
+	    root.dataset.worksScramble = 'active';
+	    window.setTimeout(() => {
+	      if (root.dataset.worksScramble === 'active') delete root.dataset.worksScramble;
+	    }, 5000);
+	  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const worksIntro = document.getElementById('works-intro');
-    const worksFourThings = document.getElementById('works-four-things');
-    const worksSelectedLabel = document.getElementById('works-selected-label');
-    const worksTitleDigital = document.getElementById('works-title-digital');
-    const worksTitleRenaissance = document.getElementById('works-title-renaissance');
+	  function createScrambleOverlay(element, originalText) {
+	    element.classList.add('scramble-reveal');
+	    element.textContent = '';
+	
+	    const ghost = document.createElement('span');
+	    ghost.className = 'scramble-reveal__ghost';
+	    ghost.textContent = originalText;
+	
+	    const overlay = document.createElement('span');
+	    overlay.className = 'scramble-reveal__anim';
+	    overlay.setAttribute('aria-hidden', 'true');
+	    overlay.textContent = '';
+	
+	    element.appendChild(ghost);
+	    element.appendChild(overlay);
+	
+	    return overlay;
+	  }
+	
+		  function scrambleRevealText(element, targetText, duration = 0.75) {
+		    if (!element) return Promise.resolve();
+		    const originalText = element.getAttribute('data-original') || targetText || element.textContent || '';
+		    element.setAttribute('data-original', originalText);
+	
+	    if (element._scrambleInterval) {
+	      clearInterval(element._scrambleInterval);
+	      delete element._scrambleInterval;
+	    }
+	
+		    const overlay = element.querySelector('.scramble-reveal__anim') || createScrambleOverlay(element, originalText);
+		
+		    const isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+		    const chars = isMobile
+		      ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnorstuvwxz0123456789!@#$%^&*()+-=~'
+		      : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()+-=~<>?/';
+		
+		    const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+		    const scrambledFull = originalText
+		      .split('')
+		      .map((char) => (char === ' ' ? ' ' : randomChar()))
+		      .join('');
+		    overlay.textContent = scrambledFull;
+		    element.classList.add('scramble-reveal--ready');
+		
+		    const frameMs = 16;
+		    const durationMs = Math.max(1, duration * 1000);
+		    const start = performance.now();
+		    let lastFrame = 0;
+		    const len = originalText.length;
+		    const scrambleLag = Math.max(3, Math.round(len * 0.24));
+
+		    const render = (now) => {
+		      const elapsed = now - start;
+		      const linear = Math.min(1, elapsed / durationMs);
+		      const progress = 1 - Math.pow(1 - linear, 3);
+
+		      if (now - lastFrame >= frameMs) {
+		        lastFrame = now;
+		        const revealCount = Math.floor(progress * len);
+		        const settleCount = Math.max(0, progress * len - scrambleLag);
+		
+		        overlay.textContent = originalText
+		          .split('')
+		          .map((char, index) => {
+		            if (char === ' ') return ' ';
+		            if (index >= revealCount) return randomChar();
+		            return index < settleCount ? originalText[index] : randomChar();
+		          })
+		          .join('');
+		      }
+
+		      if (elapsed >= durationMs) {
+		        overlay.textContent = originalText;
+		        return true;
+		      }
+		      return false;
+		    };
+
+		    return new Promise((resolve) => {
+		      const step = (now) => {
+		        if (render(now)) return resolve();
+		        requestAnimationFrame(step);
+		      };
+		      requestAnimationFrame(step);
+		    });
+		  }
+
+		  function scrambleTextInPlace(element, targetText, duration = 0.75) {
+		    if (!element) return Promise.resolve();
+		    const originalText = element.getAttribute('data-original') || targetText || element.textContent || '';
+		    element.setAttribute('data-original', originalText);
+
+	    if (element._scrambleInterval) {
+	      clearInterval(element._scrambleInterval);
+	      delete element._scrambleInterval;
+	    }
+
+		    const overlay = element.querySelector('.scramble-reveal__anim') || createScrambleOverlay(element, originalText);
+
+		    const isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+		    const chars = isMobile
+		      ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnorstuvwxz0123456789!@#$%^&*()+-=~'
+		      : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()+-=~<>?/';
+
+	    const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+	    const scrambledFull = originalText
+	      .split('')
+	      .map((char) => (char === ' ' ? ' ' : randomChar()))
+	      .join('');
+
+		    overlay.textContent = scrambledFull;
+		    element.classList.add('scramble-reveal--ready');
+
+		    const frameMs = 16;
+		    const durationMs = Math.max(1, duration * 1000);
+		    const start = performance.now();
+		    let lastFrame = 0;
+		    const len = originalText.length;
+	
+		    const render = (now) => {
+		      const elapsed = now - start;
+		      const linear = Math.min(1, elapsed / durationMs);
+		      const progress = 1 - Math.pow(1 - linear, 3);
+
+		      if (now - lastFrame >= frameMs) {
+		        lastFrame = now;
+		        const settleCount = progress * len;
+
+		        overlay.textContent = originalText
+	          .split('')
+	          .map((char, index) => {
+	            if (char === ' ') return ' ';
+	            return index < settleCount ? originalText[index] : randomChar();
+		          })
+		          .join('');
+		      }
+	
+		      if (elapsed >= durationMs) {
+		        overlay.textContent = originalText;
+		        return true;
+		      }
+		      return false;
+		    };
+	
+		    return new Promise((resolve) => {
+		      const step = (now) => {
+		        if (render(now)) return resolve();
+		        requestAnimationFrame(step);
+		      };
+		      requestAnimationFrame(step);
+		    });
+		  }
+	
+	  function whenFontsReady(timeoutMs = 2500) {
+	    const timeout = new Promise((resolve) => window.setTimeout(resolve, timeoutMs));
+	
+	    if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+	      return Promise.race([document.fonts.ready.catch(() => {}), timeout]);
+	    }
+	
+	    return Promise.race([
+	      new Promise((resolve) => window.addEventListener('load', resolve, { once: true })),
+	      timeout,
+	    ]);
+	  }
+
+	  document.addEventListener('DOMContentLoaded', () => {
+	    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	    if (prefersReducedMotion) {
+	      if (root && root.dataset) delete root.dataset.worksScramble;
+	      return;
+	    }
+
+	    const worksIntro = document.getElementById('works-intro');
+	    const worksFourThings = document.getElementById('works-four-things');
+	    const worksSelectedLabel = document.getElementById('works-selected-label');
+	    const worksTitleDigital = document.getElementById('works-title-digital');
+	    const worksTitleRenaissance = document.getElementById('works-title-renaissance');
     const pillars = document.querySelectorAll('.works-pillar');
     const cards = document.querySelectorAll('.works-card');
 
-    if (typeof gsap !== 'undefined') {
-      const animElements = [...pillars, ...cards];
-      if (worksIntro) animElements.push(worksIntro);
-      gsap.set(animElements, { opacity: 0 });
-      gsap.set(pillars, { y: 40, x: -20 });
-      gsap.set(cards, { y: 30, scale: 0.95, filter: 'blur(10px)' });
+	    if (typeof gsap !== 'undefined') {
+	      const animElements = [...pillars, ...cards];
+	      if (worksIntro) animElements.push(worksIntro);
+	      gsap.set(animElements, { opacity: 0 });
+	      gsap.set(pillars, { y: 40, x: -20 });
+	      gsap.set(cards, { y: 30, scale: 0.95, filter: 'blur(10px)' });
+	      
+		      whenFontsReady(2500).then(async () => {
+		        await Promise.all([
+		          scrambleTextInPlace(worksFourThings, worksFourThings?.textContent, 0.48),
+		          scrambleTextInPlace(worksSelectedLabel, worksSelectedLabel?.textContent, 0.48),
+		        ]);
+		
+		        await scrambleRevealText(worksTitleDigital, worksTitleDigital?.textContent, 0.55);
+		        await scrambleRevealText(worksTitleRenaissance, worksTitleRenaissance?.textContent, 0.65);
+		
+		        if (root && root.dataset) root.dataset.worksScramble = 'ready';
+		      });
 
-      if (worksFourThings) scrambleText(worksFourThings, worksFourThings.innerText, 0.6);
-      if (worksSelectedLabel) scrambleText(worksSelectedLabel, worksSelectedLabel.innerText, 0.6);
-      if (worksTitleDigital) scrambleText(worksTitleDigital, worksTitleDigital.innerText, 0.65);
-      if (worksTitleRenaissance) scrambleText(worksTitleRenaissance, worksTitleRenaissance.innerText, 0.65);
-
-      if (worksIntro) gsap.to(worksIntro, { opacity: 1, duration: 0.6 });
-      gsap.to(cards, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, stagger: 0.08, ease: 'power3.out' });
-      gsap.to(pillars, {
+	      if (worksIntro) gsap.to(worksIntro, { opacity: 1, duration: 0.6 });
+	      gsap.to(cards, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, stagger: 0.08, ease: 'power3.out' });
+	      gsap.to(pillars, {
         y: 0,
         x: 0,
         opacity: 1,
         duration: 1.6,
         stagger: {
-          each: 0.24,
-          onStart: function () {
-            const label = this.targets()[0].querySelector('span:nth-child(2)');
-            if (label) scrambleText(label, label.innerText, 2.2);
-          },
-        },
-        ease: 'expo.out',
-      });
-    } else {
-      // Fallback: just make sure intro isn't hidden.
-      if (worksIntro) worksIntro.classList.remove('opacity-0');
-    }
+	          each: 0.24,
+	          onStart: function () {
+	            const label = this.targets()[0].querySelector('span:nth-child(2)');
+	            if (label) scrambleTextInPlace(label, label.textContent, 2.2);
+	          },
+	        },
+	        ease: 'expo.out',
+	      });
+	    } else {
+	      // Fallback: just make sure intro isn't hidden.
+	      if (worksIntro) worksIntro.classList.remove('opacity-0');
+	      if (root && root.dataset) delete root.dataset.worksScramble;
+	    }
 
     // Card toggle behavior
     const worksCards = document.querySelectorAll('.works-card');

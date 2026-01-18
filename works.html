@@ -247,10 +247,10 @@
 	                            </div>
 	                        </div>
 
-	                        <div class="pt-4 mb-8 hidden md:block">
-	                            <a href="#" class="group inline-flex items-center justify-between w-full p-4 border border-rust/20 hover:border-rust hover:bg-rust/5 transition-all duration-300 bg-transparent max-w-xs">
-	                                <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase group-hover:text-rust transition-colors font-mono">View Archive</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-600 group-hover:text-rust group-hover:translate-x-1 transition-all"></i>
+	                        <div class="pt-4 mb-8">
+	                            <a href="#" id="our-solutions-btn" class="group inline-flex items-center justify-between w-full p-4 border border-rust/50 transition-all duration-300 bg-transparent max-w-xs btn-glow-animate relative overflow-hidden">
+	                                <span class="text-xs font-bold text-neutral-200 tracking-widest uppercase group-hover:text-white transition-colors font-mono z-10">Our Solutions</span>
+                                <i data-lucide="arrow-right" class="solution-arrow w-4 h-4 text-rust group-hover:text-white transition-all z-10"></i>
                             </a>
                         </div>
                     </div>
@@ -644,6 +644,19 @@
         });
       }
     });
+
+    // Enhanced 'Our Solutions' Button Logic
+    const solutionsBtn = document.getElementById('our-solutions-btn');
+    if (solutionsBtn) {
+      solutionsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        worksCards.forEach((card) => {
+          if (!card.classList.contains('is-expanded')) {
+             toggleCardSelected(card);
+          }
+        });
+      });
+    }
 
     worksFullTextBlocks.forEach((block) => {
       block.addEventListener('wheel', (event) => event.stopPropagation(), { passive: true });

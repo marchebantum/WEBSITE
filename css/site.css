@@ -1299,3 +1299,55 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 }
+
+/* Enhanced 'Our Solutions' Button Animation */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(154, 52, 18, 0.2), inset 0 0 10px rgba(154, 52, 18, 0.1);
+        border-color: rgba(154, 52, 18, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(139, 92, 246, 0.25), inset 0 0 15px rgba(139, 92, 246, 0.15);
+        border-color: rgba(139, 92, 246, 0.6);
+    }
+}
+
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.btn-glow-animate {
+    background: linear-gradient(270deg, rgba(154, 52, 18, 0.15), rgba(139, 92, 246, 0.15), rgba(154, 52, 18, 0.15));
+    background-size: 200% 200%;
+    animation: glow-pulse 3s infinite alternate, gradient-flow 6s ease infinite;
+}
+
+.btn-glow-animate:hover {
+    background: linear-gradient(270deg, rgba(154, 52, 18, 0.25), rgba(139, 92, 246, 0.25), rgba(154, 52, 18, 0.25));
+    background-size: 200% 200%;
+    animation: glow-pulse 1.5s infinite alternate, gradient-flow 3s ease infinite; /* Speed up on hover */
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+}
+
+/* Solution Arrow Continuous Animation */
+@keyframes arrow-bounce-mobile {
+    0%, 100% { transform: rotate(90deg) translateX(0); }
+    50% { transform: rotate(90deg) translateX(5px); }
+}
+
+@keyframes arrow-bounce-desktop {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    50% { transform: rotate(0deg) translateX(5px); }
+}
+
+.solution-arrow {
+    animation: arrow-bounce-mobile 2s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+    .solution-arrow {
+        animation: arrow-bounce-desktop 2s ease-in-out infinite;
+    }
+}

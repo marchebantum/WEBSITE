@@ -967,16 +967,53 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     to { transform: rotate(-360deg); }
 }
 
+#transition-loader .loader-visual::before,
+#transition-loader .loader-visual::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 170%;
+    height: 2px;
+    transform-origin: center;
+    background: rgba(154, 52, 18, 0.55);
+    box-shadow: 0 0 12px rgba(154, 52, 18, 0.22);
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+@keyframes loader-arm-spin {
+    from { transform: translate(-50%, -50%) rotate(25deg); }
+    to { transform: translate(-50%, -50%) rotate(385deg); }
+}
+
+@keyframes loader-arm-spin-reverse {
+    from { transform: translate(-50%, -50%) rotate(115deg); }
+    to { transform: translate(-50%, -50%) rotate(-245deg); }
+}
+
+#transition-loader .loader-visual::before {
+    animation: loader-arm-spin 10s linear infinite;
+}
+
+#transition-loader .loader-visual::after {
+    opacity: 0.45;
+    animation: loader-arm-spin-reverse 14s linear infinite;
+}
+
 #transition-loader .loader-visual div:nth-child(1) {
     animation: loader-spin 8s linear infinite;
+    border-color: rgba(154, 52, 18, 0.22);
 }
 
 #transition-loader .loader-visual div:nth-child(2) {
     animation: loader-spin-reverse 12s linear infinite;
+    border-color: rgba(154, 52, 18, 0.35);
 }
 
 #transition-loader .loader-visual div:nth-child(3) {
     animation: loader-spin 20s linear infinite;
+    border-color: rgba(154, 52, 18, 0.18);
 }
 
 .animate-spin-slow {

@@ -414,7 +414,7 @@
         const lineGroup = new THREE.Group();
         systemsGroup.add(lineGroup);
 
-        function createThinOrbit(radius, rotation) {
+        function createThinOrbit(radius, rotation, phase = 0) {
             const curve = new THREE.EllipseCurve(
                 0, 0,            // ax, aY
                 radius, radius,  // xRadius, yRadius
@@ -424,10 +424,26 @@
             );
             const points = curve.getPoints(128);
             const geo = new THREE.BufferGeometry().setFromPoints(points);
+
+            // Rust ↔ Purple vertex color blend for better visibility
+            const rust = new THREE.Color(0x9A3412);
+            const purple = new THREE.Color(0x5B21B6);
+            const colors = [];
+            const count = points.length;
+            for (let i = 0; i < count; i++) {
+                const t = count <= 1 ? 0 : i / (count - 1);
+                const mix = (Math.sin((t + phase) * Math.PI * 2) + 1) * 0.5;
+                const c = rust.clone().lerp(purple, mix);
+                colors.push(c.r, c.g, c.b);
+            }
+            geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
             const mat = new THREE.LineBasicMaterial({ 
-                color: 0x78350F, // Sepia
-                transparent: true, 
-                opacity: 0.15 
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.38,
+                fog: false,
+                depthWrite: false
             });
             const orbit = new THREE.Line(geo, mat);
             orbit.rotation.x = rotation.x;
@@ -437,9 +453,9 @@
         }
 
         const orbits = [
-            createThinOrbit(5.5, {x: Math.PI/2, y: 0}),
-            createThinOrbit(5.2, {x: Math.PI/3, y: Math.PI/6}),
-            createThinOrbit(6.0, {x: Math.PI/1.8, y: Math.PI/4})
+            createThinOrbit(5.5, {x: Math.PI/2, y: 0}, 0.0),
+            createThinOrbit(5.2, {x: Math.PI/3, y: Math.PI/6}, 0.33),
+            createThinOrbit(6.0, {x: Math.PI/1.8, y: Math.PI/4}, 0.66)
         ];
 
         // --- INTERACTION & ANIMATION ---

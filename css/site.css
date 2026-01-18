@@ -212,6 +212,12 @@ html[data-works-scramble] .scramble-reveal--ready .scramble-reveal__anim {
         radial-gradient(65% 70% at 100% 0%, rgba(5, 5, 5, 0.55) 0%, rgba(5, 5, 5, 0) 60%),
         linear-gradient(180deg, rgba(5, 5, 5, 0.25) 0%, rgba(5, 5, 5, 0) 55%);
 }
+
+/* Works: slightly larger mobile/desktop copy in cards (~+1pt) */
+#works-page .works-card-subtext,
+#works-page .works-card-full {
+    font-size: 15px;
+}
 /* Works card expanded copy */
 .works-card-full {
     max-height: 0;
@@ -231,18 +237,46 @@ html[data-works-scramble] .scramble-reveal--ready .scramble-reveal__anim {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-.works-card.is-expanded .works-card-content div.overflow-hidden.mb-2 {
-    display: none;
+/* Card title + category pill layout */
+.works-card-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Expanded: place pill beside title (Kyber + Offerings) */
+.works-card.is-expanded .works-card-heading {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.works-card.is-expanded .works-card-pillwrap {
+    margin-bottom: 0 !important;
+    order: 1; /* title (default order 0) comes first */
+}
+
+.works-card.is-expanded .works-card-heading h4 {
+    margin-bottom: 0 !important;
 }
 .works-card.is-expanded .works-card-content {
     transform: translateY(-20px) !important;
 }
 @media (max-width: 768px) {
-    .works-card.is-expanded .works-card-full {
-        max-height: 600px;
+    /* Mobile: let expanded cards grow with content (avoid text clipping) */
+    .works-card.is-expanded {
+        aspect-ratio: auto !important;
     }
+
     .works-card.is-expanded .works-card-content {
-        transform: translateY(-10px) !important;
+        position: relative !important;
+        transform: none !important;
+    }
+
+    .works-card.is-expanded .works-card-full {
+        max-height: 9999px;
+        overflow: visible;
     }
 }
 .works-card.is-expanded .kyber-teaser {

@@ -139,18 +139,6 @@
     <section id="ai-development-page" class="relative overflow-x-hidden bg-paper">
         <!-- Atmospheric Background (Light Mode) -->
         <div id="ai-development-bg-container" class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-            <!-- Top image: stored at assets/images/ai-development-hero.webp -->
-            <div class="absolute inset-x-0 top-0 h-[56vh] md:h-[70vh] overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-[0.11] mix-blend-multiply lazy-bg"
-                     data-bg-webp="../assets/images/ai-development-hero.webp"
-                     data-bg-fallback="../assets/images/ai-development-hero.webp"
-                     style="background-position: center 30%;
-                            filter: saturate(0) contrast(1.08) brightness(1.02);
-                            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 38%, rgba(0,0,0,0.22) 72%, transparent 100%);
-                            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 38%, rgba(0,0,0,0.22) 72%, transparent 100%);"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-paper/0 via-paper/20 to-paper"></div>
-            </div>
-
             <!-- Rust on the left (boosted) -->
             <div class="absolute inset-0 bg-[radial-gradient(1000px_circle_at_0%_50%,rgba(154,52,18,0.24)_0%,transparent_75%)] md:bg-[radial-gradient(1200px_circle_at_0%_30%,rgba(154,52,18,0.32)_0%,transparent_75%)]"></div>
             <!-- Purple on the bottom right (boosted) -->
@@ -190,6 +178,25 @@
 
             <!-- HERO -->
             <section class="relative overflow-hidden border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg rounded-3xl">
+                <!-- Card background image (subtle + heavily feathered) -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute inset-0 bg-cover bg-center opacity-[0.13] mix-blend-multiply lazy-bg"
+                         data-bg-webp="../assets/images/ai-development-hero.webp"
+                         data-bg-fallback="../assets/images/ai-development-hero.webp"
+                         style="background-position: center 38%;
+                                filter: saturate(0) contrast(1.10) brightness(1.02);
+                                -webkit-mask-image:
+                                  radial-gradient(1200px 700px at 50% 25%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.62) 48%, transparent 78%),
+                                  linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.70) 42%, rgba(0,0,0,0.18) 78%, transparent 100%);
+                                mask-image:
+                                  radial-gradient(1200px 700px at 50% 25%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.62) 48%, transparent 78%),
+                                  linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.70) 42%, rgba(0,0,0,0.18) 78%, transparent 100%);"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-paper/0 via-paper/25 to-paper"></div>
+                </div>
+
+                <!-- Card grid overlay (over image) -->
+                <div class="absolute inset-0 pointer-events-none grid-overlay-strong opacity-60"></div>
+
                 <div class="absolute inset-0 pointer-events-none opacity-[0.14] mix-blend-multiply lazy-bg"
                      data-bg-webp="../assets/images/isometric-sketch-of-cloud-data-infrastructure-4k_opt.webp"
                      data-bg-fallback="../assets/images/isometric-sketch-of-cloud-data-infrastructure-4k_opt.jpg"></div>

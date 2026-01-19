@@ -1052,6 +1052,13 @@ stroke-dasharray: 4, 4; opacity: 0.4;
         0 10px 24px rgba(28, 25, 23, 0.12);
 }
 
+/* Home hero: make "Perth | Global" slightly larger on desktop only */
+@media (min-width: 1024px) {
+    #hero-coordinates .hero-perth-global {
+        font-size: 14px;
+    }
+}
+
 /* Desktop-only: lift Services carousel subtext back up (do not affect mobile). */
 @media (min-width: 768px) {
     #services-page #service-left-subtext-container {

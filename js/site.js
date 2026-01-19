@@ -38,10 +38,12 @@
     // Swap logo to WebP if supported.
     const logoImg = document.getElementById('logo-img');
     if (logoImg && webpSupported) {
-      logoImg.src = 'assets/images/No BG BLACK.webp';
+      const originalSrc = logoImg.getAttribute('src') || logoImg.src || '';
+      const webpSrc = originalSrc.replace(/\.png(\?.*)?$/i, '.webp$1');
+      if (webpSrc && webpSrc !== originalSrc) logoImg.src = webpSrc;
       logoImg.onerror = function () {
         this.onerror = null;
-        this.src = 'assets/images/No BG BLACK.png';
+        this.src = originalSrc || this.src;
       };
     }
 

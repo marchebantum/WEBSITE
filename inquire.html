@@ -576,10 +576,20 @@
       }
     };
 
-    openInquiryFormBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openInquiryModal();
-    });
+	    openInquiryFormBtn?.addEventListener('click', (e) => {
+	      e.preventDefault();
+	      openInquiryModal();
+	    });
+
+	    if (window.location.hash === '#inquiry-form') {
+	      openInquiryModal();
+	    }
+
+	    window.addEventListener('hashchange', () => {
+	      if (window.location.hash === '#inquiry-form') {
+	        openInquiryModal();
+	      }
+	    });
 
     closeInquiryModalBtn?.addEventListener('click', closeInquiryModal);
     inquiryModalBackdrop?.addEventListener('click', closeInquiryModal);

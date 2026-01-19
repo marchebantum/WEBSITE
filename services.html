@@ -682,17 +682,19 @@ if (document.readyState === 'loading') {
 
 // --- About Page Data & Tabs ---
         const serviceData = [
-	            {
-	                id: '01',
-	                name: 'Development',
-	                headline: "'Form follows function.'",
-	                posterNum: '+01',
-	                category: 'Engineering',
-	                suffix: 'DEVELOPMENT',
-                image: 'https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70',
-                staticDescription: 'We build bespoke full-stack applications completely tailored to your needs. We bake in automation from inception, guaranteeing time savings and margin maximisation.',
-                slides: [
-                    { title: 'SECURE', subtext: 'Safeguard your data with sovereign infrastructure and world-class security', category: 'PRIVACY & SECURITY' },
+		            {
+		                id: '01',
+		                name: 'Development',
+		                headline: "'Form follows function.'",
+		                posterNum: '+01',
+		                category: 'Engineering',
+		                suffix: 'DEVELOPMENT',
+	                deepLinkHref: 'ai-development/',
+	                deepLinkLabel: 'AI Development',
+	                image: 'https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70',
+	                staticDescription: 'We build bespoke full-stack applications completely tailored to your needs. We bake in automation from inception, guaranteeing time savings and margin maximisation.',
+	                slides: [
+	                    { title: 'SECURE', subtext: 'Safeguard your data with sovereign infrastructure and world-class security', category: 'PRIVACY & SECURITY' },
                     { title: 'BEAUTIFUL', subtext: 'Elegent interfaces built around your personal workflow.', category: 'DESIGN & EXPERIENCE' },
                     { title: 'INTELLIGENT', subtext: 'AI-native systems that learn, streamline, and automate your processes.', category: 'AUTOMATION & AI' }
                 ]
@@ -1400,15 +1402,25 @@ if (document.readyState === 'loading') {
                         duration: 0.3,
                         ease: "power2.in",
                         onComplete: () => {
-                            if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
-                            if (detailsEl) {
-                                detailsEl.innerHTML = `
-                                    <div>
-                                        <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
-                                        <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
-                                    </div>
-                                `;
-                            }
+	                            if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+	                            if (detailsEl) {
+	                                const deepLinkHtml = (data.name === 'Development' && data.deepLinkHref)
+	                                  ? `
+	                                        <div class="mt-8">
+	                                            <a href="${data.deepLinkHref}" class="inline-flex items-center justify-center gap-2 rounded-full bg-sepia text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg hover:bg-ink transition-colors">
+	                                                Read More <span aria-hidden="true">→</span>
+	                                            </a>
+	                                        </div>
+	                                    `
+	                                  : '';
+	                                detailsEl.innerHTML = `
+	                                    <div>
+	                                        <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+	                                        <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+	                                        ${deepLinkHtml}
+	                                    </div>
+	                                `;
+	                            }
                             gsap.fromTo(rightContent, 
                                 { opacity: 0, x: -20 },
                                 { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
@@ -1417,28 +1429,48 @@ if (document.readyState === 'loading') {
                     });
                 } else {
                     // Fallback if GSAP not loaded yet
-                    if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
-                    if (detailsEl) {
-                        detailsEl.innerHTML = `
-                            <div>
-                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
-                                <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
-                            </div>
-                        `;
-                    }
-                }
-            } else {
-                if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
-                if (detailsEl) {
-                    detailsEl.innerHTML = `
-                        <div>
-                            <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
-                            <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
-                        </div>
-                    `;
-                }
-            }
-        }
+	                    if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+	                    if (detailsEl) {
+	                        const deepLinkHtml = (data.name === 'Development' && data.deepLinkHref)
+	                          ? `
+	                                <div class="mt-8">
+	                                    <a href="${data.deepLinkHref}" class="inline-flex items-center justify-center gap-2 rounded-full bg-sepia text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg hover:bg-ink transition-colors">
+	                                        Read More <span aria-hidden="true">→</span>
+	                                    </a>
+	                                </div>
+	                            `
+	                          : '';
+	                        detailsEl.innerHTML = `
+	                            <div>
+	                                <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+	                                <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+	                                ${deepLinkHtml}
+	                            </div>
+	                        `;
+	                    }
+	                }
+	            } else {
+	                if (mainTitleEl) mainTitleEl.innerHTML = data.suffix;
+	                if (detailsEl) {
+	                    const deepLinkHtml = (data.name === 'Development' && data.deepLinkHref)
+	                      ? `
+	                            <div class="mt-8">
+	                                <a href="${data.deepLinkHref}" class="inline-flex items-center justify-center gap-2 rounded-full bg-sepia text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg hover:bg-ink transition-colors">
+	                                    Read More <span aria-hidden="true">→</span>
+	                                </a>
+	                            </div>
+	                        `
+	                      : '';
+	                    detailsEl.innerHTML = `
+	                        <div>
+	                            <p class="text-[10px] font-bold text-neutral-500 uppercase mb-2 tracking-wide">Services Offered</p>
+	                            <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
+	                            ${deepLinkHtml}
+	                        </div>
+	                    `;
+	                }
+	            }
+	        }
 
         function updateService(index) {
             currentServiceIndex = index;
@@ -1560,7 +1592,19 @@ if (document.readyState === 'loading') {
             }
         });
 
-        updateService(0);
+	        (function initServicesFromQuery() {
+	            const serviceParam = (new URLSearchParams(window.location.search).get('service') || '').toLowerCase();
+	            const serviceIndexByParam = {
+	                development: 0,
+	                training: 1,
+	                consulting: 2,
+	                governance: 3,
+	            };
+	            const initialIndex = Number.isFinite(serviceIndexByParam[serviceParam])
+	              ? serviceIndexByParam[serviceParam]
+	              : 0;
+	            updateService(initialIndex);
+	        })();
 
         // Sync services background height function
         function syncServicesBackgroundHeight() {
@@ -1584,16 +1628,17 @@ if (document.readyState === 'loading') {
         
 
 // Multi-page: remove wheel/touch section switching; ensure initial headline is set
-document.addEventListener('DOMContentLoaded', () => {
-  const headline = document.getElementById('service-headline');
-  if (headline && typeof serviceData !== 'undefined' && serviceData[0]) {
-    try {
-      animateText('service-headline', serviceData[0].headline, true);
-    } catch (_) {
-      // no-op
-    }
-  }
-});
+	document.addEventListener('DOMContentLoaded', () => {
+	  const headline = document.getElementById('service-headline');
+	  const activeData = (typeof serviceData !== 'undefined' && serviceData[currentServiceIndex]) ? serviceData[currentServiceIndex] : serviceData?.[0];
+	  if (headline && activeData) {
+	    try {
+	      animateText('service-headline', activeData.headline, true);
+	    } catch (_) {
+	      // no-op
+	    }
+	  }
+	});
 </script>
 
 

@@ -2,7 +2,8 @@
 module.exports = {
   content: [
     "./index.html",
-    "./*.html"
+    "./*.html",
+    "./ai-development/**/*.html"
   ],
   theme: {
     extend: {

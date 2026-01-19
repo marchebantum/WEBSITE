@@ -1044,6 +1044,14 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     }
 }
 
+/* Home hero: make subtext pop against background (mobile + desktop) */
+.home-hero-subtext {
+    font-family: "Open Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    text-shadow:
+        0 1px 0 rgba(253, 252, 248, 0.85),
+        0 10px 24px rgba(28, 25, 23, 0.12);
+}
+
 /* Desktop-only: lift Services carousel subtext back up (do not affect mobile). */
 @media (min-width: 768px) {
     #services-page #service-left-subtext-container {

@@ -146,14 +146,17 @@
         <div class="absolute inset-0 pointer-events-none z-0 grid-overlay-dark opacity-30"></div>
         
         <!-- Subtly Integrated Tech Sketch Photo - Restored Header Image -->
-        <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" 
-             alt=""
-             class="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] h-[120vh] object-cover opacity-20 mix-blend-lighten pointer-events-none z-0" 
-             style="object-position: center top;
-                    mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%); 
-                    -webkit-mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%);
-                    -webkit-mask-composite: source-in;
-                    mask-composite: intersect;">
+        <!-- Wrapper clips the decorative image so it can't create extra scroll space (desktop issue) -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" 
+                 alt=""
+                 class="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] h-[120vh] object-cover opacity-20 mix-blend-lighten" 
+                 style="object-position: center top;
+                        mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%); 
+                        -webkit-mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%);
+                        -webkit-mask-composite: source-in;
+                        mask-composite: intersect;">
+        </div>
         
         <!-- Circular Drafting Element - Works (Positioned at section level) -->
         <div class="absolute right-4 md:right-12 top-6 md:top-12 w-72 md:w-96 h-72 md:h-96 opacity-30 pointer-events-none z-[5]">

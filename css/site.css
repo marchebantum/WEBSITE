@@ -1384,6 +1384,8 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
 .founder-card {
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
+    /* More transparent than bg-white/[0.08] */
+    background-color: rgba(255, 255, 255, 0.01);
 }
 
 /* Enhanced 'Our Solutions' Button Animation */

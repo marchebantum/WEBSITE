@@ -71,6 +71,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
+<style>
+  /* Avoid a brief fallback-font flash on the home hero headline reveal. */
+  html:not(.fonts-ready) #hero-block,
+  html:not(.fonts-ready) #mobile-hero-cta {
+    opacity: 0 !important;
+  }
+  html:not(.fonts-ready) #hero-block.animate-fade-in,
+  html:not(.fonts-ready) #mobile-hero-cta.animate-fade-in {
+    animation: none !important;
+  }
+</style>
+
+<script>
+  (function () {
+    function markFontsReady() {
+      document.documentElement.classList.add('fonts-ready');
+    }
+
+    function whenFontsReady(timeoutMs) {
+      const timeout = new Promise((resolve) => window.setTimeout(resolve, timeoutMs));
+      if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+        return Promise.race([document.fonts.ready.catch(() => {}), timeout]);
+      }
+      return Promise.race([
+        new Promise((resolve) => window.addEventListener('load', resolve, { once: true })),
+        timeout,
+      ]);
+    }
+
+    // Don’t block forever if fonts are slow/unavailable.
+    whenFontsReady(2000).then(markFontsReady);
+  })();
+</script>
+
 <!-- Tailwind CSS (Production Build) -->
 <link rel="stylesheet" href="css/output.css">
 <link rel="stylesheet" href="css/site.css">

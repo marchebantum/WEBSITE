@@ -462,16 +462,52 @@
 <script>
 (function () {
   document.addEventListener('DOMContentLoaded', () => {
+    function whenFontsReady(timeoutMs = 2000) {
+      const timeout = new Promise((resolve) => window.setTimeout(resolve, timeoutMs));
+      if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+        return Promise.race([document.fonts.ready.catch(() => {}), timeout]);
+      }
+      return Promise.race([
+        new Promise((resolve) => window.addEventListener('load', resolve, { once: true })),
+        timeout,
+      ]);
+    }
+
     // Entry animation
     const badge = document.getElementById('inquiry-badge');
     const headline = document.getElementById('inquiry-headline');
-    if (typeof gsap !== 'undefined') {
-      if (badge) gsap.fromTo(badge, { opacity: 0, y: 40, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 1.8, ease: 'expo.out' });
-      if (headline) gsap.fromTo(headline, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 2.2, ease: 'expo.out' });
-    } else {
-      badge?.classList.remove('opacity-0');
-      headline?.classList.remove('opacity-0');
-    }
+    const runEntry = () => {
+      if (typeof gsap !== 'undefined') {
+        const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+        // Headline first ("LET'S BUILD")
+        if (headline) {
+          tl.addLabel('headlineIn', 0);
+          tl.fromTo(
+            headline,
+            { opacity: 0, y: 60 },
+            { opacity: 1, y: 0, duration: 2.2 },
+            'headlineIn'
+          );
+        }
+
+        // Then badge ("Click below to Inquire") shortly after
+        if (badge) {
+          tl.fromTo(
+            badge,
+            { opacity: 0, y: 40, scale: 0.8 },
+            { opacity: 1, y: 0, scale: 1, duration: 1.8 },
+            headline ? 'headlineIn+=0.50' : 0
+          );
+        }
+      } else {
+        badge?.classList.remove('opacity-0');
+        headline?.classList.remove('opacity-0');
+      }
+    };
+
+    // Prevent brief fallback-font flash on headline/badge reveal.
+    whenFontsReady(2000).then(runEntry);
 
     const serviceOptions = document.querySelectorAll('[data-service-option]');
     const goalOptions = document.querySelectorAll('[data-goal-option]');

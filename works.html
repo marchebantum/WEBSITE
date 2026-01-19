@@ -148,14 +148,17 @@
         <!-- Subtly Integrated Tech Sketch Photo - Restored Header Image -->
         <!-- Wrapper clips the decorative image so it can't create extra scroll space (desktop issue) -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" 
-                 alt=""
-                 class="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] h-[120vh] object-cover opacity-20 mix-blend-lighten" 
-                 style="object-position: center top;
-                        mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%); 
-                        -webkit-mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%);
-                        -webkit-mask-composite: source-in;
-                        mask-composite: intersect;">
+            <picture>
+                <source srcset="assets/images/abstract-portrait-with-geometric-glitch-layers-4k.webp" type="image/webp">
+                <img src="assets/images/abstract-portrait-with-geometric-glitch-layers-4k_opt.jpg"
+                     alt=""
+                     class="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] h-[120vh] object-cover opacity-20 mix-blend-lighten" 
+                     style="object-position: center top;
+                            mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%); 
+                            -webkit-mask-image: radial-gradient(circle at 52% 20%, black 12%, transparent 35%), linear-gradient(to bottom, black 15%, transparent 55%), linear-gradient(to right, black 65%, transparent 90%);
+                            -webkit-mask-composite: source-in;
+                            mask-composite: intersect;">
+            </picture>
         </div>
         
         <!-- Circular Drafting Element - Works (Positioned at section level) -->
@@ -269,7 +272,7 @@
                         <!-- Project 01 -->
                         <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default" data-kyber-card aria-expanded="false" aria-controls="kyber-full-text" role="button" tabindex="0">
                         <!-- Image -->
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg-webp="assets/images/neon-glass-panels-on-dark-background-4k.webp" data-bg-fallback="assets/images/neon-glass-panels-on-dark-background-4k.png" style="background-size: cover; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg-webp="assets/images/neon-glass-panels-on-dark-background-4k.webp" data-bg-fallback="assets/images/neon-glass-panels-on-dark-background-4k_opt.jpg" style="background-size: cover; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         
@@ -355,7 +358,7 @@
 
                     <!-- Project 04 -->
                     <div class="works-card group relative aspect-[4/3] md:aspect-auto overflow-hidden cursor-pointer bg-dark is-default">
-                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg="assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k.webp" style="background-size: 115%; background-position: center;"></div>
+                        <div class="works-card-image absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out lazy-bg" data-bg-webp="assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k.webp" data-bg-fallback="assets/images/futuristic-glass-ui-panels-with-neon-gradient-4k_opt.jpg" style="background-size: 115%; background-position: center;"></div>
                         <div class="works-card-overlay absolute inset-0 bg-dark/80 group-hover:bg-dark/20 transition-colors duration-500 mix-blend-multiply"></div>
                         <div class="works-card-gradient absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity"></div>
                         

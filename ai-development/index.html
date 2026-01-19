@@ -130,8 +130,7 @@
 
     <!-- Sticky CTA -->
     <a href="../inquire.html#inquiry-form"
-       class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[70] inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] text-paper shadow-lg shadow-violet-500/20 hover:shadow-xl transition-shadow focus:outline-none focus:ring-2 focus:ring-violet-500/30"
-       style="background: linear-gradient(135deg, rgba(99,102,241,1) 0%, rgba(168,85,247,1) 100%);"
+       class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[70] inline-flex items-center gap-2 rounded-full bg-sepia text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg shadow-rust/20 hover:bg-ink transition-colors focus:outline-none focus:ring-2 focus:ring-rust/20"
        aria-label="Open inquiry form">
         <span class="font-serif italic">Inquire</span>
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -139,23 +138,35 @@
 
     <section id="ai-development-page" class="relative overflow-x-hidden bg-paper">
         <!-- Atmospheric Background (Light Mode) -->
-        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-            <div class="absolute inset-0 grid-overlay opacity-40"></div>
-            <div class="absolute inset-0"
-                 style="background:
-                   radial-gradient(1100px circle at 0% 20%, rgba(99,102,241,0.22) 0%, transparent 70%),
-                   radial-gradient(1000px circle at 100% 80%, rgba(168,85,247,0.18) 0%, transparent 72%),
-                   radial-gradient(900px circle at 60% 0%, rgba(56,189,248,0.10) 0%, transparent 60%);"></div>
+        <div id="ai-development-bg-container" class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+            <!-- Top image: stored at assets/images/ai-development-hero.webp -->
+            <div class="absolute inset-x-0 top-0 h-[56vh] md:h-[70vh] overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center opacity-[0.11] mix-blend-multiply lazy-bg"
+                     data-bg-webp="../assets/images/ai-development-hero.webp"
+                     data-bg-fallback="../assets/images/ai-development-hero.webp"
+                     style="background-position: center 30%;
+                            filter: saturate(0) contrast(1.08) brightness(1.02);
+                            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 38%, rgba(0,0,0,0.22) 72%, transparent 100%);
+                            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 38%, rgba(0,0,0,0.22) 72%, transparent 100%);"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-paper/0 via-paper/20 to-paper"></div>
+            </div>
+
+            <!-- Rust on the left (boosted) -->
+            <div class="absolute inset-0 bg-[radial-gradient(1000px_circle_at_0%_50%,rgba(154,52,18,0.24)_0%,transparent_75%)] md:bg-[radial-gradient(1200px_circle_at_0%_30%,rgba(154,52,18,0.32)_0%,transparent_75%)]"></div>
+            <!-- Purple on the bottom right (boosted) -->
+            <div class="absolute inset-0 bg-[radial-gradient(1100px_circle_at_100%_100%,rgba(139,92,246,0.26)_0%,transparent_75%)]"></div>
+
+            <!-- Grid overlay (strong, on top) -->
+            <div class="absolute inset-0 grid-overlay-strong opacity-55"></div>
         </div>
 
         <!-- Circular Drafting Element -->
         <div class="absolute right-4 md:right-12 top-8 md:top-16 w-80 h-80 md:w-[32rem] md:h-[32rem] opacity-50 pointer-events-none z-[5]">
-            <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow" style="animation-duration: 110s; color: rgba(99,102,241,0.9);">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-rust animate-spin-slow" style="animation-duration: 90s;">
                 <defs>
                     <linearGradient id="ai-dev-drafting-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#6366F1"></stop>
-                        <stop offset="55%" stop-color="#A855F7"></stop>
-                        <stop offset="100%" stop-color="#38BDF8"></stop>
+                        <stop offset="0%" stop-color="#9A3412" />
+                        <stop offset="100%" stop-color="#D4AF37" />
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="48" fill="none" stroke="url(#ai-dev-drafting-gradient)" stroke-width="0.3" stroke-dasharray="2 4"></circle>
@@ -184,22 +195,21 @@
                      data-bg-fallback="../assets/images/isometric-sketch-of-cloud-data-infrastructure-4k_opt.jpg"></div>
                 <div class="absolute inset-0 pointer-events-none"
                      style="background:
-                       linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(168,85,247,0.10) 55%, rgba(56,189,248,0.10) 100%);"></div>
+                       radial-gradient(900px circle at 0% 0%, rgba(154,52,18,0.14) 0%, transparent 60%),
+                       radial-gradient(1000px circle at 100% 100%, rgba(139,92,246,0.12) 0%, transparent 62%),
+                       linear-gradient(180deg, rgba(253,252,248,0.35) 0%, rgba(253,252,248,0) 65%);"></div>
                 <div class="relative p-8 md:p-12">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.2)]"
-                                  style="background-color:#6366F1;"></span>
-                            <span class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border shadow-md"
-                                  style="border-color: rgba(99,102,241,0.55); background: linear-gradient(135deg, rgba(99,102,241,0.92), rgba(168,85,247,0.92));">Service</span>
+                            <span class="w-2 h-2 bg-rust rounded-full animate-pulse shadow-[0_0_8px_rgba(154,52,18,0.2)]"></span>
+                            <span class="font-mono text-[10px] text-white font-bold uppercase tracking-[0.2em] px-3 py-1 border border-rust bg-rust shadow-md">Services</span>
                         </div>
-                        <div class="flex flex-col border-l border-ink/10 pl-4 ml-2 mt-1">
-                            <span class="font-mono text-[10px] font-bold tracking-[0.2em] leading-none"
-                                  style="color:#6366F1;">// AI</span>
+                        <div class="flex flex-col border-l border-rust/20 pl-4 ml-2 mt-1">
+                            <span class="font-mono text-[10px] text-rust font-bold tracking-[0.2em] leading-none">// 01</span>
                             <span class="font-mono text-[7px] text-neutral-500 uppercase tracking-widest mt-1">Ref. Build_SYS.v1</span>
                         </div>
-                        <div class="h-px flex-1 bg-gradient-to-r from-ink/25 via-ink/10 to-transparent"></div>
-                        <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Status: Ready</span>
+                        <div class="h-px flex-1 bg-gradient-to-r from-rust/80 via-rust/40 to-transparent"></div>
+                        <span class="font-mono text-[8px] text-neutral-500 uppercase tracking-[0.2em] hidden md:block">System.Status: Synchronized</span>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -216,7 +226,7 @@
 
                             <div class="mt-8 flex flex-wrap items-center gap-3">
                                 <a href="../inquire.html#inquiry-form"
-                                   class="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg hover:bg-sepia transition-colors">
+                                   class="inline-flex items-center gap-2 rounded-full bg-sepia text-paper px-6 py-3 text-sm font-semibold tracking-[0.08em] shadow-lg shadow-rust/20 hover:bg-ink transition-colors">
                                     Inquire <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                 </a>
                                 <a href="../works.html?filter=ai-development"
@@ -230,7 +240,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="rounded-2xl border border-ink/10 bg-paper/60 backdrop-blur-sm p-5">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-ink">
+                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                             <i data-lucide="bot" class="w-5 h-5"></i>
                                         </div>
                                         <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">Custom AI Development</p>
@@ -239,7 +249,7 @@
                                 </div>
                                 <div class="rounded-2xl border border-ink/10 bg-paper/60 backdrop-blur-sm p-5">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-ink">
+                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                             <i data-lucide="workflow" class="w-5 h-5"></i>
                                         </div>
                                         <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">AI Automation</p>
@@ -248,7 +258,7 @@
                                 </div>
                                 <div class="rounded-2xl border border-ink/10 bg-paper/60 backdrop-blur-sm p-5 sm:col-span-2">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-ink">
+                                        <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                             <i data-lucide="shield-check" class="w-5 h-5"></i>
                                         </div>
                                         <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">Compliance + Sovereignty</p>
@@ -278,10 +288,10 @@
                 <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     <article class="relative overflow-hidden rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-7">
                         <div class="absolute inset-0 pointer-events-none opacity-60"
-                             style="background: radial-gradient(600px circle at 0% 0%, rgba(99,102,241,0.14) 0%, transparent 60%);"></div>
+                             style="background: radial-gradient(600px circle at 0% 0%, rgba(154,52,18,0.12) 0%, transparent 60%);"></div>
                         <div class="relative">
                             <div class="flex items-start gap-3">
-                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-ink">
+                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
                                     <i data-lucide="bot" class="w-5 h-5"></i>
                                 </div>
                                 <div>
@@ -296,10 +306,10 @@
 
                     <article class="relative overflow-hidden rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-7">
                         <div class="absolute inset-0 pointer-events-none opacity-60"
-                             style="background: radial-gradient(600px circle at 100% 0%, rgba(168,85,247,0.12) 0%, transparent 60%);"></div>
+                             style="background: radial-gradient(600px circle at 100% 0%, rgba(139,92,246,0.14) 0%, transparent 60%);"></div>
                         <div class="relative">
                             <div class="flex items-start gap-3">
-                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-ink">
+                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
                                     <i data-lucide="layers" class="w-5 h-5"></i>
                                 </div>
                                 <div>
@@ -314,10 +324,10 @@
 
                     <article class="relative overflow-hidden rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-7">
                         <div class="absolute inset-0 pointer-events-none opacity-60"
-                             style="background: radial-gradient(650px circle at 50% 100%, rgba(56,189,248,0.12) 0%, transparent 62%);"></div>
+                             style="background: radial-gradient(650px circle at 50% 100%, rgba(154,52,18,0.10) 0%, transparent 62%);"></div>
                         <div class="relative">
                             <div class="flex items-start gap-3">
-                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-ink">
+                                <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
                                     <i data-lucide="shield-check" class="w-5 h-5"></i>
                                 </div>
                                 <div>

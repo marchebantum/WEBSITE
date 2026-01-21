@@ -55,8 +55,8 @@
 <!-- Fonts with Optimized Loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""> 
-<link id="google-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap"></noscript>
+<link id="google-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Open+Sans:wght@400&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Open+Sans:wght@400&display=swap"></noscript>
 
 <script>
   // Prevent a brief fallback-font flash (FOUT) by gating initial paint until key fonts are ready.
@@ -96,14 +96,17 @@
       return waitForGoogleFontsCss(timeoutMs).then(() => {
         const loads = [
           document.fonts.load('400 1em Inter'),
+          document.fonts.load('500 1em Inter'),
           document.fonts.load('600 1em Inter'),
           document.fonts.load('700 1em Inter'),
-          document.fonts.load('400 1em \"Cormorant Garamond\"'),
-          document.fonts.load('700 1em \"Cormorant Garamond\"'),
-          document.fonts.load('400 1em \"JetBrains Mono\"'),
-          document.fonts.load('600 1em \"JetBrains Mono\"'),
-          document.fonts.load('700 1em \"JetBrains Mono\"'),
-          document.fonts.load('400 1em \"Orange Avenue\"'),
+          document.fonts.load('400 1em "Cormorant Garamond"'),
+          document.fonts.load('500 1em "Cormorant Garamond"'),
+          document.fonts.load('700 1em "Cormorant Garamond"'),
+          document.fonts.load('400 1em "JetBrains Mono"'),
+          document.fonts.load('600 1em "JetBrains Mono"'),
+          document.fonts.load('700 1em "JetBrains Mono"'),
+          document.fonts.load('400 1em "Open Sans"'),
+          document.fonts.load('400 1em "Orange Avenue"'),
         ];
         return Promise.race([Promise.allSettled(loads), timeout]);
       });

@@ -64,8 +64,6 @@
 
 <!-- External Libraries -->
 <script src="js/gsap/gsap.min.js"></script>
-<script src="js/gsap/ScrollTrigger.min.js"></script>
-<script src="js/gsap/Flip.min.js"></script>
 <script src="https://unpkg.com/lucide@latest" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 <script src="js/site.js" defer></script>
@@ -219,22 +217,22 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 border border-rust/15 bg-white/30 backdrop-blur-md shadow-lg">
                     <div onclick="updateService(0)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group active">
                         <div class="service-tab-item-dot bg-rust"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-400">// 01</span>
+                        <span class="tab-num text-[10px] font-mono block mb-2">// 01</span>
                         <span class="tab-label text-ink" data-original="Development">Development</span>
                     </div>
                     <div onclick="updateService(1)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 02</span>
+                        <span class="tab-num text-[10px] font-mono block mb-2">// 02</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Training">Training</span>
                     </div>
                     <div onclick="updateService(2)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 03</span>
+                        <span class="tab-num text-[10px] font-mono block mb-2">// 03</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Consulting">Consulting</span>
                     </div>
                     <div onclick="updateService(3)" class="service-tab service-tab-item py-4 px-6 cursor-pointer group">
                         <div class="service-tab-item-dot bg-neutral-200 group-hover:bg-rust transition-colors"></div>
-                        <span class="tab-num text-[10px] font-mono block mb-2 text-neutral-300">// 04</span>
+                        <span class="tab-num text-[10px] font-mono block mb-2">// 04</span>
                         <span class="tab-label text-neutral-400 group-hover:text-ink transition-colors" data-original="Governance">Governance</span>
                     </div>
                 </div>
@@ -242,9 +240,9 @@
                 <!-- Active Content Card (Light Mode) -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 border border-rust/10 bg-white/40 backdrop-blur-md shadow-lg rounded-2xl overflow-hidden">
                     <!-- Left: Visual -->
-                    <div class="service-visual-pane relative p-8 md:p-12 flex items-center justify-center overflow-hidden group min-h-[420px]">
-                        <div id="service-bg" data-image="https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 z-0" style="background-image: url('https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70');"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-0"></div>
+	                    <div class="service-visual-pane relative p-8 md:p-12 flex items-center justify-center overflow-hidden group min-h-[420px]">
+	                        <div id="service-bg" data-image="https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70" class="absolute inset-0 bg-cover bg-center opacity-70 transition-all duration-700 z-0 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1724525647065-f948fc102e68?auto=format&fit=crop&w=1400&q=70');"></div>
+	                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-0 pointer-events-none"></div>
                         
                         <!-- Poster Content -->
                         <div class="service-poster-card relative z-10 border border-white/20 pt-8 px-8 pb-3 w-full max-w-md h-[320px] md:h-[360px] flex flex-col justify-between backdrop-blur-md bg-white/80 shadow-2xl">
@@ -511,8 +509,8 @@
                             <div id="service-applied-visualization" class="hidden absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-36 h-36 pointer-events-none transition-opacity duration-300"></div>
 
                             <!-- Technical Tree (shown for TECHNICAL slide) -->
-                            <div id="service-technical-visualization" class="hidden absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-xs transition-opacity duration-300 pointer-events-auto">
-                                <div id="tree-root" class="max-h-[160px] overflow-y-auto px-4 py-2"></div>
+                            <div id="service-technical-visualization" class="hidden absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-full max-w-xs transition-opacity duration-300 pointer-events-none">
+                                <div id="tree-root" class="max-h-[160px] overflow-y-auto px-4 py-2 pointer-events-auto"></div>
                             </div>
 
                             <!-- Compliant Success Lottie (shown for COMPLIANT slide) -->
@@ -849,8 +847,9 @@ if (document.readyState === 'loading') {
         }
         }
 
-        let currentServiceIndex = 0;
-        let currentSlideIndex = 0;
+	        let currentServiceIndex = 0;
+	        let currentSlideIndex = 0;
+	        let isInitialServicesLoad = true;
 
         function animateCharsText(element, targetText, options = {}) {
             if (!element) return;
@@ -1054,18 +1053,19 @@ if (document.readyState === 'loading') {
             }
         }
 
-		        let slideTransitionToken = 0;
-		        function updateSlideContent(isServiceChange = false) {
-		            const data = serviceData[currentServiceIndex];
-		            const slide = data.slides[currentSlideIndex];
-		            const servicesPageEl = document.getElementById('services-page');
-		            const indicatorEl = document.getElementById('slide-indicator');
-		            const carouselControlsEl = document.getElementById('service-carousel-controls');
-		            const transitionToken = ++slideTransitionToken;
-			            const fadeOutMs = 320; // matches Tailwind duration-300 with a small buffer
-			            const fadeInMs = 300;
-		            
-		            if (indicatorEl) indicatorEl.innerText = `${currentSlideIndex + 1}/${data.slides.length}`;
+			        let slideTransitionToken = 0;
+			        function updateSlideContent(isServiceChange = false) {
+			            const data = serviceData[currentServiceIndex];
+			            const slide = data.slides[currentSlideIndex];
+			            const servicesPageEl = document.getElementById('services-page');
+			            const indicatorEl = document.getElementById('slide-indicator');
+			            const carouselControlsEl = document.getElementById('service-carousel-controls');
+			            const transitionToken = ++slideTransitionToken;
+				            const isInitialRender = isInitialServicesLoad;
+				            const fadeOutMs = isInitialRender ? 0 : 320; // matches Tailwind duration-300 with a small buffer
+				            const fadeInMs = isInitialRender ? 0 : 300;
+			            
+			            if (indicatorEl) indicatorEl.innerText = `${currentSlideIndex + 1}/${data.slides.length}`;
 
 		            if (carouselControlsEl) {
 		                const buttons = carouselControlsEl.querySelectorAll('button');
@@ -1096,28 +1096,29 @@ if (document.readyState === 'loading') {
             const detailsEl = document.getElementById('service-right-details');
             const centralContentEl = document.getElementById('service-card-central-content');
             
-            // Fade out
-            if (titleEl) titleEl.style.opacity = '0';
-            if (nodeViz) nodeViz.style.opacity = '0';
-            if (starViz) starViz.style.opacity = '0';
-            if (intelligentViz) intelligentViz.style.opacity = '0';
-            if (strategicViz) strategicViz.style.opacity = '0';
-            if (pragmaticViz) pragmaticViz.style.opacity = '0';
-            if (adaptiveViz) adaptiveViz.style.opacity = '0';
-            if (foundationalViz) foundationalViz.style.opacity = '0';
-            if (appliedViz) appliedViz.style.opacity = '0';
-            if (technicalViz) technicalViz.style.opacity = '0';
-            if (compliantViz) compliantViz.style.opacity = '0';
-            if (protectedViz) protectedViz.style.opacity = '0';
-            if (auditableViz) auditableViz.style.opacity = '0';
-            if (subtextContainer) subtextContainer.style.opacity = '0';
-            
-	            // Update content after fade out (avoid layout shifts mid-fade)
-	            setTimeout(() => {
-	                if (transitionToken !== slideTransitionToken) return;
-	                
-	                if (servicesPageEl) {
-	                    servicesPageEl.dataset.activeService = data.name;
+	            if (fadeOutMs) {
+	                // Fade out
+	                if (titleEl) titleEl.style.opacity = '0';
+	                if (nodeViz) nodeViz.style.opacity = '0';
+	                if (starViz) starViz.style.opacity = '0';
+	                if (intelligentViz) intelligentViz.style.opacity = '0';
+	                if (strategicViz) strategicViz.style.opacity = '0';
+	                if (pragmaticViz) pragmaticViz.style.opacity = '0';
+	                if (adaptiveViz) adaptiveViz.style.opacity = '0';
+	                if (foundationalViz) foundationalViz.style.opacity = '0';
+	                if (appliedViz) appliedViz.style.opacity = '0';
+	                if (technicalViz) technicalViz.style.opacity = '0';
+	                if (compliantViz) compliantViz.style.opacity = '0';
+	                if (protectedViz) protectedViz.style.opacity = '0';
+	                if (auditableViz) auditableViz.style.opacity = '0';
+	                if (subtextContainer) subtextContainer.style.opacity = '0';
+	            }
+
+		            const applySlideUpdate = () => {
+		                if (transitionToken !== slideTransitionToken) return;
+		                
+		                if (servicesPageEl) {
+		                    servicesPageEl.dataset.activeService = data.name;
 	                    servicesPageEl.dataset.activeSlide = slide.title;
 	                }
 	                
@@ -1361,7 +1362,7 @@ if (document.readyState === 'loading') {
                 }
                 
 	                // Fade in
-	                requestAnimationFrame(() => {
+		                requestAnimationFrame(() => {
 	                    if (transitionToken !== slideTransitionToken) return;
 	                    if (titleEl) titleEl.style.opacity = '1';
 	                    if (nodeViz && !nodeViz.classList.contains('hidden')) nodeViz.style.opacity = '1';
@@ -1389,16 +1390,20 @@ if (document.readyState === 'loading') {
 		                        }, fadeInMs);
 		                    }
 		                });
-	            }, fadeOutMs);
-            
-            // Update Right Side (Static - doesn't change with carousel)
-            const rightContent = document.getElementById('service-right-content');
-            
-            if (isServiceChange && rightContent) {
-                if (window.gsap) {
-                    gsap.to(rightContent, {
-                        opacity: 0,
-                        x: 20,
+		            };
+		            
+		            // Update content after fade out (avoid layout shifts mid-fade)
+		            if (fadeOutMs) setTimeout(applySlideUpdate, fadeOutMs);
+		            else applySlideUpdate();
+	            
+	            // Update Right Side (Static - doesn't change with carousel)
+	            const rightContent = document.getElementById('service-right-content');
+	            
+	            if (isServiceChange && rightContent && !isInitialRender) {
+	                if (window.gsap) {
+	                    gsap.to(rightContent, {
+	                        opacity: 0,
+	                        x: 20,
                         duration: 0.3,
                         ease: "power2.in",
                         onComplete: () => {
@@ -1467,10 +1472,12 @@ if (document.readyState === 'loading') {
 	                            <p class="text-ink text-lg leading-relaxed font-open-sans">${data.staticDescription}</p>
 	                            ${deepLinkHtml}
 	                        </div>
-	                    `;
-	                }
-	            }
-	        }
+		                    `;
+		                }
+		            }
+		            
+		            if (isInitialRender) isInitialServicesLoad = false;
+		        }
 
         function updateService(index) {
             currentServiceIndex = index;
@@ -1627,19 +1634,18 @@ if (document.readyState === 'loading') {
 
         
 
-// Multi-page: remove wheel/touch section switching; ensure initial headline is set
-	document.addEventListener('DOMContentLoaded', () => {
-	  const headline = document.getElementById('service-headline');
-	  const activeData = (typeof serviceData !== 'undefined' && serviceData[currentServiceIndex]) ? serviceData[currentServiceIndex] : serviceData?.[0];
-	  if (headline && activeData) {
-	    try {
-	      animateText('service-headline', activeData.headline, true);
-	    } catch (_) {
-	      // no-op
-	    }
-	  }
-	});
-</script>
+		document.addEventListener('DOMContentLoaded', () => {
+		  const headline = document.getElementById('service-headline');
+		  const activeData = (typeof serviceData !== 'undefined' && serviceData[currentServiceIndex]) ? serviceData[currentServiceIndex] : serviceData?.[0];
+		  if (headline && activeData) {
+		    try {
+		      animateText('service-headline', activeData.headline, true);
+		    } catch (_) {
+		      // no-op
+		    }
+		  }
+		});
+	</script>
 
 
 </body>

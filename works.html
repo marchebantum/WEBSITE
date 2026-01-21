@@ -62,8 +62,6 @@
 
 <!-- External Libraries -->
 <script src="js/gsap/gsap.min.js"></script>
-<script src="js/gsap/ScrollTrigger.min.js"></script>
-<script src="js/gsap/Flip.min.js"></script>
 <script src="https://unpkg.com/lucide@latest" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 <script src="js/site.js" defer></script>
@@ -691,10 +689,6 @@
       });
     }
 
-    worksFullTextBlocks.forEach((block) => {
-      block.addEventListener('wheel', (event) => event.stopPropagation(), { passive: true });
-      block.addEventListener('touchmove', (event) => event.stopPropagation(), { passive: true });
-    });
   });
 })();
 </script>

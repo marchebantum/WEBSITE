@@ -761,9 +761,18 @@ stroke-dasharray: 4, 4; opacity: 0.4;
     position: relative;
 }
 
+/* Services page: align right heading with left poster title on desktop */
 @media (min-width: 1024px) {
+    #services-page .service-visual-pane {
+        align-items: flex-start;
+    }
+
+    #services-page .service-details-pane {
+        justify-content: flex-start;
+    }
+
     #service-right-content {
-        top: -52px;
+        padding-top: 2rem; /* matches .service-poster-card top padding (pt-8) */
     }
 }
 

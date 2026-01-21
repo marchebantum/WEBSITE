@@ -55,8 +55,64 @@
 <!-- Fonts with Optimized Loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""> 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap">
+<link id="google-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap"></noscript>
+
+<script>
+  // Prevent a brief fallback-font flash (FOUT) by gating initial paint until key fonts are ready.
+  (function () {
+    const root = document.documentElement;
+    root.classList.add('fonts-loading');
+
+    function finish() {
+      root.classList.remove('fonts-loading');
+      root.classList.add('fonts-ready');
+    }
+
+    function waitForGoogleFontsCss(timeoutMs) {
+      const timeout = new Promise((resolve) => window.setTimeout(resolve, timeoutMs));
+      const link = document.getElementById('google-fonts');
+      if (!link) return Promise.race([Promise.resolve(), timeout]);
+      if (link.sheet) return Promise.race([Promise.resolve(), timeout]);
+
+      return Promise.race([
+        new Promise((resolve) => {
+          link.addEventListener('load', resolve, { once: true });
+          link.addEventListener('error', resolve, { once: true });
+        }),
+        timeout,
+      ]);
+    }
+
+    function waitForFonts(timeoutMs) {
+      const timeout = new Promise((resolve) => window.setTimeout(resolve, timeoutMs));
+      if (!document.fonts || typeof document.fonts.load !== 'function') {
+        return Promise.race([
+          new Promise((resolve) => window.addEventListener('load', resolve, { once: true })),
+          timeout,
+        ]);
+      }
+
+      return waitForGoogleFontsCss(timeoutMs).then(() => {
+        const loads = [
+          document.fonts.load('400 1em Inter'),
+          document.fonts.load('600 1em Inter'),
+          document.fonts.load('700 1em Inter'),
+          document.fonts.load('400 1em \"Cormorant Garamond\"'),
+          document.fonts.load('700 1em \"Cormorant Garamond\"'),
+          document.fonts.load('400 1em \"JetBrains Mono\"'),
+          document.fonts.load('600 1em \"JetBrains Mono\"'),
+          document.fonts.load('700 1em \"JetBrains Mono\"'),
+          document.fonts.load('400 1em \"Orange Avenue\"'),
+        ];
+        return Promise.race([Promise.allSettled(loads), timeout]);
+      });
+    }
+
+    // Don’t block forever if fonts are slow/unavailable.
+    waitForFonts(2000).then(finish, finish);
+  })();
+</script>
 
 <!-- Tailwind CSS (Production Build) -->
 <link rel="stylesheet" href="css/output.css">
@@ -100,7 +156,9 @@
   })();
 </script>
 </head>
-<body class="antialiased font-sans bg-paper min-h-screen">
+<body class="antialiased font-sans bg-paper min-h-screen" data-fonts-ready-gate>
+
+    <div id="fonts-ready-gate">
 
     <!-- Header - Fixed across pages -->
     <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-3 py-2 md:px-12 md:py-6 transition-all duration-300">
@@ -1647,6 +1705,8 @@ if (document.readyState === 'loading') {
 		});
 	</script>
 
+
+    </div>
 
 </body>
 </html>

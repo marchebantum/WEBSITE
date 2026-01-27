@@ -1356,6 +1356,27 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     background: linear-gradient(135deg, #065f46 0%, #92400e 100%) !important;
     color: #ffffff !important;
 }
+
+/* About page: top photo overlay (feathered into hero background) */
+#about-page .about-top-photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(240px, 28vh, 520px);
+    background-image: url('../assets/images/abstract-teal-network-with-golden-nodes-4k.webp');
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
 .process-card {
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -1447,8 +1468,15 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     }
     #about-method-title {
         position: absolute;
-        left: -120px;
-        top: 10px;
+        top: clamp(18px, 3.5vh, 56px);
+        right: 0;
+        left: auto;
+        transform: none;
+        text-align: right;
+        z-index: 20;
+        pointer-events: none;
+        max-width: min(520px, 100%);
+        padding-right: 6px;
     }
 }
 

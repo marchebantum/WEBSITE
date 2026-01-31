@@ -190,6 +190,14 @@
     display: inline-block;
     padding: 0.75rem 0 0.75rem 0;
   }
+
+  /* Mobile-only boost for key section headers (keeps desktop unchanged) */
+  @media (max-width: 767px) {
+    h2.tech-header.mobile-tech-header {
+      font-size: clamp(2.1rem, 7.0vw, 2.9rem);
+      line-height: 1.06;
+    }
+  }
   
   /* Gradient text effect */
   .tech-header-text {
@@ -427,10 +435,12 @@
   .process-card {
     position: relative;
     z-index: 1;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     background: #fdfcf8;
     isolation: isolate;
     overflow: visible;
+    /* Override utility border colour with rust */
+    border-color: rgba(154, 52, 18, 0.22);
   }
   .process-card::before {
     content: '';
@@ -445,7 +455,9 @@
     pointer-events: none;
   }
   .process-card:hover {
-    transform: translateY(3px);
+    transform: translateY(4px);
+    /* Border disappears as it "presses" in */
+    border-color: transparent;
   }
   .process-card:hover::before {
     opacity: 0;
@@ -455,6 +467,33 @@
   /* Hero CTA – force bold text (serif italic can look light) */
   .hero-cta-text {
     font-weight: 900;
+  }
+
+  /* Container right-side purple wash (always visible) */
+  .purple-side-accent {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .purple-side-accent::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    /* Visible purple on the right edge, even over inner cards */
+    background: linear-gradient(
+      90deg,
+      rgba(167, 139, 250, 0.00) 0%,
+      rgba(167, 139, 250, 0.00) 62%,
+      rgba(167, 139, 250, 0.035) 80%,
+      rgba(139, 92, 246, 0.075) 100%
+    );
+    z-index: 2;
+  }
+  .purple-side-accent > * {
+    position: relative;
+    z-index: 3;
   }
 
 </style>
@@ -609,7 +648,7 @@
 
             <!-- Feature Cards Section (Relocated) -->
             <section class="mt-8 md:mt-12">
-                 <div class="rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
+                 <div class="purple-side-accent rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
                      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <!-- Card 1 -->
                         <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass">
@@ -635,9 +674,6 @@
 
                         <!-- Card 3 -->
                         <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass relative group">
-                            <div class="absolute top-4 right-4 text-emerald-600/20 group-hover:text-emerald-600/40 transition-colors">
-                                <i data-lucide="lock" class="w-4 h-4"></i>
-                            </div>
                             <div class="flex items-center gap-3 mb-4">
                                 <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                     <i data-lucide="shield-check" class="w-5 h-5"></i>
@@ -655,7 +691,7 @@
                 <div class="max-w-4xl">
                     <p class="section-label">Section 01 — The Challenge</p>
                     <div class="tech-header-wrapper">
-                        <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 mb-2 tech-header">
+                        <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 mb-2 tech-header mobile-tech-header">
                             <span class="header-prefix">//</span>
                             <span class="tech-header-text">Why Off-the-Shelf AI Fails</span>
                         </h2>
@@ -670,20 +706,20 @@
             <section class="mt-14 md:mt-20">
                 <p class="section-label">Section 02 — Methodology</p>
                 <div class="tech-header-wrapper mb-8">
-                    <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header">
+                    <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header mobile-tech-header">
                         <span class="header-prefix">[ :: ]</span>
                         <span class="tech-header-text">How We Build</span>
                     </h2>
                 </div>
 
-                <div class="rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
+                <div class="purple-side-accent rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <article class="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/60 backdrop-blur-sm p-7 kinetic-card shadow-inner">
                             <div class="absolute inset-0 pointer-events-none opacity-60"
                                  style="background: radial-gradient(600px circle at 0% 0%, rgba(154,52,18,0.12) 0%, transparent 60%);"></div>
                             <div class="relative">
                                 <div class="flex items-start gap-3">
-                                    <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
+                                    <div class="w-10 h-10 shrink-0 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                         <i data-lucide="bot" class="w-5 h-5"></i>
                                     </div>
                                     <div>
@@ -701,7 +737,7 @@
                                  style="background: radial-gradient(600px circle at 100% 0%, rgba(139,92,246,0.14) 0%, transparent 60%);"></div>
                             <div class="relative">
                                 <div class="flex items-start gap-3">
-                                    <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
+                                    <div class="w-10 h-10 shrink-0 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                         <i data-lucide="layers" class="w-5 h-5"></i>
                                     </div>
                                     <div>
@@ -719,7 +755,7 @@
                                  style="background: radial-gradient(650px circle at 50% 100%, rgba(154,52,18,0.10) 0%, transparent 62%);"></div>
                             <div class="relative">
                                 <div class="flex items-start gap-3">
-                                    <div class="w-11 h-11 rounded-xl border border-ink/10 bg-white/80 flex items-center justify-center text-rust">
+                                    <div class="w-10 h-10 shrink-0 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
                                         <i data-lucide="shield-check" class="w-5 h-5"></i>
                                     </div>
                                     <div>
@@ -739,7 +775,7 @@
             <section class="mt-14 md:mt-20">
                 <p class="section-label">Section 03 — Execution</p>
                 <div class="tech-header-wrapper mb-8">
-                    <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header">
+                    <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header mobile-tech-header">
                         <span class="header-prefix">&lt;/&gt;</span>
                         <span class="tech-header-text">The Zenias Workflow</span>
                     </h2>

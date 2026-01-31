@@ -423,6 +423,40 @@
       0 0 0 1px rgba(154, 52, 18, 0.1);
   }
 
+  /* Process cards – shadow using pseudo-element with matching rounded corners */
+  .process-card {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    background: #fdfcf8;
+    isolation: isolate;
+    overflow: visible;
+  }
+  .process-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 25, 23, 0.15);
+    border-radius: 1.5rem; /* matches rounded-3xl */
+    filter: blur(16px);
+    transform: translateY(8px) scale(0.98);
+    z-index: -1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+  .process-card:hover {
+    transform: translateY(3px);
+  }
+  .process-card:hover::before {
+    opacity: 0;
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Hero CTA – force bold text (serif italic can look light) */
+  .hero-cta-text {
+    font-weight: 900;
+  }
+
 </style>
 </head>
 
@@ -550,8 +584,8 @@
                         <!-- Updated CTAs -->
                         <div class="mt-8 flex flex-wrap items-center gap-4 hero-entry hero-entry-delay-2">
                             <a href="../inquire.html#inquiry-form"
-                               class="inline-flex items-center gap-2 rounded-full bg-sepia text-paper px-8 py-4 text-base font-serif italic font-bold tracking-[0.08em] shadow-lg shadow-rust/20 hover:bg-ink transition-colors heartbeat-cta">
-                                Start your project <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                               class="inline-flex items-center gap-2 rounded-full bg-sepia text-paper px-8 py-4 text-base font-serif italic tracking-[0.08em] shadow-lg shadow-rust/20 hover:bg-ink transition-colors heartbeat-cta">
+                                <span class="hero-cta-text">Start your project</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                             <div class="flex items-center">
                                 <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
@@ -575,7 +609,7 @@
 
             <!-- Feature Cards Section (Relocated) -->
             <section class="mt-8 md:mt-12">
-                 <div class="rounded-3xl border border-ink/10 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-md shadow-lg p-8 md:p-10">
+                 <div class="rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
                      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <!-- Card 1 -->
                         <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass">
@@ -642,7 +676,7 @@
                     </h2>
                 </div>
 
-                <div class="rounded-3xl border border-ink/10 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-md shadow-lg p-8 md:p-10">
+                <div class="rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <article class="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/60 backdrop-blur-sm p-7 kinetic-card shadow-inner">
                             <div class="absolute inset-0 pointer-events-none opacity-60"
@@ -712,7 +746,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="process-card relative rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-6">
+                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 01</span>
                             <i data-lucide="search" class="w-4 h-4 text-neutral-500"></i>
@@ -721,7 +755,7 @@
                         <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Workflow audit &amp; requirements mapping</p>
                     </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-6">
+                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 02</span>
                             <i data-lucide="hammer" class="w-4 h-4 text-neutral-500"></i>
@@ -730,7 +764,7 @@
                         <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Agent development &amp; infrastructure setup</p>
                     </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-6">
+                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 03</span>
                             <i data-lucide="rocket" class="w-4 h-4 text-neutral-500"></i>
@@ -739,7 +773,7 @@
                         <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Secure rollout with sovereign hosting</p>
                     </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 bg-white/40 backdrop-blur-md shadow-lg p-6">
+                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 04</span>
                             <i data-lucide="gavel" class="w-4 h-4 text-neutral-500"></i>

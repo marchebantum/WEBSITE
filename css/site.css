@@ -1527,6 +1527,111 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
 }
 
+.solutions-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    min-height: clamp(110px, 14vw, 170px);
+    padding: clamp(1.1rem, 2.4vw, 1.8rem);
+    border: 1px solid rgba(154, 52, 18, 0.35);
+    background-color: rgba(10, 10, 10, 0.75);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.solutions-panel::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+.solutions-panel::after {
+    content: "";
+    position: absolute;
+    inset: -30% -10% auto auto;
+    width: 50%;
+    height: 140%;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.08), transparent 60%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.solutions-panel:hover {
+    transform: translateY(-2px);
+    border-color: rgba(154, 52, 18, 0.6);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.solutions-panel__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1;
+}
+
+.solutions-panel__eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.solutions-panel__headline {
+    font-family: "Orange Avenue", "Times New Roman", serif;
+    font-style: italic;
+    font-size: clamp(1.55rem, 3.2vw, 2.25rem);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.1;
+}
+
+.solutions-panel__hint {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.solutions-panel__cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(10, 10, 10, 0.55);
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.68rem;
+    font-family: "JetBrains Mono", monospace;
+    z-index: 1;
+}
+
+.solutions-panel__arrow {
+    --arrow-rotate: 0deg;
+    width: 1rem;
+    height: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    animation: arrow-bounce-down 2s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+    .solutions-panel {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .solutions-panel__cta {
+        align-self: center;
+    }
+}
+
 .pillars-glow {
     background: linear-gradient(270deg, rgba(154, 52, 18, 0.15), rgba(139, 92, 246, 0.15), rgba(154, 52, 18, 0.15));
     background-size: 200% 200%;

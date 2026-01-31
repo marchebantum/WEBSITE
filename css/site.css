@@ -48,10 +48,10 @@ max-width: 100vw;
     }
 }
 
-/* Prevent horizontal scrolling on all pages */
+/* Prevent horizontal scrolling on all pages (clip avoids overflow-y: auto scroll containers) */
 section {
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Ensure all page containers don't allow horizontal scroll */
@@ -61,7 +61,7 @@ section {
 #inquire-page,
 #ai-development-page {
     max-width: 100vw !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     position: relative;
 }
 

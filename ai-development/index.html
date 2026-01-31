@@ -467,6 +467,7 @@
   /* Hero CTA – force bold text (serif italic can look light) */
   .hero-cta-text {
     font-weight: 900;
+    font-style: normal;
   }
 
   /* Container right-side purple wash (always visible) */
@@ -624,7 +625,7 @@
                         <div class="mt-8 flex flex-wrap items-center gap-4 hero-entry hero-entry-delay-2">
                             <a href="../inquire.html#inquiry-form"
                                class="inline-flex items-center gap-2 rounded-full bg-sepia text-paper px-8 py-4 text-base font-serif italic tracking-[0.08em] shadow-lg shadow-rust/20 hover:bg-ink transition-colors heartbeat-cta">
-                                <span class="hero-cta-text">Start your project</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                <span class="hero-cta-text not-italic">Start your project</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                             <div class="flex items-center">
                                 <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
@@ -650,70 +651,6 @@
             <section class="mt-8 md:mt-12">
                  <div class="purple-side-accent rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
                      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                        <!-- Card 1 -->
-                        <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
-                                    <i data-lucide="bot" class="w-5 h-5"></i>
-                                </div>
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">Custom AI Development</p>
-                            </div>
-                            <p class="text-sm text-neutral-700 font-open-sans leading-relaxed">Agents and bespoke AI applications shaped around your workflow.</p>
-                        </div>
-                        
-                        <!-- Card 2 -->
-                        <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
-                                    <i data-lucide="workflow" class="w-5 h-5"></i>
-                                </div>
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">AI Automation</p>
-                            </div>
-                            <p class="text-sm text-neutral-700 font-open-sans leading-relaxed">Automation embedded from inception to deployment.</p>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="rounded-2xl border border-ink/10 p-6 kinetic-card feature-card-glass relative group">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-xl border border-ink/10 bg-white/70 flex items-center justify-center text-rust">
-                                    <i data-lucide="shield-check" class="w-5 h-5"></i>
-                                </div>
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600">Compliance + Sovereignty</p>
-                            </div>
-                            <p class="text-sm text-neutral-700 font-open-sans leading-relaxed">Sovereign hosting and audit-ready architecture built in from day one.</p>
-                        </div>
-                     </div>
-                 </div>
-            </section>
-
-            <!-- SECTION 2: THE PROBLEM/PROMISE -->
-            <section class="mt-14 md:mt-20">
-                <div class="max-w-4xl">
-                    <p class="section-label">Section 01 — The Challenge</p>
-                    <div class="tech-header-wrapper">
-                        <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 mb-2 tech-header mobile-tech-header">
-                            <span class="header-prefix">//</span>
-                            <span class="tech-header-text">Why Off-the-Shelf AI Fails</span>
-                        </h2>
-                    </div>
-                    <p class="mt-6 text-lg text-neutral-700 font-open-sans leading-relaxed">
-                        Generic AI tools force your workflows to adapt to their limitations. Zenias builds custom AI software and full-stack applications tailored to your operational reality—guaranteeing time savings, cost efficiency, and data sovereignty. We bake automation into every layer, from inception to deployment.
-                    </p>
-                </div>
-            </section>
-
-            <!-- SECTION 3: SERVICE PILLARS -->
-            <section class="mt-14 md:mt-20">
-                <p class="section-label">Section 02 — Methodology</p>
-                <div class="tech-header-wrapper mb-8">
-                    <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header mobile-tech-header">
-                        <span class="header-prefix">[ :: ]</span>
-                        <span class="tech-header-text">How We Build</span>
-                    </h2>
-                </div>
-
-                <div class="purple-side-accent rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <article class="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/60 backdrop-blur-sm p-7 kinetic-card shadow-inner">
                             <div class="absolute inset-0 pointer-events-none opacity-60"
                                  style="background: radial-gradient(600px circle at 0% 0%, rgba(154,52,18,0.12) 0%, transparent 60%);"></div>
@@ -767,62 +704,80 @@
                                 </div>
                             </div>
                         </article>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- SECTION 2: THE PROBLEM/PROMISE -->
+            <section class="mt-14 md:mt-20">
+                <div class="max-w-4xl">
+                    <p class="section-label">Section 01 — The Challenge</p>
+                    <div class="tech-header-wrapper">
+                        <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 mb-2 tech-header mobile-tech-header">
+                            <span class="header-prefix">//</span>
+                            <span class="tech-header-text">Why Off-the-Shelf AI Fails</span>
+                        </h2>
                     </div>
+                    <p class="mt-6 text-lg text-neutral-700 font-open-sans leading-relaxed">
+                        Generic AI tools force your workflows to adapt to their limitations. Zenias builds custom AI software and full-stack applications tailored to your operational reality—guaranteeing time savings, cost efficiency, and data sovereignty. We bake automation into every layer, from inception to deployment.
+                    </p>
                 </div>
             </section>
 
-            <!-- SECTION 4: PROCESS + DELIVERABLES -->
+            <!-- SECTION 3: SERVICE PILLARS -->
             <section class="mt-14 md:mt-20">
-                <p class="section-label">Section 03 — Execution</p>
+                <p class="section-label">Section 02 — Methodology</p>
                 <div class="tech-header-wrapper mb-8">
                     <h2 class="font-serif text-2xl md:text-5xl tracking-tight pb-4 tech-header mobile-tech-header">
-                        <span class="header-prefix">&lt;/&gt;</span>
-                        <span class="tech-header-text">The Zenias Workflow</span>
+                        <span class="header-prefix">//</span>
+                        <span class="tech-header-text">How We Build</span>
                     </h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 01</span>
-                            <i data-lucide="search" class="w-4 h-4 text-neutral-500"></i>
+                <div class="purple-side-accent rounded-3xl border border-ink/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.3)_35%,rgba(167,139,250,0.45)_65%,rgba(139,92,246,0.65)_100%)] backdrop-blur-md p-8 md:p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+                        <div class="process-card relative rounded-3xl border border-ink/10 p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 01</span>
+                                <i data-lucide="search" class="w-4 h-4 text-neutral-500"></i>
+                            </div>
+                            <p class="mt-4 text-lg font-serif text-ink">Discover</p>
+                            <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Workflow audit &amp; requirements mapping</p>
                         </div>
-                        <p class="mt-4 text-lg font-serif text-ink">Discover</p>
-                        <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Workflow audit &amp; requirements mapping</p>
-                    </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 02</span>
-                            <i data-lucide="hammer" class="w-4 h-4 text-neutral-500"></i>
+                        <div class="process-card relative rounded-3xl border border-ink/10 p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 02</span>
+                                <i data-lucide="hammer" class="w-4 h-4 text-neutral-500"></i>
+                            </div>
+                            <p class="mt-4 text-lg font-serif text-ink">Build</p>
+                            <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Agent development &amp; infrastructure setup</p>
                         </div>
-                        <p class="mt-4 text-lg font-serif text-ink">Build</p>
-                        <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Agent development &amp; infrastructure setup</p>
-                    </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 03</span>
-                            <i data-lucide="rocket" class="w-4 h-4 text-neutral-500"></i>
+                        <div class="process-card relative rounded-3xl border border-ink/10 p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 03</span>
+                                <i data-lucide="rocket" class="w-4 h-4 text-neutral-500"></i>
+                            </div>
+                            <p class="mt-4 text-lg font-serif text-ink">Deploy</p>
+                            <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Secure rollout with sovereign hosting</p>
                         </div>
-                        <p class="mt-4 text-lg font-serif text-ink">Deploy</p>
-                        <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Secure rollout with sovereign hosting</p>
-                    </div>
 
-                    <div class="process-card relative rounded-3xl border border-ink/10 p-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 04</span>
-                            <i data-lucide="gavel" class="w-4 h-4 text-neutral-500"></i>
+                        <div class="process-card relative rounded-3xl border border-ink/10 p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.22em]">Phase 04</span>
+                                <i data-lucide="gavel" class="w-4 h-4 text-neutral-500"></i>
+                            </div>
+                            <p class="mt-4 text-lg font-serif text-ink">Govern</p>
+                            <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Ongoing compliance monitoring &amp; iteration</p>
                         </div>
-                        <p class="mt-4 text-lg font-serif text-ink">Govern</p>
-                        <p class="mt-2 text-sm text-neutral-700 font-open-sans leading-relaxed">Ongoing compliance monitoring &amp; iteration</p>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 5: PROOF + CTA -->
             <section class="mt-14 md:mt-20">
-                <p class="section-label">Section 04 — Portfolio</p>
+                <p class="section-label">Section 03 — Portfolio</p>
                 <div class="flex items-end justify-between gap-6 flex-wrap pb-4 border-b border-ink/10">
                     <div class="tech-header-wrapper">
                         <h2 class="font-serif text-2xl md:text-5xl tracking-tight tech-header">

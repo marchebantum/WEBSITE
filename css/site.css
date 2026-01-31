@@ -1527,6 +1527,12 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
 }
 
+.pillars-glow {
+    background: linear-gradient(270deg, rgba(154, 52, 18, 0.15), rgba(139, 92, 246, 0.15), rgba(154, 52, 18, 0.15));
+    background-size: 200% 200%;
+    animation: glow-pulse 3s infinite alternate, gradient-flow 6s ease infinite;
+}
+
 /* Solution Arrow Continuous Animation */
 @keyframes arrow-bounce-down {
     0%, 100% { transform: rotate(var(--arrow-rotate, 90deg)) translateY(0); }
@@ -1553,6 +1559,79 @@ header.header-dark.about-active #mobile-menu #mobile-inquire:hover {
     .products-explainer {
         padding-left: 3rem;
         padding-right: 3rem;
+    }
+}
+
+.products-need-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.35rem 0.1rem 0.9rem;
+    position: relative;
+    animation: needline-glow 2.6s ease-in-out infinite;
+    text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.4),
+        0 0 10px rgba(255, 255, 255, 0.25),
+        0 0 5px rgba(139, 92, 246, 0.12);
+}
+
+.products-need-wrap::before,
+.products-need-wrap::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.products-need-wrap::before {
+    top: -0.45rem;
+    left: 50%;
+    width: clamp(6rem, 30vw, 16rem);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(154, 52, 18, 0.4), rgba(255, 255, 255, 0.75), rgba(139, 92, 246, 0.32), transparent);
+    opacity: 0.8;
+    box-shadow:
+        0 0 5px rgba(255, 255, 255, 0.28),
+        0 0 4px rgba(154, 52, 18, 0.2),
+        0 0 3px rgba(139, 92, 246, 0.18);
+}
+
+.products-need-wrap::after {
+    left: 50%;
+    bottom: 0.25rem;
+    width: clamp(12rem, 45vw, 26rem);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.34), rgba(255, 255, 255, 0.75), rgba(154, 52, 18, 0.44), transparent);
+    box-shadow:
+        0 0 5px rgba(255, 255, 255, 0.28),
+        0 0 4px rgba(139, 92, 246, 0.2),
+        0 0 3px rgba(154, 52, 18, 0.22);
+}
+
+.products-need-wrap #products-intro {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1.58rem, 2.9vw, 2.08rem);
+}
+
+.products-need-wrap #products-four-things {
+    font-size: clamp(2rem, 3.7vw, 2.9rem);
+    text-shadow:
+        0 0 9px rgba(255, 255, 255, 0.45),
+        0 0 6px rgba(139, 92, 246, 0.14);
+}
+
+@keyframes needline-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.35))
+                drop-shadow(0 0 4px rgba(154, 52, 18, 0.18));
+        opacity: 0.92;
+    }
+    50% {
+        filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.55))
+                drop-shadow(0 0 6px rgba(154, 52, 18, 0.24));
+        opacity: 1;
     }
 }
 
